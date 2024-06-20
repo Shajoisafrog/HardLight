@@ -85,6 +85,46 @@ public abstract class ClothingSystem : EntitySystem
         }
     }
 
+    private void ToggleVisualLayers(EntityUid equipee, HashSet<HumanoidVisualLayers> layers, HashSet<HumanoidVisualLayers> appearanceLayers)
+    {
+        foreach (HumanoidVisualLayers layer in layers)
+        {
+            if (!appearanceLayers.Contains(layer))
+                continue;
+
+            InventorySystem.InventorySlotEnumerator enumerator = _invSystem.GetSlotEnumerator(equipee);
+
+            bool shouldLayerShow = true;
+            while (enumerator.NextItem(out EntityUid item, out SlotDefinition? slot))
+            {
+                if (TryComp(item, out HideLayerClothingComponent? comp))
+                {
+                    if (comp.Slots.Contains(layer))
+                    {
+                        if (TryComp(item, out ClothingComponent? clothing) && clothing.Slots == slot.SlotFlags)
+                        {
+                            //Checks for mask toggling. TODO: Make a generic system for this
+                            if (comp.HideOnToggle && TryComp(item, out MaskComponent? mask))
+                            {
+                                if (clothing.EquippedPrefix != mask.EquippedPrefix)
+                                {
+                                    shouldLayerShow = false;
+                                    break;
+                                }
+                            }
+                            else
+                            {
+                                shouldLayerShow = false;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            _humanoidSystem.SetLayerVisibility(equipee, layer, shouldLayerShow);
+        }
+    }
+
     protected virtual void OnGotEquipped(EntityUid uid, ClothingComponent component, GotEquippedEvent args)
     {
         component.InSlot = args.Slot;
