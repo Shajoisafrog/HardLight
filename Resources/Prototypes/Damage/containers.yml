@@ -79,3 +79,14 @@
   supportedGroups:
   - Brute
   - Burn
+    - Heat
+
+- type: damageContainer
+  id: HalfSpirit
+  supportedGroups:
+    - Burn
+    - Brute
+    - Airloss
+    - Immaterial
+  supportedTypes:
+    - Poison

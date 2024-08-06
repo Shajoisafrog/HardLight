@@ -21,11 +21,11 @@
   id: Slime
   name: metabolizer-type-slime
 
-- type: metabolizerType #🌟Starlight🌟
+- type: metabolizerType #??Starlight??
   id: Avali
   name: metabolizer-type-avali
 
-- type: metabolizerType #🌟Starlight🌟
+- type: metabolizerType #??Starlight??
   id: Resomi
   name: metabolizer-type-resomi
 
@@ -60,3 +60,8 @@
 - type: metabolizerType # HardLight
   id: Dreadtalon
   name: metabolizer-type-dreadtalon
+  name: arachnid
+
+- type: metabolizerType
+  id: Vampiric
+  name: vampiric

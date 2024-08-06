@@ -27,6 +27,8 @@
     - WhitelistChameleon
   - type: ProtectedFromStepTriggers
     slots: WITHOUT_POCKET
+    - FullBodyOuter
+    - HidesHarpyWings
 
 - type: entity
   parent: ClothingOuterSuitBomb
@@ -39,6 +41,17 @@
     sprite: Clothing/OuterClothing/Suits/janitor_bombsuit.rsi
   - type: Clothing
     sprite: Clothing/OuterClothing/Suits/janitor_bombsuit.rsi
+  - type: ClothingSpeedModifier
+    walkModifier: 0.8
+    sprintModifier: 0.8
+  - type: ExplosionResistance
+    damageCoefficient: 0.15
+  - type: GroupExamine
+  - type: Tag
+    tags:
+    - Hardsuit
+    - WhitelistChameleon
+    - FullBodyOuter
 
 - type: entity
   parent: [ClothingOuterBaseLarge, AllowSuitStorageClothing]
@@ -127,6 +140,11 @@
       toggleable-clothing: !type:ContainerSlot {}
   - type: ProtectedFromStepTriggers
     slots: WITHOUT_POCKET
+  - type: Tag
+    tags:
+      - FullBodyOuter
+      - WhitelistChameleon
+      - HidesHarpyWings
 
 - type: entity
   parent: [ClothingOuterBaseLarge, AllowSuitStorageClothing, BaseToggleClothing, BaseC3Contraband, ContrabandClothing] # Frontier: BaseMajorContraband<BaseC3Contraband, added ContrabandClothing as parent
@@ -202,8 +220,9 @@
     sprite: Clothing/OuterClothing/Suits/chicken.rsi
   - type: Clothing
     sprite: Clothing/OuterClothing/Suits/chicken.rsi
-  - type: ProtectedFromStepTriggers
-    slots: WITHOUT_POCKET
+  - type: Tag
+    tags:
+      - FullBodyOuter
 
 - type: entity
   parent: [ClothingOuterBase, ClothingConcealsBody] # HardLight: Add ClothingConcealsBody
@@ -242,6 +261,9 @@
       toggleable-clothing: !type:ContainerSlot {}
   - type: ProtectedFromStepTriggers
     slots: WITHOUT_POCKET
+  - type: Tag
+    tags:
+      - FullBodyOuter
 
 - type: entity
   parent: [ClothingOuterBase, ClothingConcealsBody] # HardLight: Add ClothingConcealsBody
