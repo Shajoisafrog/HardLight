@@ -16,6 +16,7 @@ internal sealed class BuckleSystem : SharedBuckleSystem
     [Dependency] private readonly IPlayerManager _player = default!; // Floof
     [Dependency] private readonly IGameTiming _timing = default!; // Floof
     [Dependency] private readonly SharedTransformSystem _xform = default!; // Floof
+    [Dependency] private readonly SpriteSystem _sprite = default!;
 
     public override void Initialize()
     {
@@ -107,11 +108,11 @@ internal sealed class BuckleSystem : SharedBuckleSystem
             if (isNorth)
             {
                 buckle.OriginalDrawDepth ??= buckledSprite.DrawDepth;
-                buckledSprite.DrawDepth = strapSprite.DrawDepth - 1;
+                _sprite.SetDrawDepth((buckledEntity, buckledSprite), strapSprite.DrawDepth - 1);
             }
             else if (buckle.OriginalDrawDepth.HasValue)
             {
-                buckledSprite.DrawDepth = buckle.OriginalDrawDepth.Value;
+                _sprite.SetDrawDepth((buckledEntity, buckledSprite), buckle.OriginalDrawDepth.Value);
                 buckle.OriginalDrawDepth = null;
             }
         }
@@ -127,6 +128,16 @@ internal sealed class BuckleSystem : SharedBuckleSystem
         // Animate strapping yourself to something at a given angle
         // TODO: Dump this when buckle is better
         _rotationVisualizerSystem.AnimateSpriteRotation(uid, args.Sprite, rotVisuals.HorizontalRotation, 0.125f);
+        if (!TryComp<SpriteComponent>(ent.Owner, out var buckledSprite))
+            return;
+
+        var angle = _xformSystem.GetWorldRotation(args.Strap) + _eye.CurrentEye.Rotation; // Get true screen position, or close enough
+
+        if (angle.GetCardinalDir() != Direction.North)
+            return;
+
+        ent.Comp.OriginalDrawDepth ??= buckledSprite.DrawDepth;
+        _sprite.SetDrawDepth((ent.Owner, buckledSprite), strapSprite.DrawDepth - 1);
     }
 
     // Floof section - method for getting the direction of an entity perceived by the local player
@@ -142,7 +153,9 @@ internal sealed class BuckleSystem : SharedBuckleSystem
         if (xform.GridUid is { Valid: true } grid)
             eyeRotation += _xform.GetWorldRotation(grid);
 
-        // Note: we subtract instead of adding because e.g. rotating an eye +90Â° visually rotates all entities in vision by -90Â°
+        _sprite.SetDrawDepth((ent.Owner, buckledSprite), ent.Comp.OriginalDrawDepth.Value);
+        ent.Comp.OriginalDrawDepth = null;
+        // Note: we subtract instead of adding because e.g. rotating an eye +90° visually rotates all entities in vision by -90°
         return (ownRotation + eyeRotation).GetCardinalDir();
     }
     // Floof section end
