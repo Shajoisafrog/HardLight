@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.ComponentModel.DataAnnotations;
@@ -58,6 +58,22 @@ namespace Content.Server.Database
             modelBuilder.Entity<Profile>()
                 .HasIndex(p => new {p.Slot, PrefsId = p.PreferenceId})
                 .IsUnique();
+
+            // Starlight - Start
+            modelBuilder.Entity<StarLightModel.StarLightProfile>(entity =>
+            {
+                entity.HasOne(e => e.Profile)
+                    .WithOne(p => p.StarLightProfile)
+                    .HasForeignKey<StarLightModel.StarLightProfile>(e => e.ProfileId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                entity.HasIndex(e => e.ProfileId)
+                    .IsUnique();
+
+                entity.Property(e => e.CustomSpecieName)
+                    .HasMaxLength(32);
+            });
+            // Starlight - End
 
             // Consent system start
             modelBuilder.Entity<ConsentSettings>()
@@ -446,6 +462,7 @@ namespace Content.Server.Database
         public string FacialHairName { get; set; } = null!;
         public string FacialHairColor { get; set; } = null!;
         public string EyeColor { get; set; } = null!;
+        public bool EyeGlowing { get; set; } = false; //starlight
         public string SkinColor { get; set; } = null!;
         public float Height { get; set; } = 1.0f;
         public float Width { get; set; } = 1.0f;
@@ -462,7 +479,8 @@ namespace Content.Server.Database
 
         public int PreferenceId { get; set; }
         public Preference Preference { get; set; } = null!;
-
+        
+        public StarLightModel.StarLightProfile? StarLightProfile { get; set; } // Starlight
         public ConsentSettings? ConsentSettings { get; set; } // Consent system
     }
 

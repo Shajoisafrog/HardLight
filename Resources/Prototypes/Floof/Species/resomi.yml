@@ -17,6 +17,7 @@
   - Female
 ##kind:
 ##- RaptorLike
+  customName: true # Starlight
 
 - type: speciesBaseSprites
   id: MobResomiSprites

@@ -1,6 +1,6 @@
 // SPDX-FileCopyrightText: 2020 20kdc
 // SPDX-FileCopyrightText: 2020 DamianX
-// SPDX-FileCopyrightText: 2020 VÃ­ctor Aguilera Puerto
+// SPDX-FileCopyrightText: 2020 Víctor Aguilera Puerto
 // SPDX-FileCopyrightText: 2021 Acruid
 // SPDX-FileCopyrightText: 2021 Metal Gear Sloth
 // SPDX-FileCopyrightText: 2021 Remie Richards
@@ -50,6 +50,7 @@ using System.Text.RegularExpressions;
 using Content.Shared._Mono.Company;
 using Content.Shared._NF.Bank;
 using Content.Shared.CCVar;
+using Content.Shared.Starlight.CCVar; // Starlight
 using Content.Shared.GameTicking;
 using Content.Shared.Humanoid;
 using Content.Shared.Humanoid.Prototypes;
@@ -75,6 +76,7 @@ namespace Content.Shared.Preferences
     public sealed partial class HumanoidCharacterProfile : ICharacterProfile
     {
         private static readonly Regex RestrictedNameRegex = new(@"[^A-Za-z0-9 '\-,]"); // Hardlight,
+        private static readonly Regex RestrictedCustomSpecieNameRegex = new(@"[^A-Za-z0-9 '\-,]|\B\s+|\s+\B"); //Starlight
         private static readonly Regex ICNameCaseRegex = new(@"^(?<word>\w)|\b(?<word>\w)(?=\w*$)");
 
         public const int MaxNameLength = 32;
@@ -130,6 +132,9 @@ namespace Content.Shared.Preferences
         /// </summary>
         [DataField]
         public ProtoId<SpeciesPrototype> Species { get; set; } = SharedHumanoidAppearanceSystem.DefaultSpecies;
+
+        [DataField] // Starlight
+        public string CustomSpecieName { get; set; } = "";
 
         [DataField]
         public int Age { get; set; } = 18;
@@ -192,6 +197,7 @@ namespace Content.Shared.Preferences
             string name,
             string flavortext,
             string species,
+            string customspeciename, // Starlight
             int age,
             Sex sex,
             Gender gender,
@@ -208,6 +214,7 @@ namespace Content.Shared.Preferences
             Name = name;
             FlavorText = flavortext;
             Species = species;
+            CustomSpecieName = customspeciename; // Starlight
             Age = age;
             Sex = sex;
             Gender = gender;
@@ -239,6 +246,7 @@ namespace Content.Shared.Preferences
             : this(other.Name,
                 other.FlavorText,
                 other.Species,
+                other.CustomSpecieName, // Starlight
                 other.Age,
                 other.Sex,
                 other.Gender,
@@ -321,6 +329,8 @@ namespace Content.Shared.Preferences
             }
 
             var name = GetName(species, gender);
+            var customspeciename = ""; // Starlight
+
             return new HumanoidCharacterProfile()
             {
                 Name = name,
@@ -328,6 +338,7 @@ namespace Content.Shared.Preferences
                 Age = age,
                 Gender = gender,
                 Species = species,
+                CustomSpecieName = customspeciename, // Starlight
                 Appearance = HumanoidCharacterAppearance.Random(species, sex),
             };
         }
@@ -368,8 +379,12 @@ namespace Content.Shared.Preferences
         {
             return new(this) { Species = species };
         }
-
-
+        // Starlight - Start
+        public HumanoidCharacterProfile WithCustomSpecieName(string customspeciename)
+        {
+            return new(this) { CustomSpecieName = customspeciename };
+        }
+        // Starlight - End
         public HumanoidCharacterProfile WithCharacterAppearance(HumanoidCharacterAppearance appearance)
         {
             return new(this) { Appearance = appearance };
@@ -520,6 +535,7 @@ namespace Content.Shared.Preferences
             if (Sex != other.Sex) return false;
             if (Gender != other.Gender) return false;
             if (BankBalance != other.BankBalance) return false;
+            if (CustomSpecieName != other.CustomSpecieName) return false; // Starlight
             if (PreferenceUnavailable != other.PreferenceUnavailable) return false;
             if (SpawnPriority != other.SpawnPriority) return false;
             if (Species != other.Species) return false;
@@ -612,6 +628,34 @@ namespace Content.Shared.Preferences
                 name = GetName(Species, gender);
             }
 
+            // Starlight - Start
+            var customspeciename =
+            !speciesPrototype.CustomName
+            || string.IsNullOrWhiteSpace(CustomSpecieName)
+                ? ""
+                : CustomSpecieName.Length > maxNameLength
+                    ? CustomSpecieName[..maxNameLength]
+                    : CustomSpecieName;
+
+            if (!string.IsNullOrWhiteSpace(CustomSpecieName) && configManager.GetCVar(StarlightCCVars.RestrictedCustomSpecieNames))
+            {
+                customspeciename = RestrictedCustomSpecieNameRegex.Replace(customspeciename, string.Empty);
+
+                var speciesPrototypes = prototypeManager.EnumeratePrototypes<SpeciesPrototype>();
+                foreach (var specieNames in speciesPrototypes)
+                {
+                    if (specieNames == speciesPrototype)
+                        continue;
+
+                    if (Loc.GetString(specieNames.Name).ToLower() == customspeciename.ToLower())
+                    {
+                        customspeciename = "";
+                        break;
+                    }
+                }
+            }
+            // Starlight - End
+
             string flavortext;
             if (FlavorText.Length > MaxDescLength)
             {
@@ -678,6 +722,7 @@ namespace Content.Shared.Preferences
                          .ToList();
 
             Name = name;
+            CustomSpecieName = customspeciename; // Starlight
             FlavorText = flavortext;
             Age = age;
             Sex = sex;
@@ -779,6 +824,7 @@ namespace Content.Shared.Preferences
             hashCode.Add(Name);
             hashCode.Add(FlavorText);
             hashCode.Add(Species);
+            hashCode.Add(CustomSpecieName); // Starlight
             hashCode.Add(Age);
             hashCode.Add((int)Sex);
             hashCode.Add((int)Gender);

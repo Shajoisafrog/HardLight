@@ -1,5 +1,6 @@
 ﻿#!/usr/bin/env pwsh
 
+$name = "StarLightProfile"
 param([String]$name)
 
 if ($name -eq "")
