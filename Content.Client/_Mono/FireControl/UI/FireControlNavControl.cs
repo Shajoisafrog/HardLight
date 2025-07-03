@@ -1,6 +1,4 @@
 // SPDX-FileCopyrightText: 2025 Ark
-// SPDX-FileCopyrightText: 2025 Ilya246
-// SPDX-FileCopyrightText: 2025 Redrover1760
 // SPDX-FileCopyrightText: 2025 RikuTheKiller
 // SPDX-FileCopyrightText: 2025 ark1368
 //
@@ -16,6 +14,8 @@ using Content.Shared.Shuttles.Components;
 using Content.Shared.Shuttles.Systems;
 using Content.Client._Mono.Radar;
 using Content.Shared._Mono.Radar;
+using Content.Shared._Crescent.ShipShields;
+using Robust.Shared.Physics.Collision.Shapes;
 using Robust.Client.Graphics;
 using Robust.Client.UserInterface;
 using Robust.Shared.Input;
@@ -233,6 +233,9 @@ public sealed class FireControlNavControl : BaseShuttleControl
         };
 
         handle.DrawPrimitives(DrawPrimitiveTopology.TriangleFan, radarPosVerts, Color.Lime);
+
+        // Draw shields
+        DrawShields(handle, xform, worldToShuttle);
 
         _grids.Clear();
         var maxRange = new Vector2(WorldRange, WorldRange);
@@ -515,5 +518,71 @@ public sealed class FireControlNavControl : BaseShuttleControl
     public void UpdateSelectedWeapons(HashSet<NetEntity> selectedWeapons)
     {
         _selectedWeapons = selectedWeapons;
+    }
+
+    private void TryUpdateCursorPosition(Vector2 relativePosition)
+    {
+        var currentTime = IoCManager.Resolve<IGameTiming>().CurTime.TotalSeconds;
+        if (currentTime - _lastCursorUpdateTime < CursorUpdateInterval)
+            return;
+
+        _lastCursorUpdateTime = (float)currentTime;
+
+        // Convert mouse position to world coordinates for missile tracking
+        if (_coordinates == null || _rotation == null || OnRadarClick == null)
+            return;
+
+        var a = InverseScalePosition(relativePosition);
+        var relativeWorldPos = new Vector2(a.X, -a.Y);
+        relativeWorldPos = _rotation.Value.RotateVec(relativeWorldPos);
+        var coords = _coordinates.Value.Offset(relativeWorldPos);
+
+        // This will update the server of our cursor position without triggering actual firing
+        OnRadarClick?.Invoke(coords);
+    }
+
+    /// <summary>
+    /// Returns true if the mouse button is currently pressed down
+    /// </summary>
+    public bool IsMouseDown() => _isMouseDown;
+
+    private void DrawShields(DrawingHandleScreen handle, TransformComponent consoleXform, Matrix3x2 matrix)
+    {
+        var shields = EntManager.AllEntityQueryEnumerator<ShipShieldVisualsComponent, FixturesComponent, TransformComponent>();
+        while (shields.MoveNext(out var uid, out var visuals, out var fixtures, out var xform))
+        {
+            if (!EntManager.TryGetComponent<TransformComponent>(xform.GridUid, out var parentXform))
+                continue;
+
+            if (xform.MapID != consoleXform.MapID)
+                continue;
+
+            var shieldFixture = fixtures.Fixtures.TryGetValue("shield", out var fixture) ? fixture : null;
+
+            if (shieldFixture == null || shieldFixture.Shape is not ChainShape)
+                continue;
+
+            ChainShape chain = (ChainShape) shieldFixture.Shape;
+
+            var count = chain.Count;
+            var verticies = chain.Vertices;
+
+            var center = xform.LocalPosition;
+
+            for (int i = 1; i < count; i++)
+            {
+                var v1 = Vector2.Add(center, verticies[i - 1]);
+                v1 = Vector2.Transform(v1, parentXform.WorldMatrix); // transform to world matrix
+                v1 = Vector2.Transform(v1, matrix); // get back to local matrix for drawing
+                v1.Y = -v1.Y;
+                v1 = ScalePosition(v1);
+                var v2 = Vector2.Add(center, verticies[i]);
+                v2 = Vector2.Transform(v2, parentXform.WorldMatrix);
+                v2 = Vector2.Transform(v2, matrix);
+                v2.Y = -v2.Y;
+                v2 = ScalePosition(v2);
+                handle.DrawLine(v1, v2, visuals.ShieldColor);
+            }
+        }
     }
 }

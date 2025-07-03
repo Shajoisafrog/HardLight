@@ -37,9 +37,10 @@ using Robust.Shared.Physics.Components;
 using Robust.Shared.Timing;
 using Content.Client._Mono.Radar;
 using Content.Shared._Mono.Radar;
-using Content.Client.Station; // Frontier
-using Robust.Shared.Collections; // Frontier helpers
-using Content.Shared._NF.Shuttles.Events; // Frontier: InertiaDampeningMode
+using Robust.Shared.Prototypes;
+using System.Linq;
+using Content.Shared._Crescent.ShipShields;
+using Robust.Shared.Physics.Collision.Shapes;
 
 namespace Content.Client.Shuttles.UI;
 
@@ -300,7 +301,10 @@ public sealed partial class ShuttleNavControl : BaseShuttleControl
         Matrix3x2.Invert(shuttleToWorld, out var worldToShuttle);
         var shuttleToView = Matrix3x2.CreateScale(new Vector2(MinimapScale, -MinimapScale)) * Matrix3x2.CreateTranslation(MidPointVector);
 
-        // Frontier: north line drawing
+        // Draw shields
+        DrawShields(handle, xform, worldToShuttle);
+
+        // Frontier Corvax: north line drawing
         var rot = ourEntRot + _rotation.Value;
         DrawNorthLine(handle, rot);
 
@@ -509,15 +513,7 @@ public sealed partial class ShuttleNavControl : BaseShuttleControl
             // Check if this blip is within view bounds before drawing
             if (monoViewBounds.Contains(blipPosInView))
             {
-                if (blip.Shape == RadarBlipShape.Ring)
-                {
-                    DrawShieldRing(handle, blipPosInView, blip.Scale, blip.Color.WithAlpha(0.8f));
-                }
-                else
-                {
-                    // For other shapes, use the regular drawing method
                     DrawBlipShape(handle, blipPosInView, blip.Scale * 3f, blip.Color.WithAlpha(0.8f), blip.Shape);
-                }
             }
         }
 
@@ -601,7 +597,6 @@ public sealed partial class ShuttleNavControl : BaseShuttleControl
             case RadarBlipShape.Arrow:
                 DrawArrow(handle, position, size, color);
                 break;
-            // Ring shapes are handled by DrawShieldRing for constant thickness
         }
     }
 
@@ -731,22 +726,45 @@ public sealed partial class ShuttleNavControl : BaseShuttleControl
     }
 
     private const int RadarBlipSize = 15;
-    private const int RadarFontSize = 10;
+    private const int RadarFontSize = 8;
 
-    /// <summary>
-    /// Draws a shield ring with constant thickness regardless of zoom level.
-    /// </summary>
-    private void DrawShieldRing(DrawingHandleScreen handle, Vector2 position, float worldRadius, Color color)
+    private void DrawShields(DrawingHandleScreen handle, TransformComponent consoleXform, Matrix3x2 matrix)
     {
-        var displayRadius = worldRadius * MinimapScale * 0.85f;
-
-        // Draw the shield outline as a ring with constant thickness
-        const float ringThickness = 2.0f; // Fixed thickness in pixels
-
-        // Draw multiple circles with slightly different radii to create a solid ring effect
-        for (float offset = 0; offset <= ringThickness; offset += 0.5f)
+        var shields = EntManager.AllEntityQueryEnumerator<ShipShieldVisualsComponent, FixturesComponent, TransformComponent>();
+        while (shields.MoveNext(out var uid, out var visuals, out var fixtures, out var xform))
         {
-            handle.DrawCircle(position, displayRadius + offset, color.WithAlpha(0.5f), false);
+            if (!EntManager.TryGetComponent<TransformComponent>(xform.GridUid, out var parentXform))
+                continue;
+
+            if (xform.MapID != consoleXform.MapID)
+                continue;
+
+            var shieldFixture = fixtures.Fixtures.TryGetValue("shield", out var fixture) ? fixture : null;
+
+            if (shieldFixture == null || shieldFixture.Shape is not ChainShape)
+                continue;
+
+            ChainShape chain = (ChainShape) shieldFixture.Shape;
+
+            var count = chain.Count;
+            var verticies = chain.Vertices;
+
+            var center = xform.LocalPosition;
+
+            for (int i = 1; i < count; i++)
+            {
+                var v1 = Vector2.Add(center, verticies[i - 1]);
+                v1 = Vector2.Transform(v1, parentXform.WorldMatrix); // transform to world matrix
+                v1 = Vector2.Transform(v1, matrix); // get back to local matrix for drawing
+                v1.Y = -v1.Y;
+                v1 = ScalePosition(v1);
+                var v2 = Vector2.Add(center, verticies[i]);
+                v2 = Vector2.Transform(v2, parentXform.WorldMatrix);
+                v2 = Vector2.Transform(v2, matrix);
+                v2.Y = -v2.Y;
+                v2 = ScalePosition(v2);
+                handle.DrawLine(v1, v2, visuals.ShieldColor);
+            }
         }
     }
 }

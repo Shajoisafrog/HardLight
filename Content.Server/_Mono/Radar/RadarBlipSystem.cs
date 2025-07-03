@@ -1,16 +1,11 @@
 // SPDX-FileCopyrightText: 2025 Ark
-// SPDX-FileCopyrightText: 2025 Ilya246
 // SPDX-FileCopyrightText: 2025 ark1368
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 using System.Numerics;
-using Content.Server.Theta.ShipEvent.Components;
 using Content.Shared._Mono.Radar;
 using Content.Shared.Shuttles.Components;
-using Robust.Shared.Map;
-using Robust.Shared.Physics.Components;
-using Robust.Shared.Physics.Systems;
 
 namespace Content.Server._Mono.Radar;
 
