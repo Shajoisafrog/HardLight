@@ -45,3 +45,55 @@
 - type: font
   id: Emoji
   path: /Fonts/NotoEmoji.ttf
+
+- type: font
+  id: RubikBubbles
+  path: /Fonts/RubikBubbles.ttf
+
+- type: font
+  id: Copperplate
+  path: /Fonts/Copperplate.otf
+
+- type: font
+  id: Manga
+  path: /Fonts/Mangat.ttf
+
+- type: font
+  id: Noganas
+  path: /Fonts/Noganas.ttf
+
+- type: font
+  id: StrawSerif
+  path: /Fonts/StrawSerifRegular.ttf
+
+- type: font
+  id: Lymphatic
+  path: /Fonts/Lymphatic.ttf
+
+- type: font
+  id: Cambria
+  path: /Fonts/Cambria.ttf
+
+- type: font
+  id: OnlyYou
+  path: /Fonts/Only_You.otf
+
+- type: font
+  id: RyujinAttack
+  path: /Fonts/RyujinAttack/RyujinAttack.otf
+
+- type: font # Floofstation + Goobstation LRP
+  id: Chinese
+  path: /Fonts/NotoSans/NotoSansSC-Regular.ttf
+
+- type: font # Floof - Tajaran Update b7660b9
+  id: Sriracha
+  path: /Fonts/Sriracha/Sriracha.ttf
+
+- type: font # Floof - Tajaran Update b7660b9
+  id: GrenzeGotisch
+  path: /Fonts/Grenze_Gotisch/GrenzeGotisch.ttf
+
+- type: font # Floof - Tajaran Update b7660b9
+  id: RubikDirt
+  path: /Fonts/Rubik_Dirt/RubikDirt.ttf
