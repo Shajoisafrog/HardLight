@@ -1,7 +1,7 @@
 - type: entity
   id: MechCoilgunSabot
   name: 3cm sabot
-  parent: BulletRocketEmp
+  parent: NFBulletRocketEmp
   categories: [ HideSpawnMenu ]
   components:
   - type: Projectile

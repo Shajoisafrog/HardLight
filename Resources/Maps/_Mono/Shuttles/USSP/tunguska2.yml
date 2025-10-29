@@ -1227,7 +1227,7 @@ entities:
       devices:
       - 538
       - 548
-- proto: AirlockExternalGlassUSSPLocked
+- proto: AirlockExternalGlassLocked
   entities:
   - uid: 1339
     components:
@@ -1244,7 +1244,7 @@ entities:
     - type: Transform
       pos: -1.5,16.5
       parent: 1
-- proto: AirlockExternalShuttleUSSPLocked
+- proto: AirlockExternalShuttleLocked
   entities:
   - uid: 1336
     components:
@@ -1271,7 +1271,7 @@ entities:
     - type: Transform
       pos: -5.5,-9.5
       parent: 1
-- proto: AirlockUSSP
+- proto: Airlock
   entities:
   - uid: 13
     components:
@@ -1313,7 +1313,7 @@ entities:
     - type: Transform
       pos: -0.5,4.5
       parent: 1
-- proto: AirlockUSSPGlass
+- proto: AirlockGlass
   entities:
   - uid: 18
     components:
@@ -1330,7 +1330,7 @@ entities:
     - type: Transform
       pos: -1.5,-21.5
       parent: 1
-- proto: AirlockUSSPSecure
+- proto: AirlockSecure
   entities:
   - uid: 1285
     components:
@@ -7366,91 +7366,6 @@ entities:
     - type: Transform
       pos: -4.5,-27.5
       parent: 1
-- proto: SpawnPointUSSPCommissar
-  entities:
-  - uid: 652
-    components:
-    - type: Transform
-      pos: 3.5,-26.5
-      parent: 1
-  - uid: 653
-    components:
-    - type: Transform
-      pos: 4.5,-7.5
-      parent: 1
-  - uid: 654
-    components:
-    - type: Transform
-      pos: 4.5,-9.5
-      parent: 1
-- proto: SpawnPointUSSPCorporal
-  entities:
-  - uid: 655
-    components:
-    - type: Transform
-      pos: 3.5,-26.5
-      parent: 1
-  - uid: 656
-    components:
-    - type: Transform
-      pos: 4.5,-9.5
-      parent: 1
-  - uid: 657
-    components:
-    - type: Transform
-      pos: 4.5,-7.5
-      parent: 1
-- proto: SpawnPointUSSPMedic
-  entities:
-  - uid: 658
-    components:
-    - type: Transform
-      pos: 4.5,-9.5
-      parent: 1
-  - uid: 659
-    components:
-    - type: Transform
-      pos: 4.5,-7.5
-      parent: 1
-  - uid: 660
-    components:
-    - type: Transform
-      pos: 3.5,-26.5
-      parent: 1
-- proto: SpawnPointUSSPRifleman
-  entities:
-  - uid: 661
-    components:
-    - type: Transform
-      pos: 3.5,-26.5
-      parent: 1
-  - uid: 662
-    components:
-    - type: Transform
-      pos: 4.5,-7.5
-      parent: 1
-  - uid: 663
-    components:
-    - type: Transform
-      pos: 4.5,-9.5
-      parent: 1
-- proto: SpawnPointUSSPSergeant
-  entities:
-  - uid: 664
-    components:
-    - type: Transform
-      pos: 4.5,-7.5
-      parent: 1
-  - uid: 665
-    components:
-    - type: Transform
-      pos: 3.5,-26.5
-      parent: 1
-  - uid: 666
-    components:
-    - type: Transform
-      pos: 4.5,-9.5
-      parent: 1
 - proto: Stairs
   entities:
   - uid: 1424
@@ -7513,23 +7428,6 @@ entities:
     - type: Transform
       rot: 1.5707963267948966 rad
       pos: -2.5,-10.5
-      parent: 1
-- proto: SuitStorageUssp
-  entities:
-  - uid: 672
-    components:
-    - type: Transform
-      pos: -1.5,-23.5
-      parent: 1
-  - uid: 1280
-    components:
-    - type: Transform
-      pos: -3.5,-2.5
-      parent: 1
-  - uid: 1281
-    components:
-    - type: Transform
-      pos: 2.5,-2.5
       parent: 1
 - proto: Table
   entities:

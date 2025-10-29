@@ -9,17 +9,14 @@
   parent: BaseVesselAntag
   name: NCS Tunguska-C
   description: A refitted Seraphim with as many guns as it could sustain. Prepare for a onslaught of autocannon fire. Replaced it's main batteries with 2 mech bays for additional flexibility.
-  limit: 2
   price: 215700
   category: Large
-  group: Ussp
-  access: USSP
+  group: Security
+  access: Security
   shuttlePath: /Maps/_Mono/Shuttles/USSP/tunguska2.yml
   guidebookPage: Null
   class:
-  - Patrol
   - Capital
-  - Frigate
   engine:
   - AME
 
@@ -33,7 +30,7 @@
       stationProto: StandardFrontierVessel
       components:
         - type: StationNameSetup
-          mapNameTemplate: 'Tunguska-C USSP{1}'
+          mapNameTemplate: 'Tunguska-C {1}'
           nameGenerator:
             !type:NanotrasenNameGenerator
             prefixCreator: '14'
