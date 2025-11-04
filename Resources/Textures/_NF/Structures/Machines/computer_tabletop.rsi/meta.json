@@ -27,8 +27,24 @@
             "name": "computer_tabletop",
             "directions": 4
         },
+		{
+            "name": "computer_tabletop_decal",
+            "directions": 4
+        },
+		{
+            "name": "computer_tabletop_decal_accent",
+            "directions": 4
+        },
+		{
+            "name": "computer_tabletop_scrap",
+            "directions": 4
+        },
         {
             "name": "computer_tabletop_frame",
+            "directions": 4
+        },
+		{
+            "name": "scrap_keyboard_tabletop",
             "directions": 4
         },
         {
