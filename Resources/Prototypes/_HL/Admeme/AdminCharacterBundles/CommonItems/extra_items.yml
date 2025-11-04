@@ -143,14 +143,3 @@
     size: Normal
     shape:
     - 0,0,1,1
-
-# self-recharging high-capacity power cage
-- type: entity
-  name: self-charging high-capacity power cage
-  id: PowerCageHighSelfCharging
-  parent: PowerCageHigh
-  suffix: Admin
-  components:
-  - type: BatterySelfRecharger
-    autoRecharge: true
-    autoRechargeRate: 55
