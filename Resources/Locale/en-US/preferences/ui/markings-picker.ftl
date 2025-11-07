@@ -23,7 +23,6 @@ markings-category-HeadSide = Head (Side)
 markings-category-Snout = Snout
 markings-category-UndergarmentTop = Undergarment (Top)
 markings-category-UndergarmentBottom = Undergarment (Bottom)
-markings-category-Genital = Genitals
 markings-category-Chest = Chest
 markings-category-Arms = Arms
 markings-category-Legs = Legs
