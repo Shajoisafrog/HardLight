@@ -1,4 +1,4 @@
-﻿using Content.Shared.Humanoid.Markings;
+using Content.Shared.Humanoid.Markings;
 using Robust.Shared.Serialization;
 
 namespace Content.Shared.Humanoid
@@ -14,6 +14,7 @@ namespace Content.Shared.Humanoid
         UndergarmentBottom,
         Genital,
         Penis,
+        Breasts, // HL: Add breasts layer
         Chest,
         Head,
         Snout,

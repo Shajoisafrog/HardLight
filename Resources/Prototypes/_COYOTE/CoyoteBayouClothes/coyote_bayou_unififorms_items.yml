@@ -3366,4 +3366,5 @@
     clothingVisuals:
       jumpsuit:
       - state: gearharness
-
+  - type: HideLayerClothing # HL: Nude gear hides nothing
+    slots: []

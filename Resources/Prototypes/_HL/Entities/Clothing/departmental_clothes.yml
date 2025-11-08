@@ -1,6 +1,6 @@
 - type: entity
   abstract: true
-  parent: ClothingUniformBase
+  parent: [ClothingUniformBase, ClothingUniformTopless]
   id: ClothingUniformBaseThongs
   components:
   - type: Clothing

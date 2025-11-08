@@ -1,0 +1,8 @@
+- type: entity
+  abstract: true
+  id: ClothingUniformTopless
+  components:
+  - type: HideLayerClothing
+    slots:
+    - Genital
+    - Penis
