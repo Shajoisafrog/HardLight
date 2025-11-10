@@ -54,11 +54,11 @@
         sprite: _DV/Mobs/Customization/Vulpkanin/masking_helpers.rsi
         state: female_full
         visible: false
-      - map: [ "enum.HumanoidVisualLayers.UndergarmentBottom" ]
       - map: [ "enum.HumanoidVisualLayers.Genital" ]
-      - map: [ "enum.HumanoidVisualLayers.Penis" ]
       - map: [ "enum.HumanoidVisualLayers.Breasts" ] # HL: Add breasts layer
       - map: [ "enum.HumanoidVisualLayers.UndergarmentTop" ]
+      - map: [ "enum.HumanoidVisualLayers.Penis" ]
+      - map: [ "enum.HumanoidVisualLayers.UndergarmentBottom" ]
       - map: [ "accessory1" ]
       - map: [ "accessory2" ]
       - map: [ "jumpsuit" ]
