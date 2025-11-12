@@ -356,8 +356,21 @@ namespace Content.Server.Explosion.EntitySystems
 
         private void OnTriggerCollide(EntityUid uid, TriggerOnCollideComponent component, ref StartCollideEvent args)
         {
-            if (args.OurFixtureId == component.FixtureID && (!component.IgnoreOtherNonHard || args.OtherFixture.Hard))
-                Trigger(uid, args.OtherEntity);
+            if (args.OurFixtureId != component.FixtureID)
+                return;
+
+            if (component.IgnoreOtherNonHard && !args.OtherFixture.Hard)
+                return;
+
+            // Check whitelist - if specified, only entities on the whitelist can trigger
+            if (component.Whitelist != null && !_whitelist.IsWhitelistPass(component.Whitelist, args.OtherEntity))
+                return;
+
+            // Check blacklist - if specified, entities on the blacklist cannot trigger
+            if (component.Blacklist != null && !_whitelist.IsBlacklistPass(component.Blacklist, args.OtherEntity))
+                return;
+
+            Trigger(uid, args.OtherEntity);
         }
 
         private void OnSpawnTriggered(EntityUid uid, TriggerOnSpawnComponent component, MapInitEvent args)

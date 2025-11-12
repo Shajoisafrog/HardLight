@@ -58,6 +58,7 @@
         Heat: -0.05
         Shock: -0.05
     restHealingCritMultiplier: 2.0
+  - type: XenoAIAutoEvolve
   - type: Tool
     speedModifier: 1.5
     qualities:
@@ -240,6 +241,7 @@
         Heat: -0.05
         Shock: -0.05
     restHealingCritMultiplier: 2.0
+  - type: XenoAIAutoEvolve
   - type: Fixtures
     fixtures:
       fix1:
@@ -292,6 +294,7 @@
         Heat: -0.05
         Shock: -0.05
     restHealingCritMultiplier: 2.0
+  - type: XenoAIAutoEvolve
   - type: MovementSpeedModifier
     baseSprintSpeed: 4
   - type: Fixtures
@@ -305,7 +308,7 @@
         - MobMask
         layer:
         - MobLayer
-        
+
 - type: entity
   name: Lesser Drone
   id: MobLesserDrone
@@ -329,8 +332,9 @@
           Heat: -0.05
           Shock: -0.05
       restHealingCritMultiplier: 2.0
+    - type: XenoAIAutoEvolve
 
-      
+
 - type: entity
   name: Queen
   parent: MobXeno
@@ -374,6 +378,7 @@
         Heat: -0.05
         Shock: -0.05
     restHealingCritMultiplier: 2.0
+  - type: XenoAIAutoEvolve
     # canBuild:
     # - WallXenoResin
     # - WallXenoMembrane
@@ -460,7 +465,8 @@
         Heat: -0.05
         Shock: -0.05
     restHealingCritMultiplier: 2.0
-      
+  - type: XenoAIAutoEvolve
+
 - type: entity
   name: Runner
   parent: MobXeno
@@ -534,8 +540,9 @@
         Piercing: -0.3
         Heat: -0.05
         Shock: -0.05
-    restHealingCritMultiplier: 2.0 
-    
+    restHealingCritMultiplier: 2.0
+  - type: XenoAIAutoEvolve
+
 - type: entity
   name: Spitter
   parent: MobXeno
@@ -581,6 +588,7 @@
         Heat: -0.05
         Shock: -0.05
     restHealingCritMultiplier: 2.0
+  - type: XenoAIAutoEvolve
   - type: Gun
     fireRate: 0.9
     useKey: false
@@ -688,7 +696,7 @@
         Base: dead_small_purple_snake
   - type: SolutionTransfer
     maxTransferAmount: 1
-    
+
 - type: entity
   name: Acid runner
   id: MobXenoAcidRunner
@@ -729,6 +737,7 @@
           Heat: -0.05
           Shock: -0.05
       restHealingCritMultiplier: 2.0
+    - type: XenoAIAutoEvolve
 
 - type: entity
   name: Acid runner primed
@@ -765,6 +774,7 @@
           Heat: -0.05
           Shock: -0.05
       restHealingCritMultiplier: 2.0
+    - type: XenoAIAutoEvolve
 
 - type: entity
   name: Larva
@@ -817,7 +827,8 @@
           Heat: -0.05
           Shock: -0.05
       restHealingCritMultiplier: 2.0
-      
+    - type: XenoAIAutoEvolve
+
 - type: entity
   name: Boiler
   id: MobXenoBoiler
@@ -865,6 +876,7 @@
           Heat: -0.1
           Shock: -0.1
       restHealingCritMultiplier: 2.0
+    - type: XenoAIAutoEvolve
 
 - type: entity
   name: Boxer Warrior
@@ -906,8 +918,9 @@
           Heat: -0.05
           Shock: -0.05
       restHealingCritMultiplier: 2.0
-      
-      
+    - type: XenoAIAutoEvolve
+
+
 - type: entity
   name: Carrier
   id: MobXenoCarrier
@@ -948,6 +961,7 @@
           Heat: -0.05
           Shock: -0.05
       restHealingCritMultiplier: 2.0
+    - type: XenoAIAutoEvolve
 
 - type: entity
   name: Crusher
@@ -988,7 +1002,8 @@
           Heat: -0.05
           Shock: -0.05
       restHealingCritMultiplier: 2.0
-      
+    - type: XenoAIAutoEvolve
+
 - type: entity
   name: Charger Crusher
   id: MobXenoChargerCrusher
@@ -1055,7 +1070,8 @@
           Heat: -0.05
           Shock: -0.05
       restHealingCritMultiplier: 2.0
-    
+    - type: XenoAIAutoEvolve
+
 - type: entity
   name: Sentinel
   id: MobXenoSentinel
@@ -1098,7 +1114,8 @@
           Heat: -0.05
           Shock: -0.05
       restHealingCritMultiplier: 2.0
-      
+    - type: XenoAIAutoEvolve
+
 - type: entity
   name: Hive Lord
   id: MobXenoHivelord
@@ -1134,6 +1151,7 @@
           Heat: -0.05
           Shock: -0.05
       restHealingCritMultiplier: 2.0
+    - type: XenoAIAutoEvolve
     - type: MeleeWeapon
       damage:
         types:
@@ -1147,7 +1165,7 @@
   components:
     - type: Sprite
       sprite: Mobs/Aliens/Xenos/bloody_larva.rsi
-      
+
 - type: entity
   name: Spitter Larva
   id: MobXenoSpitterLarva
@@ -1170,7 +1188,8 @@
           Heat: -0.05
           Shock: -0.05
       restHealingCritMultiplier: 2.0
-      
+    - type: XenoAIAutoEvolve
+
 - type: entity
   name: Sneaky Larva
   id: MobXenoSneakyLarva
@@ -1193,7 +1212,8 @@
           Heat: -0.05
           Shock: -0.05
       restHealingCritMultiplier: 2.0
-      
+    - type: XenoAIAutoEvolve
+
 - type: entity
   name: Male Larva
   id: MobXenoMaleLarva
@@ -1216,6 +1236,7 @@
           Heat: -0.05
           Shock: -0.05
       restHealingCritMultiplier: 2.0
+    - type: XenoAIAutoEvolve
 
 - type: entity
   name: Female Larva
@@ -1224,7 +1245,7 @@
   components:
     - type: Sprite
       sprite: Mobs/Aliens/Xenos/larva.rsi
-      
+
 - type: entity
   name: Speedy Larva
   id: MobXenoSpeedyLarva
@@ -1247,6 +1268,7 @@
           Heat: -0.05
           Shock: -0.05
       restHealingCritMultiplier: 2.0
+    - type: XenoAIAutoEvolve
 
 - type: entity
   name: Beefy Larva
@@ -1270,6 +1292,7 @@
           Heat: -0.05
           Shock: -0.05
       restHealingCritMultiplier: 2.0
+    - type: XenoAIAutoEvolve
 
 - type: entity
   name: Parasite
@@ -1301,6 +1324,7 @@
           Heat: -0.05
           Shock: -0.05
       restHealingCritMultiplier: 2.0
+    - type: XenoAIAutoEvolve
 
 - type: entity
   name: Warrior
@@ -1329,8 +1353,9 @@
           Heat: -0.05
           Shock: -0.05
       restHealingCritMultiplier: 2.0
-        
-#friendly 
+    - type: XenoAIAutoEvolve
+
+#friendly
 
 - type: entity
   name: Friendly NT Rouny
@@ -1803,7 +1828,7 @@
         - MobXenoNeutralDrone
         - MobXenoNeutralRavager
       chance: 1
-      
+
 - type: entity
   name: Egg spawner
   id: XenoEggSpawner
