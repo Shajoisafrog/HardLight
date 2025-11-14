@@ -304,28 +304,31 @@ public sealed class ShipyardGridSaveSystem : EntitySystem
 
             _sawmill.Info($"PurgeTransientEntities: Scanning grid {gridUid} for transient entities (loose + contained)");
 
-            // Collect all entities spatially present on the grid and entities inside containers
+            // 1. Collect all entities spatially present on the grid (this won't include items inside containers)
             foreach (var ent in _lookup.GetEntitiesIntersecting(gridUid, grid.LocalAABB))
             {
                 if (ent == gridUid)
                     continue;
-
                 // Preserve any secret stash root or bluespace stash prototype entity itself
                 if (_secretStashQuery.HasComp(ent) || IsBluespaceStashPrototype(ent))
-                {
-                    processed.Add(ent);
+                    processed.Add(ent); // don't treat stash as loose
+                if (!TryQueueLoose(ent, looseDeletes, processed))
                     continue;
-                }
+            }
 
-                if (!TryQueueLoose(ent, looseDeletes, processed)) // Queue loose items for deletion
+            // 2. Traverse container graphs on every anchored entity to collect ALL contained descendants
+            foreach (var ent in _lookup.GetEntitiesIntersecting(gridUid, grid.LocalAABB))
+            {
+                if (ent == gridUid)
+                    continue;
+                if (!TryComp<ContainerManagerComponent>(ent, out var manager))
+                    continue;
+                // If this entity is a stash or bluespace stash, preserve its contents entirely.
+                if (_secretStashQuery.HasComp(ent) || IsBluespaceStashPrototype(ent))
+                    continue;
+                foreach (var container in manager.Containers.Values)
                 {
-                    if (!TryComp<ContainerManagerComponent>(ent, out var manager)) // Clear contents of containers that aren't loose
-                        continue;
-
-                    foreach (var container in manager.Containers.Values)
-                    {
-                        CollectContainerContentsRecursive(container.ContainedEntities, containerContentDeletes, processed);
-                    }
+                    CollectContainerContentsRecursive(container.ContainedEntities, containerContentDeletes, processed);
                 }
             }
 
@@ -408,7 +411,7 @@ public sealed class ShipyardGridSaveSystem : EntitySystem
     /// </summary>
     private bool IsInvalidEntity(EntityUid uid)
     {
-        if (!_entityManager.EntityExists(uid))
+        if (!Exists(uid))
             return false;
         // Skip if terminating
         if (_entityManager.GetComponent<MetaDataComponent>(uid).EntityLifeStage >= EntityLifeStage.Terminating)
@@ -449,7 +452,7 @@ public sealed class ShipyardGridSaveSystem : EntitySystem
 
     private bool TryQueueLoose(EntityUid ent, List<EntityUid> list, HashSet<EntityUid> processed)
     {
-        if (!_entityManager.EntityExists(ent))
+        if (!Exists(ent))
             return false;
         if (!processed.Add(ent))
             return false; // already processed
