@@ -664,6 +664,14 @@
     - SMCybernetics
     # Mono - Mechs
     - WeaponMechCombatArsenal
+    - S2Mechs
+    - S2MechBoards
+    - SpaceMechaWeapons
+    - MonoAdvancedShuttleComponents
+    - UniversalMissileAmmo
+    - UniversalRailgunAmmo
+    - UniversalShellAmmo
+    - UniversalOrdinance
   - type: MaterialStorage
     whitelist:
       tags:
