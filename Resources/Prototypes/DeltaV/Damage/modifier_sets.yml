@@ -1,10 +1,4 @@
 - type: damageModifierSet
-  id: Vulpkanin
-  coefficients:
-    Heat: 1.30
-    Cold: 0.70
-
-- type: damageModifierSet
   id: Harpy
   coefficients:
     Blunt: 1.15
