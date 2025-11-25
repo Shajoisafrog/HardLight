@@ -4,19 +4,19 @@
   roundStart: true
   prototype: MobChitinid
   sprites: MobChitinidSprites
-  defaultSkinTone: "#ffda93"
   markingLimits: MobChitinidMarkingLimits
   dollPrototype: MobChitinidDummy
   skinColoration: Hues
-  maleFirstNames: NamesChitinidFirstMale
-  femaleFirstNames: NamesChitinidFirstFemale
-  naming: First
 
 - type: speciesBaseSprites
   id: MobChitinidSprites
   sprites:
     Head: MobChitinidHead
+    Hair: MobHumanoidAnyMarking
     Snout: MobHumanoidAnyMarking
+    Genital: MobHumanoidAnyMarking
+    Penis: MobHumanoidAnyMarking
+    Breasts: MobHumanoidAnyMarking
     Chest: MobChitinidTorso
     HeadTop: MobHumanoidAnyMarking
     HeadSide: MobHumanoidAnyMarking
@@ -30,6 +30,7 @@
     RLeg: MobChitinidRLeg
     LFoot: MobChitinidLFoot
     RFoot: MobChitinidRFoot
+    RArmExtension: MobHumanoidAnyMarking
 
 - type: humanoidBaseSprite
   id: MobChitinidEyes
@@ -42,7 +43,7 @@
   onlyWhitelisted: true
   points:
     Hair:
-      points: 0
+      points: 1
       required: false
     FacialHair:
       points: 0
@@ -65,19 +66,13 @@
       points: 1
       required: false
     Chest:
+      points: 3
+      required: false
+    Legs:
       points: 1
       required: false
-    LeftLeg:
-      points: 2
-      required: false
-    RightLeg:
-      points: 2
-      required: false
-    LeftArm:
-      points: 2
-      required: false
-    RightArm:
-      points: 2
+    Arms:
+      points: 1
       required: false
 
 - type: humanoidBaseSprite
