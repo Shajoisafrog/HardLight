@@ -111,7 +111,7 @@
 - type: dataset
   id: MoodDrinkables
   values:
-  - Chutzpah
+  #- Chutzpah
   - Cogchamp
   - Demon's Blood
   - Devil's Kiss
