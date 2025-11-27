@@ -4,10 +4,14 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
 
-- type: entity
-  save: false
-  name: Urist McEars
-  parent: BaseMobThaven
-  id: MobThaven
+# 1 Cost
+- type: trait
+  id: NoContractions
+  name: trait-nocontractions-name
+  description: trait-nocontractions-desc
+  category: SpeechTraits
+  cost: 1
   components:
-  - type: PotentialPsionic #Nyano - Summary: makes potentially psionic. 
+  - type: ReplacementAccent
+    accent: nocontractions
+  - type: NoContractionsAccent
