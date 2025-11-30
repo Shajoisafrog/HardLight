@@ -1,6 +1,7 @@
 using Content.Shared.Actions;
 using Content.Shared.CM14.Xenos;
 using Content.Shared.CM14.Xenos.Evolution;
+using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
 using Robust.Server.GameObjects;
@@ -24,6 +25,16 @@ public sealed class XenoAIAutoEvolveSystem : EntitySystem
         base.Initialize();
 
         SubscribeLocalEvent<XenoAIAutoEvolveComponent, MapInitEvent>(OnMapInit);
+        SubscribeLocalEvent<XenoAIAutoEvolveComponent, MobStateChangedEvent>(OnMobStateChanged);
+    }
+
+    private void OnMobStateChanged(Entity<XenoAIAutoEvolveComponent> ent, ref MobStateChangedEvent args)
+    {
+        // Remove auto-evolve component when xeno dies
+        if (args.NewMobState == MobState.Dead)
+        {
+            RemComp<XenoAIAutoEvolveComponent>(ent);
+        }
     }
 
     private void OnMapInit(Entity<XenoAIAutoEvolveComponent> ent, ref MapInitEvent args)
@@ -37,16 +48,12 @@ public sealed class XenoAIAutoEvolveSystem : EntitySystem
         base.Update(frameTime);
 
         var curTime = _timing.CurTime;
-        var query = EntityQueryEnumerator<XenoAIAutoEvolveComponent, XenoComponent, MetaDataComponent, MobStateComponent>();
+        var query = EntityQueryEnumerator<XenoAIAutoEvolveComponent, XenoComponent, MetaDataComponent>();
 
-        while (query.MoveNext(out var uid, out var autoEvolve, out var xeno, out var metaData, out var mobState))
+        while (query.MoveNext(out var uid, out var autoEvolve, out var xeno, out var metaData))
         {
             // Skip player-controlled xenos - only AI xenos should auto-evolve
             if (HasComp<ActorComponent>(uid))
-                continue;
-
-            // Skip dead xenos - they should not evolve
-            if (_mobState.IsDead(uid, mobState))
                 continue;
 
             // Only check at intervals to avoid excessive processing

@@ -6,6 +6,7 @@ using Content.Shared.Access.Components;
 using Content.Shared.CM14.Xenos.Evolution;
 using Content.Shared.CM14.Xenos.Construction;
 using Content.Shared.Mind;
+using Content.Shared.Mobs.Systems;
 using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Player;
@@ -19,6 +20,7 @@ public sealed class XenoSystem : EntitySystem
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly SharedPopupSystem _popup = default!;
     [Dependency] private readonly SharedMindSystem _mind = default!;
+    [Dependency] private readonly MobStateSystem _mobState = default!;
     [Dependency] private readonly INetManager _net = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly SharedUserInterfaceSystem _ui = default!;
@@ -263,6 +265,11 @@ public sealed class XenoSystem : EntitySystem
     {
         if (_net.IsClient)
             return;
+
+        // Don't allow dead xenos to evolve
+        if (_mobState.IsDead(ent))
+            return;
+
         Log.Debug($"[Xeno] Evolution handler start for {ToPrettyString(ent)} evolvesTo={ent.Comp.EvolvesTo.Count} hasActor={TryComp(ent, out ActorComponent? _)}");
         if (TryComp(ent, out ActorComponent? actor))
         {
@@ -302,6 +309,10 @@ public sealed class XenoSystem : EntitySystem
 
     private void OnXenoEvolveBui(Entity<XenoComponent> ent, ref EvolveBuiMessage args)
     {
+        // Don't allow dead xenos to evolve
+        if (_mobState.IsDead(ent))
+            return;
+
         if (!_mind.TryGetMind(ent, out var mindId, out _))
             return;
 
