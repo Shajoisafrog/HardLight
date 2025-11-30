@@ -11,3 +11,25 @@
       stackRequirements:
         Manipulator: 4
         Glass: 1
+
+- type: entity
+  parent: BaseMachineCircuitboard
+  id: AssortedForgeParts
+  name: assorted forge parts
+  description: A small pile of components for making a forge for an anvil, contains an igniter and valves.
+  components:
+  - type: MachineBoard
+    prototype: TiderLathe
+    stackRequirements:
+      Plasteel: 13
+      Steel: 5
+    tagRequirements:
+      GasTank:
+        amount: 2
+        defaultPrototype: OxygenTank
+  - type: Sprite
+    sprite: _HL/Objects/Devices/assorted_forge_parts.rsi
+    state: icon
+  - type: Construction
+    graph: AssortedForgeParts
+    node: finish
