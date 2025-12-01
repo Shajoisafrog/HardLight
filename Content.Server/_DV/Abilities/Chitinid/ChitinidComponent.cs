@@ -3,7 +3,6 @@ using Content.Shared.Damage.Prototypes;
 using Content.Shared.FixedPoint;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
-using Content.Server._dv.Abilities.Chitinid.CoughingUpChitziteComponent;
 
 namespace Content.Server.Abilities.Chitinid;
 
