@@ -91,6 +91,8 @@
                     0.5
                 ]
             ]
+        },
+        {
             "name": "kitsune0",
             "delays": [
                 [
@@ -106,6 +108,8 @@
         },
         {
             "name": "kitsune2"
+        },
+        {
             "name": "feroxi1"
         },
         {
