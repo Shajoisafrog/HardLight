@@ -3,10 +3,38 @@
   name: Kitsune
   roundStart: true
   prototype: MobKitsune
-  sprites: MobHumanSprites
+  sprites: MobKitsuneSprites
   markingLimits: MobKitsuneMarkingLimits
   dollPrototype: MobKitsuneDummy
   skinColoration: HumanToned
+
+- type: speciesBaseSprites
+  id: MobKitsuneSprites
+  sprites:
+    Special: MobHumanoidAnyMarking
+    Head: MobHumanHead
+    Hair: MobHumanoidAnyMarking
+    FacialHair: MobHumanoidAnyMarking
+    Snout: MobHumanoidAnyMarking
+    UndergarmentTop: MobHumanoidAnyMarking
+    UndergarmentBottom: MobHumanoidAnyMarking
+    Genital: MobHumanoidAnyMarking
+    Penis: MobHumanoidAnyMarking
+    Breasts: MobHumanoidAnyMarking
+    Chest: MobHumanTorso
+    Eyes: MobHumanoidEyes
+    HeadTop: MobHumanoidAnyMarking
+    LArm: MobHumanLArm
+    RArm: MobHumanRArm
+    LHand: MobHumanLHand
+    RHand: MobHumanRHand
+    LLeg: MobHumanLLeg
+    RLeg: MobHumanRLeg
+    LFoot: MobHumanLFoot
+    RFoot: MobHumanRFoot
+    Tail: MobHumanoidAnyMarking
+    HeadSide: MobHumanoidAnyMarking
+    RArmExtension: MobHumanoidAnyMarking
 
 - type: markingPoints
   id: MobKitsuneMarkingLimits
