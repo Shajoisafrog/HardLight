@@ -18,15 +18,18 @@ public sealed partial class MilkProducerComponent : Component
     [DataField]
     public ProtoId<ReagentPrototype> ReagentId = "Milk";
 
-    [DataField]
+    [ViewVariables(VVAccess.ReadWrite)]
+    [DataField("maxVol")]
     public FixedPoint2 MaxVolume = FixedPoint2.New(50);
 
     public Entity<SolutionComponent>? Solution = null;
 
-    [DataField]
+    [ViewVariables(VVAccess.ReadWrite)]
+    [DataField("reVol")]
     public FixedPoint2 QuantityPerUpdate = 5;
 
-    [DataField]
+    [ViewVariables(VVAccess.ReadWrite)]
+    [DataField("reHunger")]
     public float HungerUsage = 10f;
 
     [DataField]

@@ -5,6 +5,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
 
+using System.Data;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -61,6 +62,12 @@ public sealed partial class ThavenMoodsSystem : SharedThavenMoodSystem
 
     [ValidatePrototypeId<DatasetPrototype>]
     private const string WildcardDataset = "ThavenMoodsWildcard";
+
+    [ValidatePrototypeId<DatasetPrototype>]
+    private const string HornyDataset = "ThavenMoodsHorny";
+
+    [ValidatePrototypeId<DatasetPrototype>]
+    private const string HornyWildcardDataset = "ThavenMoodsHornyEmag";
 
     [ValidatePrototypeId<EntityPrototype>]
     private const string ActionViewMoods = "ActionViewMoods";
@@ -436,7 +443,10 @@ public sealed partial class ThavenMoodsSystem : SharedThavenMoodSystem
         base.OnEmagged(uid, comp, ref args);
 
         if (!HasComp<MindShieldComponent>(uid)) // funky: dont emag mindshielded thavens
-            TryAddRandomMood(uid, WildcardDataset, comp);
+            if (HasComp<HornyMoodsTargetComponent>(uid))
+                TryAddRandomMood(uid, HornyWildcardDataset, comp);
+            else
+                TryAddRandomMood(uid, WildcardDataset, comp);
     }
 
     // Begin DeltaV: thaven mood upsets
@@ -484,6 +494,13 @@ public sealed partial class ThavenMoodsSystem : SharedThavenMoodSystem
         // "No, and" moods
         if (TryPick(NoAndDataset, out mood, GetActiveMoods(args.Mob, comp), null, GetMindDepartment(args.Mob)))
             TryAddMood(args.Mob, mood, comp, true, false);
+
+        // Hardlight "Horny" moods
+        if (HasComp<HornyMoodsTargetComponent>(args.Mob))
+        {
+            if (TryPick(HornyDataset, out mood, GetActiveMoods(args.Mob, comp), null, GetMindDepartment(args.Mob)))
+                TryAddMood(args.Mob, mood, comp, true, false);
+        }
     }
     // end funky
 }

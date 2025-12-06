@@ -69,9 +69,9 @@ thaven-mood-tourist-name = Tourist
 thaven-mood-tourist-desc = It is customary and polite to follow people into their departments. You have never heard of "trespassing."
 
 thaven-mood-crywolf-name = Cry Wolf
-thaven-mood-crywolf-desc = NT has been too lax in its security of late. The crew must be kept on edge, ready for any emergency. Regularly call out fake threats to make sure everyone is properly prepared.
+thaven-mood-crywolf-desc = CC has been too lax in its security of late. The crew must be kept on edge, ready for any emergency. Regularly call out fake threats to make sure everyone is properly prepared.
 
-thaven-mood-cave-dweller-name = Caveweller
+thaven-mood-cave-dweller-name = Cavedweller
 thaven-mood-cave-dweller-desc = You strongly prefer navigating via flashlight in the darkness to harsh overhead lights.
 
 thaven-mood-daredevil-name = Daredevil
@@ -114,7 +114,7 @@ thaven-mood-rank-snob-name = Snob
 thaven-mood-rank-snob-desc = You are incredibly reluctant to respond to anyone who is of a lower rank than you. If they must be addressed, do so away from prying eyes.
 
 thaven-mood-corporateconspiracy-name = Corporate Conspiracy
-thaven-mood-corporateconspiracy-desc = You believe there is a hidden connection between Nanotrasen and the Syndicate. Command is complicit.
- 
+thaven-mood-corporateconspiracy-desc = You believe there is a hidden connection between ColComm and the Syndicate. Command is complicit.
+
 thaven-mood-oppositeday-name = Opposite Day
 thaven-mood-oppositeday-desc = People mean the opposite of what they say. Up is down, and down is up.

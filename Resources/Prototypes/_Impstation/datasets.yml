@@ -89,6 +89,26 @@
   - Dihydrogen Monoxide
 
 - type: dataset
+  id: MoodHornyItems
+  values:
+  - Dildos
+  - Vibrators
+  - Fleshlights
+  - Whips
+  - Handcuffs
+  - Stun Batons
+  - Collars
+  - Blindfolds
+  - Muzzles
+  - Plushies
+  - Figurines
+  - Vaguely Phallic Objects
+  - Tables
+  - Chairs
+  - Drinks
+  - Rocks
+
+- type: dataset
   id: MoodEdibles
   values:
   - Copypasta
@@ -107,7 +127,7 @@
   - Mothroachburger
   - Amanita Jelly
   - Spicy Rock Pizza
-  
+
 - type: dataset
   id: MoodDrinkables
   values:
@@ -123,7 +143,7 @@
   - Hippie's Delight
   #- Tayquila
   - Three Mile Island Iced Tea
-  
+
 - type: dataset
   id: MoodHolidays
   values:
@@ -136,7 +156,7 @@
   - Intergalactic Hug A Robot Day
   - Labor Day
   - Fall of the Twin Trees Day
-  - NT Corporate Mindfulness Day
+  - CC Corporate Mindfulness Day
   - Steven's Barmitzvah
   - Silicon Awareness Day
   - Logistics Improvement Day
