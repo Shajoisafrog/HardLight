@@ -40,7 +40,7 @@
 
 - type: markingPoints
   id: MobChitinidMarkingLimits
-  onlyWhitelisted: true
+  onlyWhitelisted: false
   points:
     Hair:
       points: 1
