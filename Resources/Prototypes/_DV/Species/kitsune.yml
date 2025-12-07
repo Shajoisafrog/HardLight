@@ -1,31 +1,60 @@
 - type: species
   id: Kitsune
-  name: Kitsune
+  name: species-name-kitsune
   roundStart: true
   prototype: MobKitsune
   sprites: MobHumanSprites
   markingLimits: MobKitsuneMarkingLimits
   dollPrototype: MobKitsuneDummy
-  skinColoration: HumanToned
+  skinColoration: Hues
+
+- type: speciesBaseSprites
+  id: MobKitsuneSprites
+  sprites:
+    Special: MobHumanoidAnyMarking
+    Head: MobHumanHead
+    Hair: MobHumanoidAnyMarking
+    FacialHair: MobHumanoidAnyMarking
+    Snout: MobHumanoidAnyMarking
+    UndergarmentTop: MobHumanoidAnyMarking
+    UndergarmentBottom: MobHumanoidAnyMarking
+    Genital: MobHumanoidAnyMarking
+    Penis: MobHumanoidAnyMarking
+    Breasts: MobHumanoidAnyMarking
+    Chest: MobHumanTorso
+    Eyes: MobHumanoidEyes
+    HeadTop: MobHumanoidAnyMarking
+    LArm: MobHumanLArm
+    RArm: MobHumanRArm
+    LHand: MobHumanLHand
+    RHand: MobHumanRHand
+    LLeg: MobHumanLLeg
+    RLeg: MobHumanRLeg
+    LFoot: MobHumanLFoot
+    RFoot: MobHumanRFoot
+    Tail: MobHumanoidAnyMarking
+    HeadSide: MobHumanoidAnyMarking
+    RArmExtension: MobHumanoidAnyMarking
 
 - type: markingPoints
   id: MobKitsuneMarkingLimits
+  onlyWhitelisted: false
   points:
     Hair:
-      points: 3
+      points: 1
       required: false
     FacialHair:
-      points: 3
+      points: 1
       required: false
     Snout:
-      points: 3
+      points: 1
       required: false
     Tail:
-      points: 3
+      points: 1
       required: true
       defaultMarkings: [ KitsuneTailDefault ]
     HeadTop:
-      points: 3
+      points: 1
       required: true
       defaultMarkings: [ KitsuneEarsDefault ]
     UndergarmentTop:

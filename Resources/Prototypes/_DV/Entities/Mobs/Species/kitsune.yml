@@ -19,7 +19,6 @@
   - type: Body
     prototype: Kitsune
   - type: Damageable
-    damageContainer: BiologicalMetaphysical
     damageModifierSet: Kitsune
   - type: Speech
     speechSounds: Alto
