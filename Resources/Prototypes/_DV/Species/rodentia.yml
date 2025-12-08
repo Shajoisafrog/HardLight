@@ -12,6 +12,7 @@
   femaleFirstNames: NamesRodentiaFemale
   lastNames: NamesRodentiaLast
   naming: LastFirst
+  customName: true
 
 - type: speciesBaseSprites
   id: MobRodentiaSprites
