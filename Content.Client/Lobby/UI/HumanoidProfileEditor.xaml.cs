@@ -1255,7 +1255,6 @@ namespace Content.Client.Lobby.UI
             UpdateSpawnPriorityControls();
             UpdateHeightControls();
             UpdateWidthControls();
-            UpdateCustomSpecieNameEdit();
             UpdateAgeEdit();
             UpdateEyePickers();
             UpdateSaveButton();
@@ -1821,13 +1820,6 @@ namespace Content.Client.Lobby.UI
         private void UpdateNameEdit()
         {
             NameEdit.Text = Profile?.Name ?? "";
-        }
-
-        private void UpdateCustomSpecieNameEdit()
-        {
-            var species = _species.Find(x => x.ID == Profile?.Species) ?? _species.First();
-            _customspecienameEdit.Text = string.IsNullOrEmpty(Profile?.Customspeciename) ? Loc.GetString(species.Name) : Profile.Customspeciename;
-            _ccustomspecienamecontainerEdit.Visible = species.CustomName;
         }
 
         private void UpdateFlavorTextEdit()
