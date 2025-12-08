@@ -62,7 +62,7 @@ namespace Content.Server.Roboisseur.Roboisseur
                     }
                     else if (CheckTier(roboisseur.DesiredPrototype.ID, roboisseur) > 2)
                         message = Loc.GetString(_random.Pick(roboisseur.DemandMessagesTier2), ("item", roboisseur.DesiredPrototype.Name));
-                    _chat.TrySendInGameICMessage(roboisseur.Owner, message, InGameICChatType.Speak, true);
+                    _chat.TrySendInGameICMessage(roboisseur.Owner, message, InGameICChatType.Speak, false);
                 }
 
                 if (roboisseur.Accumulator >= roboisseur.ResetTime.TotalSeconds)
