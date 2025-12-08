@@ -259,7 +259,6 @@ namespace Content.Server.Database
                 profile.CharacterName,
                 profile.FlavorText,
                 profile.Species,
-                profile.CustomSpecieName, // StarLight
                 profile.Age,
                 sex,
                 gender,
@@ -299,7 +298,6 @@ namespace Content.Server.Database
             profile.CharacterName = humanoid.Name;
             profile.FlavorText = humanoid.FlavorText;
             profile.Species = humanoid.Species;
-            profile.CustomSpecieName = humanoid.CustomSpecieName; // Startlight
             profile.Age = humanoid.Age;
             profile.Sex = humanoid.Sex.ToString();
             profile.Gender = humanoid.Gender.ToString();
