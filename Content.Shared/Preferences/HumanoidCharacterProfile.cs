@@ -271,13 +271,15 @@ namespace Content.Shared.Preferences
             Sex sex,
             Gender gender,
             HumanoidCharacterAppearance appearance,
+            ClothingPreference clothing,
+            BackpackPreference backpack,
             SpawnPriorityPreference spawnPriority,
             IReadOnlyDictionary<string, JobPriority> jobPriorities,
             PreferenceUnavailableMode preferenceUnavailable,
             IReadOnlyList<string> antagPreferences,
             IReadOnlyList<string> traitPreferences,
             IReadOnlyList<string> loadoutPreferences)
-            : this(name, flavortext, species, customspeciename, height, width, age, sex, gender, appearance, spawnPriority,
+            : this(name, flavortext, species, customspeciename, height, width, age, sex, gender, appearance, clothing, backpack, spawnPriority,
                 new Dictionary<string, JobPriority>(jobPriorities), preferenceUnavailable,
                 new List<string>(antagPreferences), new List<string>(traitPreferences),
                 new List<string>(loadoutPreferences))
@@ -300,6 +302,8 @@ namespace Content.Shared.Preferences
             Sex.Male,
             Gender.Male,
             new HumanoidCharacterAppearance(),
+            ClothingPreference.Jumpsuit,
+            BackpackPreference.Backpack,
             SpawnPriorityPreference.None,
             new Dictionary<string, JobPriority>
             {
@@ -330,6 +334,8 @@ namespace Content.Shared.Preferences
                 Sex.Male,
                 Gender.Male,
                 HumanoidCharacterAppearance.DefaultWithSpecies(species),
+                ClothingPreference.Jumpsuit,
+                BackpackPreference.Backpack,
                 SpawnPriorityPreference.None,
                 new Dictionary<string, JobPriority>
                 {
@@ -386,13 +392,50 @@ namespace Content.Shared.Preferences
             var name = GetName(species, gender);
 
             return new HumanoidCharacterProfile(name, "", species, species, height, width, age, sex, gender,
-                HumanoidCharacterAppearance.Random(species, sex), SpawnPriorityPreference.None,
+                HumanoidCharacterAppearance.Random(species, sex), ClothingPreference.Jumpsuit,
+                BackpackPreference.Backpack, SpawnPriorityPreference.None,
                 new Dictionary<string, JobPriority>
                 {
                     {SharedGameTicker.FallbackOverflowJob, JobPriority.High},
                 }, PreferenceUnavailableMode.StayInLobby, new List<string>(), new List<string>(), new List<string>());
         }
 
+        public string Name { get; private set; }
+        public string FlavorText { get; private set; }
+
+        [DataField("species")]
+        public string Species { get; private set; }
+
+        [DataField]
+        public string Customspeciename { get; private set; }
+
+        [DataField("height")]
+        public float Height { get; private set; }
+
+        [DataField("width")]
+        public float Width { get; private set; }
+
+        [DataField("age")]
+        public int Age { get; private set; }
+
+        [DataField("sex")]
+        public Sex Sex { get; private set; }
+
+        [DataField("gender")]
+        public Gender Gender { get; private set; }
+
+        public ICharacterAppearance CharacterAppearance => Appearance;
+
+        [DataField("appearance")]
+        public HumanoidCharacterAppearance Appearance { get; private set; }
+        public ClothingPreference Clothing { get; private set; }
+        public BackpackPreference Backpack { get; private set; }
+        public SpawnPriorityPreference SpawnPriority { get; private set; }
+        public IReadOnlyDictionary<string, JobPriority> JobPriorities => _jobPriorities;
+        public IReadOnlyList<string> AntagPreferences => _antagPreferences;
+        public IReadOnlyList<string> TraitPreferences => _traitPreferences;
+        public IReadOnlyList<string> LoadoutPreferences => _loadoutPreferences;
+        public PreferenceUnavailableMode PreferenceUnavailable { get; private set; }
 
         public HumanoidCharacterProfile WithName(string name)
         {
