@@ -1,6 +1,6 @@
 // SPDX-FileCopyrightText: 2020 20kdc
 // SPDX-FileCopyrightText: 2020 DamianX
-// SPDX-FileCopyrightText: 2020 Víctor Aguilera Puerto
+// SPDX-FileCopyrightText: 2020 Vï¿½ctor Aguilera Puerto
 // SPDX-FileCopyrightText: 2021 Acruid
 // SPDX-FileCopyrightText: 2021 Metal Gear Sloth
 // SPDX-FileCopyrightText: 2021 Remie Richards
@@ -231,11 +231,27 @@ namespace Content.Shared.Preferences
         private HumanoidCharacterProfile(
             HumanoidCharacterProfile other,
             Dictionary<ProtoId<JobPrototype>, JobPriority> jobPriorities,
+            PreferenceUnavailableMode preferenceUnavailable,
             HashSet<ProtoId<AntagPrototype>> antagPreferences,
             HashSet<ProtoId<TraitPrototype>> traitPreferences,
-            Dictionary<string, RoleLoadout> loadouts)
-            : this(other.Name, other.FlavorText, other.Species, other.Age, other.Sex, other.Gender, other.BankBalance, other.Appearance, other.SpawnPriority,
-                jobPriorities, other.PreferenceUnavailable, antagPreferences, traitPreferences, loadouts, other.Company)
+            Dictionary<string, RoleLoadout> loadouts,
+            string company)
+            : this(other.Name,
+                other.FlavorText,
+                other.Species,
+                other.CustomSpecieName,
+                other.Age,
+                other.Sex,
+                other.Gender,
+                other.BankBalance,
+                other.Appearance,
+                other.SpawnPriority,
+                jobPriorities,
+                preferenceUnavailable,
+                antagPreferences,
+                traitPreferences,
+                loadouts,
+                company)
         {
         }
 
@@ -625,7 +641,7 @@ namespace Content.Shared.Preferences
             }
 
             var customspeciename = speciesPrototype.CustomName
-                ? FormattedMessage.RemoveMarkup(CustomSpecieName ?? "")[..maxNameLength]
+                ? FormattedMessage.RemoveMarkup(CustomSpecieName ?? "")[..MaxNameLength]
                 : "";
 
             string flavortext;
