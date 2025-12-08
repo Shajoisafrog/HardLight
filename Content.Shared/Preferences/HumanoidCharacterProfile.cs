@@ -1,6 +1,6 @@
 // SPDX-FileCopyrightText: 2020 20kdc
 // SPDX-FileCopyrightText: 2020 DamianX
-// SPDX-FileCopyrightText: 2020 Víctor Aguilera Puerto
+// SPDX-FileCopyrightText: 2020 Vï¿½ctor Aguilera Puerto
 // SPDX-FileCopyrightText: 2021 Acruid
 // SPDX-FileCopyrightText: 2021 Metal Gear Sloth
 // SPDX-FileCopyrightText: 2021 Remie Richards
@@ -271,8 +271,6 @@ namespace Content.Shared.Preferences
             Sex sex,
             Gender gender,
             HumanoidCharacterAppearance appearance,
-            ClothingPreference clothing,
-            BackpackPreference backpack,
             SpawnPriorityPreference spawnPriority,
             IReadOnlyDictionary<string, JobPriority> jobPriorities,
             PreferenceUnavailableMode preferenceUnavailable,
@@ -397,10 +395,18 @@ namespace Content.Shared.Preferences
 
             var name = GetName(species, gender);
 
-            return new HumanoidCharacterProfile(name, "", species, species, height, width, age, sex, gender,
-
-                Appearance = HumanoidCharacterAppearance.Random(species, sex),
-            };
+            return new HumanoidCharacterProfile(
+                name,
+                "",
+                species,
+                species,
+                height,
+                width,
+                age,
+                sex,
+                gender,
+                HumanoidCharacterAppearance.Random(species, sex)
+            );
         }
 
         public string Name { get; private set; }
@@ -431,8 +437,6 @@ namespace Content.Shared.Preferences
 
         [DataField("appearance")]
         public HumanoidCharacterAppearance Appearance { get; private set; }
-        public ClothingPreference Clothing { get; private set; }
-        public BackpackPreference Backpack { get; private set; }
         public SpawnPriorityPreference SpawnPriority { get; private set; }
         public IReadOnlyDictionary<string, JobPriority> JobPriorities => _jobPriorities;
         public IReadOnlyList<string> AntagPreferences => _antagPreferences;
