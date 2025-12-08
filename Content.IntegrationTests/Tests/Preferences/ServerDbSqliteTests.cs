@@ -39,17 +39,13 @@ namespace Content.IntegrationTests.Tests.Preferences
 
         private static HumanoidCharacterProfile CharlieCharlieson()
         {
-            return new(
-                "Charlie Charlieson",
-                "The biggest boy around.",
-                "Human",
-                "",
-                1,
-                1,
-                21,
-                Sex.Male,
-                Gender.Epicene,
-                new HumanoidCharacterAppearance(
+            return new HumanoidCharacterProfile() // Frontier - added HumanoidCharacterProfile
+            {
+                Name = "Charlie Charlieson",
+                FlavorText = "The biggest boy around.",
+                Species = "Human",
+                Age = 21,
+                Appearance = new(
                     "Afro",
                     Color.Aqua,
                     "Shaved",

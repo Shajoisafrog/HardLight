@@ -1,6 +1,6 @@
 // SPDX-FileCopyrightText: 2020 20kdc
 // SPDX-FileCopyrightText: 2020 DamianX
-// SPDX-FileCopyrightText: 2020 Víctor Aguilera Puerto
+// SPDX-FileCopyrightText: 2020 VÃ­ctor Aguilera Puerto
 // SPDX-FileCopyrightText: 2021 Acruid
 // SPDX-FileCopyrightText: 2021 Metal Gear Sloth
 // SPDX-FileCopyrightText: 2021 Remie Richards
@@ -192,9 +192,6 @@ namespace Content.Shared.Preferences
             string name,
             string flavortext,
             string species,
-            string customspeciename,
-            float height,
-            float width,
             int age,
             Sex sex,
             Gender gender,
@@ -211,9 +208,6 @@ namespace Content.Shared.Preferences
             Name = name;
             FlavorText = flavortext;
             Species = species;
-            Customspeciename = customspeciename;
-            Height = height;
-            Width = width;
             Age = age;
             Sex = sex;
             Gender = gender;
@@ -235,7 +229,7 @@ namespace Content.Shared.Preferences
             HashSet<ProtoId<AntagPrototype>> antagPreferences,
             HashSet<ProtoId<TraitPrototype>> traitPreferences,
             Dictionary<string, RoleLoadout> loadouts)
-            : this(other.Name, other.FlavorText, other.Species, other.Customspeciename, other.Height, other.Width, other.Age, other.Sex, other.Gender, other.Appearance,
+            : this(other.Name, other.FlavorText, other.Species, other.Age, other.Sex, other.Gender, other.BankBalance, other.Appearance, other.SpawnPriority,
                 jobPriorities, other.PreferenceUnavailable, antagPreferences, traitPreferences, loadouts, other.Company)
         {
         }
@@ -260,59 +254,12 @@ namespace Content.Shared.Preferences
         {
         }
 
-        public HumanoidCharacterProfile(
-            string name,
-            string flavortext,
-            string species,
-            string customspeciename,
-            float height,
-            float width,
-            int age,
-            Sex sex,
-            Gender gender,
-            HumanoidCharacterAppearance appearance,
-            ClothingPreference clothing,
-            BackpackPreference backpack,
-            SpawnPriorityPreference spawnPriority,
-            IReadOnlyDictionary<string, JobPriority> jobPriorities,
-            PreferenceUnavailableMode preferenceUnavailable,
-            IReadOnlyList<string> antagPreferences,
-            IReadOnlyList<string> traitPreferences,
-            IReadOnlyList<string> loadoutPreferences)
-            : this(name, flavortext, species, customspeciename, height, width, age, sex, gender, appearance, clothing, backpack, spawnPriority,
-                new Dictionary<string, JobPriority>(jobPriorities), preferenceUnavailable,
-                new List<string>(antagPreferences), new List<string>(traitPreferences),
-                new List<string>(loadoutPreferences))
-        {
-        }
-
         /// <summary>
         ///     Get the default humanoid character profile, using internal constant values.
         ///     Defaults to <see cref="SharedHumanoidAppearanceSystem.DefaultSpecies"/> for the species.
         /// </summary>
         /// <returns></returns>
-        public HumanoidCharacterProfile() : this(
-            "John Doe",
-            "",
-            SharedHumanoidAppearanceSystem.DefaultSpecies,
-            "",
-            1f,
-            1f,
-            18,
-            Sex.Male,
-            Gender.Male,
-            new HumanoidCharacterAppearance(),
-            ClothingPreference.Jumpsuit,
-            BackpackPreference.Backpack,
-            SpawnPriorityPreference.None,
-            new Dictionary<string, JobPriority>
-            {
-                {SharedGameTicker.FallbackOverflowJob, JobPriority.High}
-            },
-            PreferenceUnavailableMode.SpawnAsOverflow,
-            new List<string>(),
-            new List<string>(),
-            new List<string>())
+        public HumanoidCharacterProfile()
         {
         }
 
@@ -329,28 +276,6 @@ namespace Content.Shared.Preferences
             {
                 Species = species,
             };
-            return new(
-                "John Doe",
-                "",
-                species,
-                "",
-                1f,
-                1f,
-                18,
-                Sex.Male,
-                Gender.Male,
-                HumanoidCharacterAppearance.DefaultWithSpecies(species),
-                ClothingPreference.Jumpsuit,
-                BackpackPreference.Backpack,
-                SpawnPriorityPreference.None,
-                new Dictionary<string, JobPriority>
-                {
-                    {SharedGameTicker.FallbackOverflowJob, JobPriority.High}
-                },
-                PreferenceUnavailableMode.SpawnAsOverflow,
-                new List<string>(),
-                new List<string>(),
-                new List<string>());
         }
 
         // TODO: This should eventually not be a visual change only.
@@ -396,49 +321,16 @@ namespace Content.Shared.Preferences
             }
 
             var name = GetName(species, gender);
-
-            return new HumanoidCharacterProfile(name, "", species, species, height, width, age, sex, gender,
-
+            return new HumanoidCharacterProfile()
+            {
+                Name = name,
+                Sex = sex,
+                Age = age,
+                Gender = gender,
+                Species = species,
                 Appearance = HumanoidCharacterAppearance.Random(species, sex),
             };
         }
-
-        public string Name { get; private set; }
-        public string FlavorText { get; private set; }
-
-        [DataField("species")]
-        public string Species { get; private set; }
-
-        [DataField]
-        public string Customspeciename { get; private set; }
-
-        [DataField("height")]
-        public float Height { get; private set; }
-
-        [DataField("width")]
-        public float Width { get; private set; }
-
-        [DataField("age")]
-        public int Age { get; private set; }
-
-        [DataField("sex")]
-        public Sex Sex { get; private set; }
-
-        [DataField("gender")]
-        public Gender Gender { get; private set; }
-
-        public ICharacterAppearance CharacterAppearance => Appearance;
-
-        [DataField("appearance")]
-        public HumanoidCharacterAppearance Appearance { get; private set; }
-        public ClothingPreference Clothing { get; private set; }
-        public BackpackPreference Backpack { get; private set; }
-        public SpawnPriorityPreference SpawnPriority { get; private set; }
-        public IReadOnlyDictionary<string, JobPriority> JobPriorities => _jobPriorities;
-        public IReadOnlyList<string> AntagPreferences => _antagPreferences;
-        public IReadOnlyList<string> TraitPreferences => _traitPreferences;
-        public IReadOnlyList<string> LoadoutPreferences => _loadoutPreferences;
-        public PreferenceUnavailableMode PreferenceUnavailable { get; private set; }
 
         public HumanoidCharacterProfile WithName(string name)
         {
@@ -472,12 +364,7 @@ namespace Content.Shared.Preferences
         }
         // End Frontier
 
-        public HumanoidCharacterProfile WithCustomSpeciesName(string customspeciename)
-        {
-            return new(this) { Customspeciename = customspeciename };
-        }
-
-        public HumanoidCharacterProfile WithHeight(float height)
+        public HumanoidCharacterProfile WithSpecies(string species)
         {
             return new(this) { Species = species };
         }
@@ -725,10 +612,6 @@ namespace Content.Shared.Preferences
                 name = GetName(Species, gender);
             }
 
-            var customspeciename = speciesPrototype.CustomName
-                ? FormattedMessage.RemoveMarkup(Customspeciename ?? "")[..MaxNameLength]
-                : "";
-
             string flavortext;
             if (FlavorText.Length > MaxDescLength)
             {
@@ -795,7 +678,6 @@ namespace Content.Shared.Preferences
                          .ToList();
 
             Name = name;
-            Customspeciename = customspeciename;
             FlavorText = flavortext;
             Age = age;
             Sex = sex;
@@ -889,31 +771,22 @@ namespace Content.Shared.Preferences
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(
-                HashCode.Combine(
-                    Name,
-                    Species,
-                    Age,
-                    Sex,
-                    Gender,
-                    Appearance,
-                    Clothing,
-                    Backpack
-                ),
-                HashCode.Combine(
-                    SpawnPriority,
-                    Height,
-                    Width,
-                    PreferenceUnavailable,
-                    _jobPriorities,
-                    _antagPreferences,
-                    _traitPreferences,
-                    _loadoutPreferences
-                ),
-                HashCode.Combine(
-                    Customspeciename
-                )
-            );
+            var hashCode = new HashCode();
+            hashCode.Add(_jobPriorities);
+            hashCode.Add(_antagPreferences);
+            hashCode.Add(_traitPreferences);
+            hashCode.Add(_loadouts);
+            hashCode.Add(Name);
+            hashCode.Add(FlavorText);
+            hashCode.Add(Species);
+            hashCode.Add(Age);
+            hashCode.Add((int)Sex);
+            hashCode.Add((int)Gender);
+            hashCode.Add(Appearance);
+            hashCode.Add(BankBalance); // Frontier
+            hashCode.Add((int)SpawnPriority);
+            hashCode.Add((int)PreferenceUnavailable);
+            return hashCode.ToHashCode();
         }
 
         public void SetLoadout(RoleLoadout loadout)
