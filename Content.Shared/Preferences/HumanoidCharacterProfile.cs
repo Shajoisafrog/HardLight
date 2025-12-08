@@ -1,6 +1,6 @@
 // SPDX-FileCopyrightText: 2020 20kdc
 // SPDX-FileCopyrightText: 2020 DamianX
-// SPDX-FileCopyrightText: 2020 Vï¿½ctor Aguilera Puerto
+// SPDX-FileCopyrightText: 2020 Víctor Aguilera Puerto
 // SPDX-FileCopyrightText: 2021 Acruid
 // SPDX-FileCopyrightText: 2021 Metal Gear Sloth
 // SPDX-FileCopyrightText: 2021 Remie Richards
@@ -235,8 +235,9 @@ namespace Content.Shared.Preferences
             HashSet<ProtoId<AntagPrototype>> antagPreferences,
             HashSet<ProtoId<TraitPrototype>> traitPreferences,
             Dictionary<string, RoleLoadout> loadouts)
-            : this(other.Name, other.FlavorText, other.Species, other.Customspeciename, other.Height, other.Width, other.Age, other.Sex, other.Gender, other.BankBalance, other.Appearance,
-                other.SpawnPriority, jobPriorities, other.PreferenceUnavailable, antagPreferences, traitPreferences, loadouts, other.Company)
+            : this(other.Name, other.FlavorText, other.Species, other.Age, other.Sex, other.Gender, other.BankBalance, other.Appearance, other.SpawnPriority,
+            : this(other.Name, other.FlavorText, other.Species, other.Customspeciename, other.Height, other.Width, other.Age, other.Sex, other.Gender, other.Appearance,
+                jobPriorities, other.PreferenceUnavailable, antagPreferences, traitPreferences, loadouts, other.Company)
         {
         }
 
