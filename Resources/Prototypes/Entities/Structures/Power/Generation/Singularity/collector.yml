@@ -60,9 +60,26 @@
     chargeModifier: 7500
     radiationReactiveGases:
       - reactantPrototype: Plasma
+        powerGenerationEfficiency: 1.5
+        reactantBreakdownRate: 0.0001
+        molarRatio: 0.75
+        byproduct: Tritium
+      - reactantPrototype: Tritium
         powerGenerationEfficiency: 1
         reactantBreakdownRate: 0.0001
   - type: RadiationReceiver
+  - type: RadCollectorSignal # Goobstation
+  - type: AutomationSlots # Goobstation
+    slots:
+    - !type:AutomatedItemSlot
+      input: AutomationSlotGasTank
+      output: AutomationSlotGasTank
+      slotId: gas_tank
+    - !type:AutomatedPorts
+      sources:
+      - RadEmpty
+      - RadLow
+      - RadFull
   - type: PowerSupplier
   - type: Anchorable
   - type: Rotatable

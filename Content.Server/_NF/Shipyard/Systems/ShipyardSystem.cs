@@ -2,6 +2,7 @@ using Content.Server.Shuttles.Systems;
 using Content.Server.Shuttles.Components;
 using Content.Shared.Station.Components;
 using Content.Server.Cargo.Systems;
+using Robust.Shared.Timing; // For IGameTiming
 using Content.Server.Station.Systems;
 using Content.Shared._NF.Shipyard.Components;
 using Content.Shared._NF.Shipyard;
@@ -46,6 +47,7 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
     [Dependency] private readonly SharedContainerSystem _container = default!; // For safe container removal before deletion
     [Dependency] private readonly UseDelaySystem _useDelay = default!;
     [Dependency] private readonly EntityLookupSystem _lookup = default!;
+    [Dependency] private readonly IGameTiming _timing = default!; // For cooldown timing
 
     private EntityQuery<TransformComponent> _transformQuery;
 
@@ -55,6 +57,7 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
     private ISawmill _sawmill = default!;
     private bool _enabled;
     private float _baseSaleRate;
+    private readonly Dictionary<EntityUid, TimeSpan> _lastLoadCharge = new(); // Per-player load charge cooldown
 
     // The type of error from the attempted sale of a ship.
     public enum ShipyardSaleError
@@ -175,7 +178,7 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
         var price = _pricing.AppraiseGrid(grid, null);
         var targetGrid = consoleXform.GridUid.Value;
 
-        _sawmill.Info($"Shuttle {shuttlePath} was purchased at {ToPrettyString(consoleUid)} for {price:f2}");
+        //_sawmill.Info($"Shuttle {shuttlePath} was purchased at {ToPrettyString(consoleUid)} for {price:f2}");
 
         // Ensure required components for docking and identification
         EntityManager.EnsureComponent<Robust.Shared.Physics.Components.PhysicsComponent>(grid);
@@ -224,7 +227,7 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
 
         var targetGrid = consoleXform.GridUid.Value;
 
-        _sawmill.Info($"Shuttle loaded from file {shuttlePath} at {ToPrettyString(consoleUid)}");
+        //_sawmill.Info($"Shuttle loaded from file {shuttlePath} at {ToPrettyString(consoleUid)}");
 
         // Ensure required components for docking and identification
         EnsureComp<PhysicsComponent>(grid);
@@ -276,7 +279,7 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
 
         if (!_mapLoader.TryLoadGrid(ShipyardMap.Value, shuttlePath, out var grid, offset: new Vector2(500f + _shuttleIndex, 1f)))
         {
-            _sawmill.Error($"Unable to spawn shuttle {shuttlePath}");
+            //_sawmill.Error($"Unable to spawn shuttle {shuttlePath}");
             return false;
         }
 
@@ -316,7 +319,7 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
         }
         catch (Exception ex)
         {
-            _sawmill.Error($"Failed to purchase shuttle from YAML data: {ex.Message}");
+            //_sawmill.Error($"Failed to purchase shuttle from YAML data: {ex.Message}");
             return false;
         }
         finally
@@ -423,8 +426,8 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
             }
         }
 
-        if (removed > 0)
-            _sawmill.Info($"[ShipLoad] Purged {removed} deserialized JointComponent(s) on grid {gridUid}");
+        /* if (removed > 0)
+            _sawmill.Info($"[ShipLoad] Purged {removed} deserialized JointComponent(s) on grid {gridUid}"); */
     }
 
     /// <summary>
@@ -475,7 +478,7 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
 
         if (!isDocked)
         {
-            _sawmill.Warning($"shuttle is not docked to the console's grid");
+            //_sawmill.Warning($"shuttle is not docked to the console's grid");
             result.Error = ShipyardSaleError.Undocked;
             return result;
         }
@@ -486,7 +489,7 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
         var charName = FoundOrganics(shuttleUid, mobQuery, xformQuery);
         if (charName is not null)
         {
-            _sawmill.Warning($"organics on board");
+            //_sawmill.Warning($"organics on board");
             result.Error = ShipyardSaleError.OrganicsAboard;
             result.OrganicName = charName;
             return result;
@@ -499,7 +502,7 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
 
         bill = (int)_pricing.AppraiseGrid(shuttleUid, LacksPreserveOnSaleComp);
         QueueDel(shuttleUid);
-        _sawmill.Info($"Sold shuttle {shuttleUid} for {bill}");
+        //_sawmill.Info($"Sold shuttle {shuttleUid} for {bill}");
 
         // Update all record UI (skip records, no new records)
         _shuttleRecordsSystem.RefreshStateForAll(true);

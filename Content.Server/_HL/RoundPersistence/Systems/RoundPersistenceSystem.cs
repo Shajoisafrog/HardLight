@@ -38,6 +38,13 @@ using Robust.Shared.Configuration;
 using Robust.Shared.Utility;
 using System.Numerics;
 using System.Threading;
+using Robust.Server.Player; // For IPlayerManager
+using Content.Server.CharacterInfo; // For CharacterInfo updates
+using Content.Server.Mind; // For MindSystem
+using Content.Server.Roles.Jobs; // For JobSystem
+using Content.Server.Roles; // For RoleSystem
+using Content.Shared.Objectives; // For ObjectiveInfo
+using Content.Shared.Objectives.Components; // For ObjectiveComponent
 
 namespace Content.Server.HL.RoundPersistence.Systems;
 
@@ -60,6 +67,11 @@ public sealed class RoundPersistenceSystem : EntitySystem
     [Dependency] private MetaDataSystem _metaDataSystem = default!;
     [Dependency] private SalvageSystem _salvageSystem = default!;
     [Dependency] private ShuttleSystem _shuttle = default!;
+    [Dependency] private IPlayerManager _players = default!;
+    [Dependency] private MindSystem _minds = default!;
+    [Dependency] private JobSystem _jobs = default!;
+    [Dependency] private RoleSystem _roles = default!;
+    [Dependency] private Content.Shared.Objectives.Systems.SharedObjectivesSystem _objectives = default!;
 
     private ISawmill _sawmill = default!;
 
@@ -77,7 +89,7 @@ public sealed class RoundPersistenceSystem : EntitySystem
     {
         base.Initialize();
 
-        _sawmill = Logger.GetSawmill("round-persistence");
+        //_sawmill = Logger.GetSawmill("round-persistence");
 
         // Listen for round events
         SubscribeLocalEvent<RoundRestartCleanupEvent>(OnRoundRestart);
@@ -109,7 +121,7 @@ public sealed class RoundPersistenceSystem : EntitySystem
             UpdateExpeditionUIs();
         }, _timerCts.Token);
 
-        _sawmill.Info("Round persistence system initialized");
+        //_sawmill.Info("Round persistence system initialized");
     }
 
     /// <summary>
@@ -120,10 +132,117 @@ public sealed class RoundPersistenceSystem : EntitySystem
         if (!_cfg.GetCVar(HLCCVars.RoundPersistenceEnabled))
             return;
 
-        _sawmill.Info("Round restart detected, saving persistent data...");
+        //_sawmill.Info("Round restart detected, saving persistent data...");
 
         EnsurePersistentEntity();
         SaveAllCriticalData();
+
+        // Clear antagonist roles and objectives to prevent duplicate payouts across restarts
+        ClearAntagonistRolesAndObjectives();
+
+        // Push character info updates so clients immediately see cleared objectives/roles
+        RefreshCharacterInfoForAllPlayers();
+    }
+
+    /// <summary>
+    /// Clears antagonist roles and objectives from all minds during restart cleanup.
+    /// Prevents players from getting paid multiple times for the same objective after a restart.
+    /// </summary>
+    private void ClearAntagonistRolesAndObjectives()
+    {
+        try
+        {
+            var mindQuery = EntityQueryEnumerator<Content.Shared.Mind.MindComponent>();
+            var clearedCount = 0;
+
+            while (mindQuery.MoveNext(out var mindUid, out var mind))
+            {
+                // Clear objectives using MindSystem API to fully detach and clean state
+                if (mind.Objectives.Count > 0)
+                {
+                    // Remove from highest index to lowest to preserve indices
+                    for (var i = mind.Objectives.Count - 1; i >= 0; i--)
+                    {
+                        _minds.TryRemoveObjective(mindUid, mind, i);
+                    }
+                }
+
+                // Clear mind role entities (antag roles are BaseMindRoleComponent-derived)
+                if (mind.MindRoles.Count > 0)
+                {
+                    foreach (var roleEnt in mind.MindRoles.ToArray())
+                    {
+                        if (Exists(roleEnt))
+                            QueueDel(roleEnt);
+                    }
+                    mind.MindRoles.Clear();
+                }
+
+                // Reset role type to neutral
+                mind.RoleType = "Neutral";
+
+                Dirty(mindUid, mind);
+                clearedCount++;
+            }
+
+            //_sawmill.Info($"Cleared antagonist roles/objectives for {clearedCount} minds during restart cleanup");
+        }
+        catch (Exception e)
+        {
+            //_sawmill.Error($"Error clearing antagonist roles/objectives on restart: {e}");
+        }
+    }
+
+    /// <summary>
+    /// Sends updated CharacterInfo to all connected players so their character window reflects cleared objectives/roles.
+    /// </summary>
+    private void RefreshCharacterInfoForAllPlayers()
+    {
+        try
+        {
+            var sessions = _players.Sessions.ToList();
+            foreach (var session in sessions)
+            {
+                if (!session.AttachedEntity.HasValue)
+                    continue;
+
+                var entity = session.AttachedEntity.Value;
+
+                var objectives = new Dictionary<string, List<ObjectiveInfo>>();
+                var jobTitle = Loc.GetString("character-info-no-profession");
+                string? briefing = null;
+
+                if (_minds.TryGetMind(entity, out var mindId, out var mind))
+                {
+                    // Build objectives (will be empty after cleanup)
+                    foreach (var objective in mind.Objectives)
+                    {
+                        var info = _objectives.GetInfo(objective, mindId, mind);
+                        if (info == null)
+                            continue;
+
+                        var issuer = Comp<ObjectiveComponent>(objective).LocIssuer;
+                        if (!objectives.ContainsKey(issuer))
+                            objectives[issuer] = new List<ObjectiveInfo>();
+                        objectives[issuer].Add(info.Value);
+                    }
+
+                    if (_jobs.MindTryGetJobName(mindId, out var jobName))
+                        jobTitle = jobName;
+
+                    briefing = _roles.MindGetBriefing(mindId);
+                }
+
+                RaiseNetworkEvent(new Content.Shared.CharacterInfo.CharacterInfoEvent(GetNetEntity(entity), jobTitle, objectives, briefing), session);
+            }
+
+            //_sawmill.Info($"Pushed CharacterInfo updates to {sessions.Count} players after antag/objective cleanup");
+        }
+        catch (Exception e)
+        {
+            // Swallow errors to avoid breaking round startup; optional logging can be enabled.
+            _sawmill.Error($"Error refreshing character info after cleanup: {e}");
+        }
     }
 
     /// <summary>
@@ -134,7 +253,14 @@ public sealed class RoundPersistenceSystem : EntitySystem
         if (!_cfg.GetCVar(HLCCVars.RoundPersistenceEnabled))
             return;
 
-        _sawmill.Info("Round started, will restore data when stations are created");
+        //_sawmill.Info("Round started, will restore data when stations are created");
+
+        // Also ensure antagonists/objectives are cleared at the start of the new round
+        // in case cleanup timing missed any minds created late during restart.
+        ClearAntagonistRolesAndObjectives();
+        RefreshCharacterInfoForAllPlayers();
+
+        
     }
 
     /// <summary>
@@ -184,23 +310,22 @@ public sealed class RoundPersistenceSystem : EntitySystem
     /// </summary>
     private void OnExpeditionConsoleMapInit(EntityUid uid, SalvageExpeditionConsoleComponent component, MapInitEvent args)
     {
-        Log.Info($"OnExpeditionConsoleMapInit called for console {ToPrettyString(uid)}");
+       // Log.Info($"OnExpeditionConsoleMapInit called for console {ToPrettyString(uid)}");
 
         if (!_cfg.GetCVar(HLCCVars.RoundPersistenceEnabled) || !_cfg.GetCVar(HLCCVars.RoundPersistenceExpeditions))
         {
-            Log.Info($"Round persistence disabled for console {ToPrettyString(uid)}");
+            // Log.Info($"Round persistence disabled for console {ToPrettyString(uid)}");
             return;
         }
 
-        Log.Info($"Scheduling console restoration for {ToPrettyString(uid)} in 2000ms");
-
+        // Log.Info($"Scheduling console restoration for {ToPrettyString(uid)} in 2000ms");
         // HARDLIGHT: Use a longer delay to ensure the console is fully initialized AND that station data has been restored AND that shuttle docking is complete
         // Station restoration happens after 1000ms, shuttle docking happens during station restoration, so console restoration must happen well after that
         RobustTimer.Spawn(TimeSpan.FromMilliseconds(2000), () =>
         {
             if (_timerCts.IsCancellationRequested)
                 return;
-            Log.Info($"Starting console restoration for {ToPrettyString(uid)}");
+            // Log.Info($"Starting console restoration for {ToPrettyString(uid)}");
             RestoreConsoleExpeditionData(uid, component);
         }, _timerCts.Token);
     }
@@ -214,7 +339,7 @@ public sealed class RoundPersistenceSystem : EntitySystem
         // Get the grid this console is on to identify the shuttle
         if (!TryComp<TransformComponent>(consoleUid, out var xform) || xform.GridUid == null)
         {
-            Log.Warning($"Console {ToPrettyString(consoleUid)} has no grid - cannot restore expedition data");
+            // Log.Warning($"Console {ToPrettyString(consoleUid)} has no grid - cannot restore expedition data");
             return;
         }
 
@@ -225,41 +350,41 @@ public sealed class RoundPersistenceSystem : EntitySystem
         var owningStation = _station.GetOwningStation(consoleUid, xform);
         if (owningStation == null)
         {
-            Log.Warning($"Console {ToPrettyString(consoleUid)} on {gridName} has no owning station - this might be the issue!");
+            // Log.Warning($"Console {ToPrettyString(consoleUid)} on {gridName} has no owning station - this might be the issue!");
             return;
         }
 
         var stationName = TryComp<MetaDataComponent>(owningStation.Value, out var stationMeta) ? stationMeta.EntityName : owningStation.Value.ToString();
-        Log.Info($"Console {ToPrettyString(consoleUid)} on {gridName} found owning station: {stationName}");
+        // Log.Info($"Console {ToPrettyString(consoleUid)} on {gridName} found owning station: {stationName}");
 
         // If the station has expedition data, the console should use it automatically
         if (TryComp<SalvageExpeditionDataComponent>(owningStation.Value, out var expeditionData))
         {
-            Log.Info($"Station {stationName} has expedition data with {expeditionData.Missions.Count} missions");
+            //Log.Info($"Station {stationName} has expedition data with {expeditionData.Missions.Count} missions");
 
             // Force a console update to ensure it displays the station's expedition data
             if (TryComp<SalvageExpeditionConsoleComponent>(consoleUid, out var console))
             {
-                Log.Info($"Forcing console update for {ToPrettyString(consoleUid)}");
+                //Log.Info($"Forcing console update for {ToPrettyString(consoleUid)}");
                 // Use the salvage system to update this specific console
                 _salvageSystem.UpdateConsole(new Entity<SalvageExpeditionConsoleComponent>(consoleUid, console));
 
                 // Double-check: try to get the data through the salvage system's method
                 var salvageData = _salvageSystem.GetStationExpeditionData(consoleUid);
-                if (salvageData != null)
+/*                 if (salvageData != null)
                 {
                     Log.Info($"Salvage system found {salvageData.Missions.Count} missions for console after update");
                 }
                 else
                 {
                     Log.Error($"Salvage system still can't find expedition data for console {ToPrettyString(consoleUid)} - this is the bug!");
-                }
+                } */
             }
         }
-        else
+        /* else
         {
             Log.Warning($"Station {stationName} has no expedition data - checking if station restoration failed");
-        }
+        } */
     }
 
     /// <summary>
@@ -277,7 +402,7 @@ public sealed class RoundPersistenceSystem : EntitySystem
             var metaData = EntityManager.EnsureComponent<MetaDataComponent>(_persistentEntity.Value);
             _metaDataSystem.SetEntityName(_persistentEntity.Value, "Round Persistence Entity", metaData);
 
-            _sawmill.Info($"Created persistent entity {_persistentEntity.Value} on map {mapId}");
+            //_sawmill.Info($"Created persistent entity {_persistentEntity.Value} on map {mapId}");
         }
     }
 
@@ -311,7 +436,7 @@ public sealed class RoundPersistenceSystem : EntitySystem
             // Validate entity exists and has metadata before proceeding
             if (!EntityManager.EntityExists(stationUid) || TerminatingOrDeleted(stationUid) || !TryComp<MetaDataComponent>(stationUid, out var stationMeta))
             {
-                _sawmill.Warning($"Skipping invalid station entity {stationUid} during persistence save");
+                //_sawmill.Warning($"Skipping invalid station entity {stationUid} during persistence save");
                 continue;
             }
 
@@ -332,7 +457,7 @@ public sealed class RoundPersistenceSystem : EntitySystem
             SaveShuttleData(shuttleUid, shuttle, iff, persistence);
         }
 
-        _sawmill.Info($"Saved persistent data for {persistence.ExpeditionData.Count} stations, {persistence.ConsoleData.Count} consoles, and {persistence.ShipData.Count} ships");
+        //_sawmill.Info($"Saved persistent data for {persistence.ExpeditionData.Count} stations, {persistence.ConsoleData.Count} consoles, and {persistence.ShipData.Count} ships");
     }
 
     /// <summary>
@@ -428,7 +553,7 @@ public sealed class RoundPersistenceSystem : EntitySystem
         // Validate entity exists and has metadata before proceeding
         if (!EntityManager.EntityExists(shuttleUid) || TerminatingOrDeleted(shuttleUid) || !TryComp<MetaDataComponent>(shuttleUid, out var shuttleMeta))
         {
-            _sawmill.Warning($"Skipping invalid shuttle entity {shuttleUid} during persistence save");
+            //_sawmill.Warning($"Skipping invalid shuttle entity {shuttleUid} during persistence save");
             return;
         }
 
@@ -497,7 +622,7 @@ public sealed class RoundPersistenceSystem : EntitySystem
             return;
 
         var stationName = stationMeta.EntityName;
-        _sawmill.Info($"Restoring data for station: {stationName}");
+        //_sawmill.Info($"Restoring data for station: {stationName}");
 
         // Restore expedition data
         if (persistence.ExpeditionData.TryGetValue(stationName, out var expeditionData))
@@ -540,13 +665,13 @@ public sealed class RoundPersistenceSystem : EntitySystem
                     _salvageSystem.ForceGenerateMissions(expeditionComp);
                 }
 
-                _sawmill.Info($"Expedition timer expired during restart, missions will be regenerated automatically");
+               // _sawmill.Info($"Expedition timer expired during restart, missions will be regenerated automatically");
             }
             else
             {
                 // Timer hasn't expired yet - preserve original timing
                 expeditionComp.NextOffer = expeditionData.NextOffer;
-                _sawmill.Info($"Expedition timer preserved, {(expeditionData.NextOffer - currentTime).TotalSeconds:F1} seconds remaining");
+                //_sawmill.Info($"Expedition timer preserved, {(expeditionData.NextOffer - currentTime).TotalSeconds:F1} seconds remaining");
             }
 
             // Mark component as dirty to trigger UI updates
@@ -570,7 +695,7 @@ public sealed class RoundPersistenceSystem : EntitySystem
                     // Update consoles that belong directly to this station OR shuttles that should use this station's data
                     if (consoleStation == stationUid || ShouldUpdateShuttleConsole(consoleUid, consoleStation, stationUid))
                     {
-                        _sawmill.Info($"Updating console {ToPrettyString(consoleUid)} for station {stationName}");
+                        //_sawmill.Info($"Updating console {ToPrettyString(consoleUid)} for station {stationName}");
                         // Force UI update by triggering console update logic
                         if (TryComp<SalvageExpeditionDataComponent>(stationUid, out var stationDataComp))
                         {
@@ -583,17 +708,17 @@ public sealed class RoundPersistenceSystem : EntitySystem
                     {
                         var consoleStationName = TryComp<MetaDataComponent>(consoleStation.Value, out var consoleStationMeta)
                             ? consoleStationMeta.EntityName : consoleStation.Value.ToString();
-                        _sawmill.Debug($"Console {ToPrettyString(consoleUid)} belongs to different station {consoleStationName}");
+                        //_sawmill.Debug($"Console {ToPrettyString(consoleUid)} belongs to different station {consoleStationName}");
                     }
-                    else
+                    /* else
                     {
                         _sawmill.Warning($"Console {ToPrettyString(consoleUid)} has no owning station during restoration");
-                    }
+                    } */
                 }
-                _sawmill.Info($"Updated expedition console UIs for station {stationName} and associated shuttles ({consolesUpdated} consoles updated)");
+                //_sawmill.Info($"Updated expedition console UIs for station {stationName} and associated shuttles ({consolesUpdated} consoles updated)");
             }, _timerCts.Token);
 
-            _sawmill.Info($"Restored expedition data with {expeditionData.Missions.Count} missions, NextOffer: {expeditionComp.NextOffer}, Claimed: {expeditionComp.Claimed}");
+            //_sawmill.Info($"Restored expedition data with {expeditionData.Missions.Count} missions, NextOffer: {expeditionComp.NextOffer}, Claimed: {expeditionComp.Claimed}");
         }
 
         // Restore shuttle records
@@ -607,7 +732,7 @@ public sealed class RoundPersistenceSystem : EntitySystem
                 if (consoleStation == stationUid)
                 {
                     _shuttleRecords.RestoreShuttleRecords(shuttleRecords);
-                    _sawmill.Info($"Restored {shuttleRecords.Count} shuttle records");
+                    //_sawmill.Info($"Restored {shuttleRecords.Count} shuttle records");
                     break;
                 }
             }
@@ -629,7 +754,7 @@ public sealed class RoundPersistenceSystem : EntitySystem
                 _stationRecords.AddRecordEntry(key, record);
             }
 
-            _sawmill.Info($"Restored {stationRecordsData.GeneralRecords.Count} station records");
+            //_sawmill.Info($"Restored {stationRecordsData.GeneralRecords.Count} station records");
         }
     }
 
@@ -666,7 +791,7 @@ public sealed class RoundPersistenceSystem : EntitySystem
                 _metaDataSystem.SetEntityName(shuttleUid, shipData.ShipName, meta);
             }
 
-            _sawmill.Info($"Restored metadata for ship: {shipData.ShipName}");
+            //_sawmill.Info($"Restored metadata for ship: {shipData.ShipName}");
         }
     }
 
@@ -679,7 +804,7 @@ public sealed class RoundPersistenceSystem : EntitySystem
         // Get the station's grids for docking
         if (!TryComp<StationDataComponent>(stationUid, out var stationData) || stationData.Grids.Count == 0)
         {
-            _sawmill.Warning($"Station {stationName} has no grids for shuttle docking");
+            //_sawmill.Warning($"Station {stationName} has no grids for shuttle docking");
             return;
         }
 
@@ -709,17 +834,17 @@ public sealed class RoundPersistenceSystem : EntitySystem
                     _shuttle.TryFTLDock(shuttleUid.Value, shuttleComp, targetGrid))
                 {
                     shuttlesDocked++;
-                    _sawmill.Info($"Docked shuttle {shuttleRecord.Name} ({shuttleUid}) to its home station {stationName}");
+                    //_sawmill.Info($"Docked shuttle {shuttleRecord.Name} ({shuttleUid}) to its home station {stationName}");
 
                     // Manually ensure the shuttle has proper station membership
                     var stationMember = EntityManager.EnsureComponent<StationMemberComponent>(shuttleUid.Value);
                     stationMember.Station = stationUid;
-                    _sawmill.Info($"Set station membership for shuttle {shuttleRecord.Name} ({shuttleUid}) to station {stationName}");
+                    //_sawmill.Info($"Set station membership for shuttle {shuttleRecord.Name} ({shuttleUid}) to station {stationName}");
                 }
-                else
+                /* else
                 {
                     _sawmill.Warning($"Failed to dock shuttle {shuttleRecord.Name} ({shuttleUid}) to station {stationName}");
-                }
+                } */
             }
         }
 
@@ -737,25 +862,25 @@ public sealed class RoundPersistenceSystem : EntitySystem
                     if (_shuttle.TryFTLDock(shuttleUid.Value, shuttleComp, targetGrid))
                     {
                         shuttlesDocked++;
-                        _sawmill.Info($"Docked unowned shuttle {shipData.ShipName} ({shuttleUid}) to station {stationName}");
+                        //_sawmill.Info($"Docked unowned shuttle {shipData.ShipName} ({shuttleUid}) to station {stationName}");
 
                         // Manually ensure the shuttle has proper station membership
                         var stationMember = EntityManager.EnsureComponent<StationMemberComponent>(shuttleUid.Value);
                         stationMember.Station = stationUid;
-                        _sawmill.Info($"Set station membership for shuttle {shipData.ShipName} ({shuttleUid}) to station {stationName}");
+                        //_sawmill.Info($"Set station membership for shuttle {shipData.ShipName} ({shuttleUid}) to station {stationName}");
                     }
-                    else
+                    /* else
                     {
                         _sawmill.Warning($"Failed to dock shuttle {shipData.ShipName} ({shuttleUid}) to station {stationName}");
-                    }
+                    } */
                 }
             }
         }
 
-        if (shuttlesDocked > 0)
+        /* if (shuttlesDocked > 0)
         {
             _sawmill.Info($"Docked {shuttlesDocked} shuttles to station {stationName}");
-        }
+        } */
     }
 
     /// <summary>
@@ -770,7 +895,7 @@ public sealed class RoundPersistenceSystem : EntitySystem
             if (component.Missions.Count > 0 || component.ActiveMission != 0)
             {
                 SaveStationData(uid, Comp<StationDataComponent>(uid), stationName, persistence);
-                _sawmill.Info($"Emergency save of expedition data for {stationName}");
+                //_sawmill.Info($"Emergency save of expedition data for {stationName}");
             }
         }
     }
@@ -798,7 +923,7 @@ public sealed class RoundPersistenceSystem : EntitySystem
     {
         EnsurePersistentEntity();
         SaveAllCriticalData();
-        _sawmill.Info("Forced save of persistent data completed");
+        //_sawmill.Info("Forced save of persistent data completed");
     }
 
     /// <summary>
@@ -817,24 +942,9 @@ public sealed class RoundPersistenceSystem : EntitySystem
     /// </summary>
     private void UpdateExpeditionUIs()
     {
-        var expeditionQuery = AllEntityQuery<SalvageExpeditionDataComponent>();
-        while (expeditionQuery.MoveNext(out var stationUid, out var expeditionComp))
-        {
-            // Update console UIs for this station
-            var consoleQuery = AllEntityQuery<SalvageExpeditionConsoleComponent, UserInterfaceComponent, TransformComponent>();
-            while (consoleQuery.MoveNext(out var consoleUid, out _, out var uiComp, out var xform))
-            {
-                var consoleStation = _station.GetOwningStation(consoleUid, xform);
-
-                // Update consoles on the same station OR consoles on purchased shuttles
-                // (shuttles have their own station entity that's different from expedition data station)
-                if (consoleStation == stationUid || ShouldUpdateShuttleConsole(consoleUid, consoleStation, stationUid))
-                {
-                    var state = GetExpeditionState((stationUid, expeditionComp));
-                    _ui.SetUiState((consoleUid, uiComp), SalvageConsoleUiKey.Expedition, state);
-                }
-            }
-        }
+        // HARDLIGHT: Disable station-driven expedition UI updates.
+        // Consoles manage their own UI via SalvageSystem.UpdateConsole using grid-local data only.
+        return;
     }
 
     /// <summary>
@@ -844,24 +954,8 @@ public sealed class RoundPersistenceSystem : EntitySystem
     /// </summary>
     private bool ShouldUpdateShuttleConsole(EntityUid consoleUid, EntityUid? consoleStation, EntityUid expeditionStation)
     {
-        // If console is not on a station, skip it
-        if (consoleStation == null)
-            return false;
-
-        // Check if the console is on a shuttle (has ShuttleComponent) that was purchased
-        // We look for shuttles that have expedition consoles but are on a different station
-        var consoleGrid = Transform(consoleUid).GridUid;
-        if (consoleGrid == null)
-            return false;
-
-        // If this grid is a shuttle (has ShuttleComponent), allow updating from any expedition station
-        // This ensures that expedition consoles on purchased shuttles get updates regardless of
-        // which station the shuttle belongs to vs which station has the expedition data
-        if (HasComp<ShuttleComponent>(consoleGrid.Value))
-        {
-            return true;
-        }
-
+        // Do not push station expedition data to shuttle consoles.
+        // Shuttles maintain grid-local `SalvageExpeditionDataComponent` and must not be overlaid by station data.
         return false;
     }
 

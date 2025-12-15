@@ -7,7 +7,7 @@
     - type: CumProducer
       maxVol: 25
       reVol: 5
-      reHunger: 10
+      reHunger: 1
     ##  solutionname: "penis"
     ##- type: SolutionContainerManager
       ##solutions:
@@ -28,11 +28,12 @@
   - CumProducer
   - CumFlood
   - BluespaceBalls
+  - BarrelBalls
   components:
     - type: CumProducer
       maxVol: 100
       reVol: 20
-      reHunger: 10
+      reHunger: 1
 
 - type: trait
   id: CumFlood
@@ -43,11 +44,12 @@
   - CumProducer
   - CumCascade
   - BluespaceBalls
+  - BarrelBalls
   components:
     - type: CumProducer
       maxVol: 250
       reVol: 50
-      reHunger: 10
+      reHunger: 1
 
 - type: trait
   id: BluespaceBalls
@@ -58,11 +60,28 @@
   - CumProducer
   - CumCascade
   - CumFlood
+  - BarrelBalls
   components:
     - type: CumProducer
       maxVol: 1000
       reVol: 200
-      reHunger: 10
+      reHunger: 1
+
+- type: trait
+  id: BarrelBalls
+  name: trait-barrel-balls-name
+  description: trait-barrel-balls-desc
+  category: Physical
+  mutuallyExclusiveTraits:
+  - CumProducer
+  - CumCascade
+  - CumFlood
+  - BluespaceBalls
+  components:
+    - type: CumProducer
+      maxVol: 15000
+      reVol: 3750
+      reHunger: 1
 
 ##- type: trait
   ##id: MilkProducer
@@ -93,11 +112,12 @@
   - MilkCascade
   - MilkFlood
   - BluespaceBreasts
+  - BarrelBreasts
   components:
     - type: MilkProducer
       maxVol: 50
       reVol: 10
-      reHunger: 10
+      reHunger: 1
 
 - type: trait
   id: MilkCascade
@@ -108,11 +128,12 @@
   - MilkProducer
   - MilkFlood
   - BluespaceBreasts
+  - BarrelBreasts
   components:
     - type: MilkProducer
       maxVol: 100
       reVol: 20
-      reHunger: 10
+      reHunger: 1
 
 - type: trait
   id: MilkFlood
@@ -123,11 +144,12 @@
   - MilkProducer
   - MilkCascade
   - BluespaceBreasts
+  - BarrelBreasts
   components:
     - type: MilkProducer
       maxVol: 250
       reVol: 50
-      reHunger: 10
+      reHunger: 1
 
 - type: trait
   id: BluespaceBreasts
@@ -138,11 +160,28 @@
   - MilkProducer
   - MilkCascade
   - MilkFlood
+  - BarrelBreasts
   components:
     - type: MilkProducer
       maxVol: 1000
       reVol: 200
-      reHunger: 10
+      reHunger: 1
+
+- type: trait
+  id: BarrelBreasts
+  name: trait-barrel-breasts-name
+  description: trait-barrel-breasts-desc
+  category: Physical
+  mutuallyExclusiveTraits:
+  - MilkProducer
+  - MilkCascade
+  - MilkFlood
+  - BluespaceBreasts
+  components:
+    - type: MilkProducer
+      maxVol: 15000
+      reVol: 3750
+      reHunger: 1
 
 # WIP - Needs a Reagent
 # - type: trait
