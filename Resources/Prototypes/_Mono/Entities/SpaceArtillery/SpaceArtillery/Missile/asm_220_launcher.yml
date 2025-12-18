@@ -5,7 +5,7 @@
 - type: entity
   id: WeaponTurretASM220
   name: ASM-220 torpedo VLS
-  parent: BallisticArtilleryUnanchorableCartridge
+  parent: [ BallisticArtilleryUnanchorableCartridge, BaseC3ExpeditionContraband ]
   description: A heavy torpedo VLS relying on manual loading to work. Its missiles are very effective however.
   components:
   - type: StaticPrice
@@ -48,8 +48,8 @@
           collection: MetalBreak
   - type: Actions
   - type: RadarBlip
-    radarColor: "#ff9d00"
-    scale: 0.95
+    radarColor: "#D98600"
+    scale: 3
     visibleFromOtherGrids: true
   - type: ShipGunType
     shipType: Missile

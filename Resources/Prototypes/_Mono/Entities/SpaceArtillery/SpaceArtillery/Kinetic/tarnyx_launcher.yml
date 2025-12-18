@@ -9,7 +9,7 @@
 - type: entity
   id: WeaponTurretTarnyx
   name: ADBX-31 TARNYX 150mm EMP Cannon
-  parent: BallisticArtilleryUnanchorable
+  parent: [ BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband ]
   suffix: Station, Recharging Ammo, EMP
   description: A heavy EMP cannon made by Aetherion Dynamics, designed to disable large sections of enemy ships with a single, powerful shot. Effective in asymmetric combat. Can be remotely activated or linked up to a GCS.
   components:
@@ -47,8 +47,8 @@
     proto: ShipTarnyxProjectile
     fireCost: 15000 # low shot weapon moved back to the original spot
   - type: RadarBlip
-    radarColor: "#035EFC"
-    scale: 2.5
+    radarColor: "#0044FF"
+    scale: 3
     visibleFromOtherGrids: true
   - type: ShipGunType
     shipType: Energy
@@ -60,7 +60,7 @@
 - type: entity
   id: WeaponTurretTarnyxReload
   name: ADBX-31 TARNYX 150mm EMP Cannon
-  parent: BallisticArtilleryUnanchorableCartridge
+  parent: [ BallisticArtilleryUnanchorableCartridge, BaseC3ExpeditionContraband ]
   suffix: Ship, Manual Reload
   description: A heavy EMP cannon made by Aetherion Dynamics, designed to disable large sections of enemy ships with a single, powerful shot. Effective in asymmetric combat. Can be remotely activated or linked up to a GCS.
   components:
@@ -89,8 +89,8 @@
     powerUseActive: 0
   - type: Actions
   - type: RadarBlip
-    radarColor: "#035EFC"
-    scale: 2.5
+    radarColor: "#0044FF"
+    scale: 3
     visibleFromOtherGrids: true
   - type: ShipGunType
     shipType: Energy

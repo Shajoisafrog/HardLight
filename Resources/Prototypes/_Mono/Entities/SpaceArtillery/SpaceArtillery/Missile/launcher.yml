@@ -18,7 +18,7 @@
 - type: entity
   id: WeaponTurretVespera
   name: ADMP-27 VESPERA Rapid-Fire Pod
-  parent: BallisticArtilleryUnanchorable
+  parent: [ BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband ]
   description: A rapid-fire swarm missile pod manufactured by Aetherion Dynamics. Saturates targets with guided warheads to overwhelm defenses. Can be remotely activated or linked to a GCS.
   components:
   - type: StaticPrice
@@ -61,8 +61,8 @@
     proto: ShipMissileASM417
     fireCost: 867
   - type: RadarBlip
-    radarColor: "#FCBA03"
-    scale: 2
+    radarColor: "#D98600"
+    scale: 3
     visibleFromOtherGrids: true
   - type: ShipGunType
     shipType: Missile
@@ -81,7 +81,7 @@
 - type: entity
   id: WeaponTurretASM501
   name: ASM-501 pod
-  parent: BallisticArtilleryUnanchorable
+  parent: [ BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband ]
   description: A cruiser torpedo launcher. Fires heavy torpedoes for high-damage strikes against large ships and stations. Can be remotely activated or linked to a GCS.
   components:
   - type: StaticPrice
@@ -116,8 +116,8 @@
     proto: ShipMissileASM501
     fireCost: 350
   - type: RadarBlip
-    radarColor: "#FCBA03"
-    scale: 2.5
+    radarColor: "#D98600"
+    scale: 3
     visibleFromOtherGrids: true
   - type: ShipGunType
     shipType: Missile
@@ -135,7 +135,7 @@
 - type: entity
   id: WeaponTurretVanyk
   name: ASM-302 pod
-  parent: BallisticArtilleryUnanchorable
+  parent: [ BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband ]
   description: An escort missile pod manufactured by Aetherion Dynamics. Launches guided missiles for basic ship-to-ship combat and area denial. Can be remotely activated or linked to a GCS.
   components:
   - type: StaticPrice
@@ -184,8 +184,8 @@
         sound:
           collection: MetalBreak
   - type: RadarBlip
-    radarColor: "#FCBA03"
-    scale: 1.5
+    radarColor: "#D98600"
+    scale: 3
     visibleFromOtherGrids: true
   - type: ShipGunType
     shipType: Missile
@@ -203,7 +203,7 @@
 - type: entity
   id: WeaponTurretTovek
   name: ADMX-23 TOVEK Hybrid EMP Pod
-  parent: BallisticArtilleryUnanchorable
+  parent: [ BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband ]
   description: A hybrid EMP missile pod by Aetherion Dynamics. Fires EMPHE warheads to disable and weaken enemy ships at long range. Can be remotely activated or linked to a GCS.
   components:
   - type: StaticPrice
@@ -239,8 +239,8 @@
     proto: ShipMissileASM557
     fireCost: 17500
   - type: RadarBlip
-    radarColor: "#035EFC"
-    scale: 2
+    radarColor: "#0044FF"
+    scale: 3
     visibleFromOtherGrids: true
   - type: ShipGunType
     shipType: Missile
@@ -258,7 +258,7 @@
 - type: entity
   id: WeaponTurretSerpentMissile
   name: Serpent torpedo launcher
-  parent: BallisticArtilleryUnanchorable
+  parent: [ BallisticArtilleryUnanchorable, BaseC3ExpeditionContraband ]
   description: A light torpedo launcher developed by the Syndicate during the corporate war, uses similar systems to the anaconda for self loading munitons.
   components:
   - type: StaticPrice
@@ -293,8 +293,8 @@
     proto: ShipMissileSerpent
     fireCost: 350
   - type: RadarBlip
-    radarColor: "#FCBA03"
-    scale: 2.75
+    radarColor: "#D98600"
+    scale: 3
     visibleFromOtherGrids: true
   - type: ShipGunType
     shipType: Missile

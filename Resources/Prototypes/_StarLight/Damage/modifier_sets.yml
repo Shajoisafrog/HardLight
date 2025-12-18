@@ -1,5 +1,19 @@
 - type: damageModifierSet
   id: Avali # Not as good as thick fur like the vulps, but still rather insulating.
   coefficients:
-    Cold: 0.6
-    Heat: 1.4
+    Cold: 0.5
+    Heat: 1.5
+
+# Baseline damage modifier set for Shadekin.
+- type: damageModifierSet
+  id: Shadekin
+  coefficients:
+    Blunt: 1
+    Slash: 1
+    Piercing: 1
+    Heat: 1
+    Cold: 1
+    Shock: 1
+    Radiation: 1
+    Poison: 1
+
