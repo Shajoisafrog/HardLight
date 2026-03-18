@@ -38,29 +38,17 @@
     Chest:
       points: 1
       required: false
-    RightLeg:
-      points: 2
+    Legs:
+      points: 6
       required: false
-    RightFoot:
-      points: 2
+    Arms:
+      points: 6
       required: false
-    LeftLeg:
-      points: 2
+    UndergarmentBottom:
+      points: 1
       required: false
-    LeftFoot:
-      points: 2
-      required: false
-    RightArm:
-      points: 2
-      required: false
-    RightHand:
-      points: 3
-      required: false
-    LeftArm:
-      points: 2
-      required: false
-    LeftHand:
-      points: 3
+    UndergarmentTop:
+      points: 1
       required: false
 
 - type: speciesBaseSprites
@@ -72,6 +60,11 @@
     Hair: MobHumanoidAnyMarking
     FacialHair: MobHumanoidAnyMarking
     Snout: MobHumanoidAnyMarking
+    UndergarmentTop: MobHumanoidAnyMarking
+    UndergarmentBottom: MobHumanoidAnyMarking
+    Genital: MobHumanoidAnyMarking
+    Penis: MobHumanoidAnyMarking
+    Breasts: MobHumanoidAnyMarking
     Chest: MobTajaranTorso
     Eyes: MobTajaranEyes
     LArm: MobTajaranLArm
