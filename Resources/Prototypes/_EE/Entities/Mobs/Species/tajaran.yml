@@ -82,21 +82,7 @@
       Female: FemaleFelinid
       Unsexed: MaleFelinid
   - type: Felinid # real
-  - type: NoShoesSilentFootsteps
-  - type: StepTriggerImmune
     whitelist:
-      types:
-        - Shard
-        - Landmine
-        - Mousetrap
-        - SlipEntity
-  - type: LanguageKnowledge
-    speaks:
-    - TauCetiBasic
-    - SiikTajr #Floof - Changed default, SiikMaas disabled
-    understands:
-    - TauCetiBasic
-    - SiikTajr #Floof - Changed default, SiikMaas disabled
   - type: Tag
     tags:
     - CanPilot
