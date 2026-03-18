@@ -15,6 +15,7 @@
   - type: Speech
     speechVerb: Vox
     speechSounds: Vox
+    allowedEmotes: ['Click', 'Chitter', 'Hiss', 'Coo'] # Impstation
   - type: TypingIndicator
     proto: vox
   - type: Vocal
@@ -30,6 +31,29 @@
   - type: Damageable
     damageContainer: Biological
     damageModifierSet: Vox
+  - type: Destructible # Vox now turn into fried chicken when ashed.
+    thresholds:
+    - trigger:
+        !type:DamageTypeTrigger
+        damageType: Blunt
+        damage: 400
+      behaviors:
+      - !type:GibBehavior { }
+    - trigger: # Frontier - Removed round remover
+        !type:DamageTypeTrigger
+        damageType: Heat
+        damage: 1500
+      behaviors:
+      - !type:SpawnEntitiesBehavior
+        spawnInContainer: true
+        spawn:
+          FoodMeatChickenFriedMystery: # HardLight: Renamed from -Vox to -Mystery.
+            min: 3
+            max: 5
+      - !type:BurnBodyBehavior { }
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MeatLaserImpact
   - type: PassiveDamage
     # Augment normal health regen to be able to tank some Poison damage
     # This allows Vox to take their mask off temporarily to eat something without needing a trip to medbay afterwards.
@@ -61,6 +85,7 @@
         Slash: 5 # Reduce?
   - type: Sprite # Need to redefine the whole order to draw the tail over their gas tank
     layers:
+    - map: [ "enum.HumanoidVisualLayers.TailBehind" ]
     - map: [ "enum.HumanoidVisualLayers.Chest" ]
     - map: [ "enum.HumanoidVisualLayers.Head" ]
     - map: [ "enum.HumanoidVisualLayers.Snout" ]
@@ -89,6 +114,7 @@
     - map: [ "outerClothing" ]
     - map: [ "belt" ] # HL: change belt over outerclothing
     - map: [ "back" ]
+    - map: [ "enum.HumanoidVisualLayers.TailOversuit" ]
     - map: [ "neck" ]
     - map: [ "enum.HumanoidVisualLayers.FacialHair" ]
     - map: [ "enum.HumanoidVisualLayers.Hair" ]
@@ -119,6 +145,7 @@
           32:
             sprite: Mobs/Species/Vox/displacement.rsi
             state: hair
+  - type: Wagging
   - type: Inventory
     speciesId: vox
     displacements:

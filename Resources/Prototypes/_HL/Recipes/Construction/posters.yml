@@ -1,0 +1,1558 @@
+# Contraband Posters
+- type: construction
+  id: PosterContrabandFreeTonto
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandFreeTonto
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandAtmosiaDeclarationIndependence
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandAtmosiaDeclarationIndependence
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandFunPolice
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandFunPolice
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandLustyExomorph
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandLustyExomorph
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandSyndicateRecruitment
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandSyndicateRecruitment
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandClown
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandClown
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandSmoke
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandSmoke
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandGreyTide
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandGreyTide
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandMissingGloves
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandMissingGloves
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandHackingGuide
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandHackingGuide
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandRIPBadger
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandRIPBadger
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandAmbrosiaVulgaris
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandAmbrosiaVulgaris
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandDonutCorp
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandDonutCorp
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandEAT
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandEAT
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandTools
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandTools
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandPower
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandPower
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandSpaceCube
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandSpaceCube
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandCommunistState
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandCommunistState
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandLamarr
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandLamarr
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandBorgFancy
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandBorgFancy
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandBorgFancyv2
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandBorgFancyv2
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandKosmicheskayaStantsiya
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandKosmicheskayaStantsiya
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandRebelsUnite
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandRebelsUnite
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandC20r
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandC20r
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandHaveaPuff
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandHaveaPuff
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandRevolver
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandRevolver
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandDDayPromo
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandDDayPromo
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandSyndicatePistol
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandSyndicatePistol
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandEnergySwords
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandEnergySwords
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandRedRum
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandRedRum
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandCC64KAd
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandCC64KAd
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandPunchShit
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandPunchShit
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandTheGriffin
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandTheGriffin
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandFreeDrone
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandFreeDrone
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandBustyBackdoorExoBabes6
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandBustyBackdoorExoBabes6
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandRobustSoftdrinks
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandRobustSoftdrinks
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandShamblersJuice
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandShamblersJuice
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandPwrGame
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandPwrGame
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandSunkist
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandSunkist
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandSpaceCola
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandSpaceCola
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandSpaceUp
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandSpaceUp
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandKudzu
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandKudzu
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandMaskedMen
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandMaskedMen
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandUnreadableAnnouncement
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandUnreadableAnnouncement
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandFreeSyndicateEncryptionKey
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandFreeSyndicateEncryptionKey
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandBountyHunters
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandBountyHunters
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandTheBigGasTruth
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandTheBigGasTruth
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandWehWatches
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandWehWatches
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandVoteWeh
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandVoteWeh
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandBeachStarYamamoto
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandBeachStarYamamoto
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandHighEffectEngineering
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandHighEffectEngineering
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandNuclearDeviceInformational
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandNuclearDeviceInformational
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandRise
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandRise
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandRevolt
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandRevolt
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandMoth
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandMoth
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandCybersun600
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandCybersun600
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandDonk
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandDonk
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandEnlistGorlex
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandEnlistGorlex
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandInterdyne
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandInterdyne
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandWaffleCorp
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandWaffleCorp
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterContrabandMissingSpacepen
+  graph: Poster
+  startNode: start
+  targetNode: PosterContrabandMissingSpacepen
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+# Legit Posters
+- type: construction
+  id: PosterLegitHereForYourSafety
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitHereForYourSafety
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterLegitNanotrasenLogo
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitNanotrasenLogo
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterLegitCleanliness
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitCleanliness
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterLegitHelpOthers
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitHelpOthers
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterLegitBuild
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitBuild
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterLegitBlessThisSpess
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitBlessThisSpess
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterLegitScience
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitScience
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterLegitIan
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitIan
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterLegitObey
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitObey
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterLegitWalk
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitWalk
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterLegitStateLaws
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitStateLaws
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterLegitLoveIan
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitLoveIan
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterLegitSpaceCops
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitSpaceCops
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterLegitUeNo
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitUeNo
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterLegitGetYourLEGS
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitGetYourLEGS
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterLegitDoNotQuestion
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitDoNotQuestion
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterLegitWorkForAFuture
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitWorkForAFuture
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterLegitSoftCapPopArt
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitSoftCapPopArt
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterLegitSafetyInternals
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitSafetyInternals
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+
+- type: construction
+  id: PosterLegitSafetyEyeProtection
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitSafetyEyeProtection
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+
+- type: construction
+  id: PosterLegitSafetyReport
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitSafetyReport
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+
+- type: construction
+  id: PosterLegitReportCrimes
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitReportCrimes
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+
+- type: construction
+  id: PosterLegitIonRifle
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitIonRifle
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+
+- type: construction
+  id: PosterLegitFoamForceAd
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitFoamForceAd
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+
+- type: construction
+  id: PosterLegitCohibaRobustoAd
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitCohibaRobustoAd
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+
+- type: construction
+  id: PosterLegit50thAnniversaryVintageReprint
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegit50thAnniversaryVintageReprint
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+
+- type: construction
+  id: PosterLegitFruitBowl
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitFruitBowl
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+
+- type: construction
+  id: PosterLegitPDAAd
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitPDAAd
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+
+- type: construction
+  id: PosterLegitEnlist
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitEnlist
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+
+- type: construction
+  id: PosterLegitNanomichiAd
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitNanomichiAd
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+
+- type: construction
+  id: PosterLegit12_gauge
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegit12_gauge
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+
+- type: construction
+  id: PosterLegitHighClassMartini
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitHighClassMartini
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+
+- type: construction
+  id: PosterLegitTheOwl
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitTheOwl
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+
+- type: construction
+  id: PosterLegitNoERP
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitNoERP
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+- type: construction
+  id: PosterLegitYesERP
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitYesERP
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+  - !type:WallmountCondition
+
+
+- type: construction
+  id: PosterLegitCarbonDioxide
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitCarbonDioxide
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+
+- type: construction
+  id: PosterLegitDickGumshue
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitDickGumshue
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+
+- type: construction
+  id: PosterLegitThereIsNoGasGiant
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitThereIsNoGasGiant
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+
+- type: construction
+  id: PosterLegitJustAWeekAway
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitJustAWeekAway
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+
+- type: construction
+  id: PosterLegitSecWatch
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitSecWatch
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+
+- type: construction
+  id: PosterLegitAnatomyPoster
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitAnatomyPoster
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+
+- type: construction
+  id: PosterLegitMime
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitMime
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+
+- type: construction
+  id: PosterLegitCarpMount
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitCarpMount
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+
+- type: construction
+  id: PosterLegitSafetyMothDelam
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitSafetyMothDelam
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+
+- type: construction
+  id: PosterLegitSafetyMothEpi
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitSafetyMothEpi
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+
+- type: construction
+  id: PosterLegitSafetyMothPiping
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitSafetyMothPiping
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+
+- type: construction
+  id: PosterLegitSafetyMothMeth
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitSafetyMothMeth
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+
+- type: construction
+  id: PosterLegitSafetyMothHardhat
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitSafetyMothHardhat
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+
+- type: construction
+  id: PosterLegitVacation
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitVacation
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+
+- type: construction
+  id: PosterLegitPeriodicTable
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitPeriodicTable
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+
+- type: construction
+  id: PosterLegitRenault
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitRenault
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+
+- type: construction
+  id: PosterLegitNTTGC
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitNTTGC
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+
+- type: construction
+  id: PosterLegitSafetyMothSSD
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitSafetyMothSSD
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+
+- type: construction
+  id: PosterLegitOppenhopper
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitOppenhopper
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+
+- type: construction
+  id: PosterLegitTyrone
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitTyrone
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition
+
+
+- type: construction
+  id: PosterLegitHelio
+  graph: Poster
+  startNode: start
+  targetNode: PosterLegitHelio
+  category: construction-category-Poster
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  conditions:
+    - !type:WallmountCondition

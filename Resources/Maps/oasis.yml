@@ -5601,41 +5601,6 @@ entities:
             2685: -18.60001,-10.259648
             2686: -18.846893,-8.106161
         - node:
-            color: '#FFFFFFFF'
-            id: SpaceStationSign1
-          decals:
-            954: 31,0
-        - node:
-            color: '#FFFFFFFF'
-            id: SpaceStationSign2
-          decals:
-            953: 32,0
-        - node:
-            color: '#FFFFFFFF'
-            id: SpaceStationSign3
-          decals:
-            952: 33,0
-        - node:
-            color: '#FFFFFFFF'
-            id: SpaceStationSign4
-          decals:
-            951: 34,0
-        - node:
-            color: '#FFFFFFFF'
-            id: SpaceStationSign5
-          decals:
-            950: 35,0
-        - node:
-            color: '#FFFFFFFF'
-            id: SpaceStationSign6
-          decals:
-            949: 36,0
-        - node:
-            color: '#FFFFFFFF'
-            id: SpaceStationSign7
-          decals:
-            948: 37,0
-        - node:
             angle: 1.5707963267948966 rad
             color: '#FFFFFFFF'
             id: StandClearGreyscale

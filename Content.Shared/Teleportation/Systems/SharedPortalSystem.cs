@@ -63,7 +63,12 @@ public abstract class SharedPortalSystem : EntitySystem
                     return;
 
                 var ent = link.LinkedEntities.First();
-                TeleportEntity(uid, args.User, Transform(ent).Coordinates, ent, false);
+
+                // Validate the entity exists and has a transform before attempting teleport
+                if (!Exists(ent) || !TryComp(ent, out TransformComponent? entXform))
+                    return;
+
+                TeleportEntity(uid, args.User, entXform.Coordinates, ent, false);
             },
             Disabled = disabled,
             Text = Loc.GetString("portal-component-ghost-traverse"),
@@ -83,25 +88,31 @@ public abstract class SharedPortalSystem : EntitySystem
 
     private void OnCollide(EntityUid uid, PortalComponent component, ref StartCollideEvent args)
     {
+        if (HasComp<PortalExemptComponent>(args.OtherEntity))
+            return;
+
         if (!ShouldCollide(args.OurFixtureId, args.OtherFixtureId, args.OurFixture, args.OtherFixture))
             return;
 
         var subject = args.OtherEntity;
 
+        if (!TryComp(subject, out TransformComponent? subjectXform))
+            return;
+
         // best not.
-        if (Transform(subject).Anchored)
+        if (subjectXform.Anchored)
             return;
 
         // break pulls before portal enter so we dont break shit
         if (TryComp<PullableComponent>(subject, out var pullable) && pullable.BeingPulled)
         {
-            _pulling.TryStopPull(subject, pullable);
+            _pulling.TryStopPull(subject, pullable, ignoreGrab: true); // Goobstation
         }
 
         if (TryComp<PullerComponent>(subject, out var pullerComp)
             && TryComp<PullableComponent>(pullerComp.Pulling, out var subjectPulling))
         {
-            _pulling.TryStopPull(pullerComp.Pulling.Value, subjectPulling);
+            _pulling.TryStopPull(pullerComp.Pulling.Value, subjectPulling, ignoreGrab: true); // Goobstation
         }
 
         // if they came from another portal, just return and wait for them to exit the portal
@@ -128,6 +139,9 @@ public abstract class SharedPortalSystem : EntitySystem
             // pick a target and teleport there
             var target = _random.Pick(link.LinkedEntities);
 
+            if (!TryComp(target, out TransformComponent? targetXform))
+                return;
+
             if (HasComp<PortalComponent>(target))
             {
                 // if target is a portal, signal that they shouldn't be immediately portaled back
@@ -136,7 +150,7 @@ public abstract class SharedPortalSystem : EntitySystem
                 Dirty(subject, timeout);
             }
 
-            TeleportEntity(uid, subject, Transform(target).Coordinates, target);
+            TeleportEntity(uid, subject, targetXform.Coordinates, target);
             return;
         }
 

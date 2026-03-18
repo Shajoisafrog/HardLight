@@ -334,6 +334,9 @@
     base: weedwall
     mode: Corners
   - type: XenoNestSurface
+  - type: Construction
+    graph: ResinStructures
+    node: XenoWeedsWall
 
 - type: edgeSpreader
   id: XenoWeeds

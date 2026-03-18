@@ -39,7 +39,7 @@
       state: telesci_key
   - type: ShipyardConsole
     newJobTitle: null
-    shipyardChannel: Nfsd
+    shipyardChannel: Security
     newAccessLevels: [Captain, Security, Brig]
   - type: ShipyardListing
     shuttles:

@@ -2,106 +2,106 @@
 - type: gasDeposit
   id: AirLike
   gases:
-  -  5000,  7500  # oxygen
-  - 15000, 20000  # nitrogen
-  -     0,  1500  # carbon dioxide
-  -     0,   200  # plasma
-  -     0,    50  # tritium
-  -     0,   500  # water vapor
-  -     0,   500  # ammonia
-  -     0,   200  # nitrous oxide
-  -     0,     0  # frezon
+  -  50000,  75000  # oxygen
+  - 150000, 200000  # nitrogen
+  -      0,  15000  # carbon dioxide
+  -      0,   2000  # plasma
+  -      0,    500  # tritium
+  -      0,   5000  # water vapor
+  -      0,   5000  # ammonia
+  -      0,   2000  # nitrous oxide
+  -      0,      0  # frezon
 
 - type: gasDeposit
   id: MostlyNitrogen
   gases:
-  -     0,  2000  # oxygen
-  - 20000, 25000  # nitrogen
-  -     0,  1500  # carbon dioxide
-  -     0,   200  # plasma
-  -     0,    50  # tritium
-  -     0,   500  # water vapor
-  -     0,   500  # ammonia
-  -     0,   200  # nitrous oxide
-  -     0,     0  # frezon
+  -      0,  20000  # oxygen
+  - 200000, 250000  # nitrogen
+  -      0,  15000  # carbon dioxide
+  -      0,   2000  # plasma
+  -      0,    500  # tritium
+  -      0,   5000  # water vapor
+  -      0,   5000  # ammonia
+  -      0,   2000  # nitrous oxide
+  -      0,      0  # frezon
 
 - type: gasDeposit
   id: MostlyOxygen
   gases:
-  - 20000, 25000  # oxygen
-  -     0,  2000  # nitrogen
-  -     0,  1500  # carbon dioxide
-  -     0,   200  # plasma
-  -     0,    50  # tritium
-  -     0,   500  # water vapor
-  -     0,   500  # ammonia
-  -     0,   200  # nitrous oxide
-  -     0,     0  # frezon
+  - 200000, 250000  # oxygen
+  -      0,  20000  # nitrogen
+  -      0,  15000  # carbon dioxide
+  -      0,   2000  # plasma
+  -      0,    500  # tritium
+  -      0,   5000  # water vapor
+  -      0,   5000  # ammonia
+  -      0,   2000  # nitrous oxide
+  -      0,      0  # frezon
 
 - type: gasDeposit
   id: MostlyCarbonDioxide
   gases:
-  -     0,  2000  # oxygen
-  -     0,  1500  # nitrogen
-  - 20000, 25000  # carbon dioxide
-  -     0,   200  # plasma
-  -     0,    50  # tritium
-  -     0,   500  # water vapor
-  -     0,   500  # ammonia
-  -     0,   200  # nitrous oxide
-  -     0,     0  # frezon
+  -      0,  20000  # oxygen
+  -      0,  15000  # nitrogen
+  - 200000, 250000  # carbon dioxide
+  -      0,   2000  # plasma
+  -      0,    500  # tritium
+  -      0,   5000  # water vapor
+  -      0,   5000  # ammonia
+  -      0,   2000  # nitrous oxide
+  -      0,      0  # frezon
 
 - type: gasDeposit
   id: MostlyNitrousOxide
   gases:
-  -     0,  2000  # oxygen
-  -     0,  1500  # nitrogen
-  -     0,   200  # carbon dioxide
-  -     0,   200  # plasma
-  -     0,    50  # tritium
-  -     0,   500  # water vapor
-  -     0,   500  # ammonia
-  - 20000, 25000  # n2o
-  -     0,     0  # frezon
+  -      0,  20000  # oxygen
+  -      0,  15000  # nitrogen
+  -      0,  20000  # carbon dioxide
+  -      0,   2000  # plasma
+  -      0,    500  # tritium
+  -      0,   5000  # water vapor
+  -      0,   5000  # ammonia
+  - 200000, 250000  # n2o
+  -      0,      0  # frezon
 
 - type: gasDeposit
   id: MostlyAmmonia
   gases:
-  -     0,  2000  # oxygen
-  -     0,  1500  # nitrogen
-  -     0,   200  # carbon dioxide
-  -     0,   200  # plasma
-  -     0,    50  # tritium
-  -     0,   500  # water vapor
-  - 20000, 25000  # ammonia
-  -     0,   500  # n2o
-  -     0,     0  # frezon
+  -      0,  20000  # oxygen
+  -      0,  15000  # nitrogen
+  -      0,  20000  # carbon dioxide
+  -      0,  20000  # plasma
+  -      0,   5000  # tritium
+  -      0,  50000  # water vapor
+  - 200000, 250000  # ammonia
+  -      0,   5000  # n2o
+  -      0,      0  # frezon
 
 - type: gasDeposit
   id: MostlyWaterVapor
   gases:
-  -     0,  2000  # oxygen
-  -     0,  1500  # nitrogen
-  -     0,   200  # carbon dioxide
-  -     0,   200  # plasma
-  -     0,    50  # tritium
-  - 20000, 25000  # water vapor
-  -     0,   500  # ammonia
-  -     0,   500  # n2o
-  -     0,     0  # frezon
+  -      0,  20000  # oxygen
+  -      0,  15000  # nitrogen
+  -      0,  20000  # carbon dioxide
+  -      0,  20000  # plasma
+  -      0,   5000  # tritium
+  - 200000, 250000  # water vapor
+  -      0,   5000  # ammonia
+  -      0,   5000  # n2o
+  -      0,      0  # frezon
 
 - type: gasDeposit
   id: MostlyPlasma
   gases:
-  -     0,  1000  # oxygen
-  -     0,  2000  # nitrogen
-  -     0,   200  # carbon dioxide
-  - 15000, 20000  # plasma
-  -     0,    50  # tritium
-  -     0,  3000  # water vapor
-  -     0,  2000  # ammonia
-  -     0,  1000  # n2o
-  -     0,     0  # frezon
+  -      0,  10000  # oxygen
+  -      0,  20000  # nitrogen
+  -      0,  20000  # carbon dioxide
+  - 150000, 200000  # plasma
+  -      0,   5000  # tritium
+  -      0,  30000  # water vapor
+  -      0,  20000  # ammonia
+  -      0,  10000  # n2o
+  -      0,      0  # frezon
 
 - type: gasDeposit
   id: MuddleEven
@@ -119,12 +119,12 @@
 - type: gasDeposit
   id: MuddlePlasma
   gases:
-  -  2000,  4000  # oxygen
-  -  2000,  4000  # nitrogen
-  -  2000,  4000  # carbon dioxide
-  -  4000,  8000  # plasma
-  -     0,   300  # tritium
-  -  1000,  2000  # water vapor
-  -  1000,  2000  # ammonia
-  -  2000,  4000  # n2o
-  -     0,     0  # frezon
+  -  20000,  40000  # oxygen
+  -  20000,  40000  # nitrogen
+  -  20000,  40000  # carbon dioxide
+  -  40000,  80000  # plasma
+  -     0,    3000  # tritium
+  -  10000,  20000  # water vapor
+  -  10000,  20000  # ammonia
+  -  20000,  40000  # n2o
+  -      0,      0  # frezon

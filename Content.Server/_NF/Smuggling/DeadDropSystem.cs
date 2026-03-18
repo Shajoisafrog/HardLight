@@ -32,7 +32,6 @@ namespace Content.Server._NF.Smuggling;
 
 public sealed class DeadDropSystem : EntitySystem
 {
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
     [Dependency] private readonly SharedHandsSystem _hands = default!;
     [Dependency] private readonly MapLoaderSystem _map = default!;
     [Dependency] private readonly MetaDataSystem _meta = default!;
@@ -56,17 +55,17 @@ public sealed class DeadDropSystem : EntitySystem
 
     private const int MaxHintTimeErrorSeconds = 300; // +/- 5 minutes
     private const int MinCluesPerHint = 1;
-    private const int MaxCluesPerHint = 2;
+    private const int MaxCluesPerHint = 4;
 
     // Temporary values, sane defaults, will be overwritten by CVARs.
-    private int _maxDeadDrops = 8;
-    private int _maxSimultaneousPods = 5;
+    private int _maxDeadDrops = 2;
+    private int _maxSimultaneousPods = 2;
     private int _minDeadDropTimeout = 900;
     private int _maxDeadDropTimeout = 5400;
-    private int _minDeadDropDistance = 6500;
+    private int _minDeadDropDistance = 3000;
     private int _maxDeadDropDistance = 8000;
     private int _minDeadDropHints = 3;
-    private int _maxDeadDropHints = 5;
+    private int _maxDeadDropHints = 15;
     public override void Initialize()
     {
         base.Initialize();

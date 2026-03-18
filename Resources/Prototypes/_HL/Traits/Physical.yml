@@ -1,0 +1,216 @@
+- type: trait
+  id: Leadfooted
+  name: lead-footed-name
+  description: lead-footed-text
+  category: Physical
+  cost: 3
+  mutuallyExclusiveTraits:
+  - Leadfooted
+  components:
+  - type: FTLKnockdownImmune
+
+- type: trait
+  id: Inoculated
+  name: inoculated-name
+  description: inoculated-text
+  category: Physical
+  cost: 5
+  speciesBlacklist:
+  - IPC
+  - Synth
+  blacklist:
+    components:
+    - BorgChassis
+  components:
+  - type: ZombieImmune
+
+- type: trait
+  id: Insulated
+  name: insulated-name
+  description: insulated-text
+  category: Physical
+  cost: 10
+  speciesBlacklist:
+  - IPC
+  mutuallyExclusiveTraits:
+  - Heatresistant
+  - Radproof
+  - SnakeEater
+  - Cryoresistant
+  - PoolToy
+  components:
+  - type: Insulated
+
+- type: trait
+  id: Heatresistant
+  name: heat-resistant-name
+  description: heat-resistant-text
+  category: Physical
+  cost: 10
+  speciesBlacklist:
+  - IPC
+  mutuallyExclusiveTraits:
+  - Insulated
+  - Radproof
+  - SnakeEater
+  - Cryoresistant
+  - PoolToy
+  components:
+  - type: FireproofBodyParts
+  - type: DamageProtectionBuff
+    modifiers:
+      dermal:
+        id: heatresistantTrait
+        coefficients:
+          Heat: 0.01
+  - type: FireProtection
+    reduction: 0
+
+- type: trait
+  id: Radproof
+  name: radproof-name
+  description: radproof-text
+  category: Physical
+  cost: 10
+  speciesBlacklist:
+  - IPC
+  mutuallyExclusiveTraits:
+  - Insulated
+  - Heatresistant
+  - SnakeEater
+  - Cryoresistant
+  - PoolToy
+  components:
+  - type: DamageProtectionBuff
+    modifiers:
+      dermal:
+        id: RadproofTrait
+        coefficients:
+          Radiation: 0.01
+
+- type: trait
+  id: SnakeEater
+  name: snake-eater-name
+  description: snake-eater-text
+  category: Physical
+  cost: 10
+  speciesBlacklist:
+  - IPC
+  mutuallyExclusiveTraits:
+  - Insulated
+  - Heatresistant
+  - Radproof
+  - Cryoresistant
+  - PoolToy
+  components:
+  - type: DamageProtectionBuff
+    modifiers:
+      dermal:
+        id: SnakeeaterTrait
+        coefficients:
+          Poison: 0.01
+
+- type: trait
+  id: Cryoresistant
+  name: cryo-resistant-name
+  description: cryo-resistant-text
+  category: Physical
+  cost: 8
+  speciesBlacklist:
+  - IPC
+  mutuallyExclusiveTraits:
+  - Heatresistant
+  - Insulated
+  - SnakeEater
+  - Radproof
+  - PoolToy
+  components:
+  - type: DamageProtectionBuff
+    modifiers:
+      dermal:
+        id: cryoresistantTrait
+        coefficients:
+          Cold: 0.01
+
+- type: trait
+  id: NaturalRegen
+  name: natural-regen-name
+  description: natural-regen-text
+  category: Physical
+  cost: 6
+  speciesBlacklist:
+  - IPC
+  - Synth
+  blacklist:
+    components:
+    - BorgChassis
+  mutuallyExclusiveTraits:
+  - PlateletFactories
+  - Hemophilia
+  - UnnaturalRegen
+  components:
+  - type: PassiveDamage
+    allowedStates:
+    - Alive
+    damageCap: 500
+    damage:
+      groups:
+        Brute: -0.3
+        Burn: -0.3
+        Airloss: -1
+
+- type: trait
+  id: UnnaturalRegen
+  name: unnatural-regen-name
+  description: unnatural-regen-text
+  category: Physical
+  cost: 8
+  speciesBlacklist:
+  - IPC
+  - Synth
+  blacklist:
+    components:
+    - BorgChassis
+  mutuallyExclusiveTraits:
+  - PlateletFactories
+  - NaturalRegen
+  - Hemophilia
+  components:
+  - type: PassiveDamage
+    allowedStates:
+    - Alive
+    - Critical
+    damageCap: 500
+    damage:
+      groups:
+        Brute: -0.4
+        Burn: -0.4
+        Airloss: -1
+
+- type: trait
+  id: PoolToy
+  name: pooltoy-name
+  description: pooltoy-text
+  category: Physical
+  cost: 8
+  mutuallyExclusiveTraits:
+  - Heatresistant
+  - Insulated
+  - SnakeEater
+  - Radproof
+  - DermalArmor
+  components:
+  - type: Insulated
+  - type: DamageProtectionBuff
+    modifiers:
+      dermal:
+        id: PoolToyTrait
+        coefficients:
+          Blunt: 0.10
+          Slash: 2
+          Piercing: 3
+  - type: EmitSoundOnCritDeath
+    critSound:
+      path: /Audio/Items/smoke_grenade_smoke.ogg
+    deathSound:
+      path: /Audio/Effects/balloon-pop.ogg

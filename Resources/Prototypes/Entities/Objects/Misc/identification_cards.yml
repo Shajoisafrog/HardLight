@@ -12,7 +12,7 @@
     - idcard
     sprite: Objects/Misc/id_cards.rsi
   - type: Item
-    size: Ginormous
+    size: Small
     heldPrefix: default
     storedRotation: -90
   - type: Access
@@ -25,6 +25,7 @@
     - WhitelistChameleonIdCard
   - type: StealTarget
     stealGroup: IDCard
+  - type: NanoChatCard # DeltaV
   - type: StaticPrice # Frontier
     price: 5 # Frontier The card need to cost less then the PDA that comes with a card and a pen in it.
   - type: CargoSellBlacklist # Frontier
@@ -476,6 +477,9 @@
   id: CentcomIDCard
   name: command officer ID card
   components:
+  - type: Tag
+    tags:
+    - Admin
   - type: Sprite
     layers:
     - state: centcom
@@ -484,12 +488,17 @@
     heldPrefix: blue
   - type: PresetIdCard
     job: CentralCommandOfficial
+  - type: NanoChatCard # DeltaV
+    listNumber: false
 
 - type: entity
   parent: IDCardStandard
   id: ERTLeaderIDCard
   name: ERT leader ID card
   components:
+  - type: Tag
+    tags:
+    - Admin
   - type: Sprite
     layers:
     - state: gold
@@ -498,12 +507,17 @@
     job: ERTLeader
   - type: Item
     heldPrefix: gold
+  - type: NanoChatCard # DeltaV
+    listNumber: false
 
 - type: entity
   parent: IDCardStandard
   id: ERTChaplainIDCard
   name: ERT chaplain ID card
   components:
+  - type: Tag
+    tags:
+    - Admin
   - type: Sprite
     layers:
     - state: gold
@@ -512,54 +526,76 @@
     job: ERTChaplain
   - type: Item
     heldPrefix: blue
+  - type: NanoChatCard # DeltaV
+    listNumber: false
 
 - type: entity
   parent: IDCardStandard
   id: ERTEngineerIDCard
   name: ERT engineer ID card
   components:
+  - type: Tag
+    tags:
+    - Admin
   - type: Sprite
     layers:
     - state: gold
     - state: ert_engineer
   - type: PresetIdCard
     job: ERTEngineer
+  - type: NanoChatCard # DeltaV
+    listNumber: false
 
 - type: entity
   parent: IDCardStandard
   id: ERTJanitorIDCard
   name: ERT janitor ID card
   components:
+  - type: Tag
+    tags:
+    - Admin
   - type: Sprite
     layers:
     - state: gold
     - state: ert_janitor
   - type: PresetIdCard
     job: ERTJanitor
+  - type: NanoChatCard # DeltaV
+    listNumber: false
 
 - type: entity
   parent: IDCardStandard
   id: ERTMedicIDCard
   name: ERT medic ID card
   components:
+  - type: Tag
+    tags:
+    - Admin
   - type: Sprite
     layers:
     - state: gold
     - state: ert_medic
   - type: PresetIdCard
     job: ERTMedical
+  - type: NanoChatCard # DeltaV
+    listNumber: false
 
 - type: entity
   parent: IDCardStandard
   id: ERTSecurityIDCard
   name: ERT security ID card
   components:
+  - type: Tag
+    tags:
+    - Admin
   - type: Sprite
     layers:
     - state: gold
     - state: ert_security
   - type: PresetIdCard
     job: ERTSecurity
+  - type: NanoChatCard # DeltaV
+    listNumber: false
 
 - type: entity
   parent: IDCardStandard
@@ -578,6 +614,9 @@
   id: CentcomIDCardDeathsquad
   name: death squad ID card
   components:
+  - type: Tag
+    tags:
+    - Admin
   - type: Sprite
     layers:
     - state: centcom
@@ -585,6 +624,8 @@
     heldPrefix: blue
   - type: PresetIdCard
     job: DeathSquad
+  - type: NanoChatCard # DeltaV
+    listNumber: false
 
 - type: entity
   name: contractor ID card # Frontier: passenger<contractor
@@ -620,6 +661,8 @@
         type: AgentIDCardBoundUserInterface
       enum.ChameleonUiKey.Key:
         type: ChameleonBoundUserInterface
+  - type: NanoChatCard # DeltaV
+    listNumber: false
   - type: Contraband # Frontier
     hideValues: true # Frontier
 
@@ -634,6 +677,8 @@
     - Maintenance
     - SyndicateAgent
     - NuclearOperative
+  - type: NanoChatCard # DeltaV
+    listNumber: false
 
 - type: entity
   parent: IDCardStandard
@@ -659,6 +704,8 @@
     tags:
     - NuclearOperative
     - SyndicateAgent
+  - type: NanoChatCard # DeltaV
+    listNumber: false
 
 - type: entity
   parent: [IDCardStandard, BaseC3PirateContraband] # Frontier: added BaseC3PirateContraband
@@ -673,6 +720,8 @@
     tags:
     - NuclearOperative
     - SyndicateAgent
+  - type: NanoChatCard # DeltaV
+    listNumber: false
 
 - type: entity
   parent: IDCardStandard
@@ -689,7 +738,7 @@
 - type: entity
   parent: IDCardStandard
   id: ReporterIDCard
-  name: reporter ID card
+  name: station host ID card
   components:
   - type: Sprite
     layers:
@@ -747,6 +796,8 @@
     heldPrefix: blue
   - type: PresetIdCard
     job: CBURN
+  - type: NanoChatCard # DeltaV
+    listNumber: false
 
 - type: entity
   parent: IDCardStandard
@@ -761,6 +812,8 @@
   - type: IdCard
     jobTitle: job-title-cluwne
   - type: Unremoveable
+  - type: NanoChatCard # DeltaV
+    listNumber: false
 
 - type: entity
   parent: EngineeringIDCard
@@ -818,6 +871,8 @@
     - Wizard
     - External
     - Maintenance
+  - type: NanoChatCard # DeltaV
+    listNumber: false
 
 - type: entity
   parent: IDCardStandard
@@ -847,10 +902,13 @@
     - NuclearOperative
     - SyndicateAgent
     - Wizard
-    - Pirate # Mono
   - type: Tag #  Ignore Chameleon tags
     tags:
+    - Admin
     - DoorBumpOpener
+  - type: NanoChatCard # DeltaV
+    notificationsMuted: true
+    listNumber: false
   - type: AgentIDCard
   - type: ActivatableUI
     key: enum.AgentIDCardUiKey.Key

@@ -1,3 +1,4 @@
+#nullable enable
 using Content.Server.Power.Components;
 using Content.Server.Power.EntitySystems;
 using Content.Server.Shuttles.Components;
@@ -12,12 +13,14 @@ using Content.Shared.Shuttles.Components;
 using Content.Shared.Shuttles.Events;
 using Content.Shared.Shuttles.Systems;
 using Content.Shared.Tag;
+using Content.Shared.Containers.ItemSlots;
 using Content.Shared.Movement.Systems;
 using Content.Shared.Power;
 using Content.Shared.Shuttles.UI.MapObjects;
 using Content.Shared.Timing;
 using Robust.Server.GameObjects;
 using Robust.Shared.Collections;
+using Robust.Shared.Containers;
 using Robust.Shared.GameStates;
 using Robust.Shared.Map;
 using Robust.Shared.Utility;
@@ -25,6 +28,12 @@ using Content.Shared.UserInterface;
 using Robust.Shared.Prototypes;
 using Content.Shared.Access.Systems; // Frontier
 using Content.Shared.Construction.Components; // Frontier
+using Content.Server.Salvage.Expeditions;
+using Content.Shared.Procedural;
+using Content.Shared.Salvage.Expeditions;
+using Content.Shared.Salvage.Expeditions.Modifiers;
+using Robust.Shared.Timing;
+using Content.Server.Salvage;
 
 namespace Content.Server.Shuttles.Systems;
 
@@ -41,6 +50,11 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
     [Dependency] private readonly UserInterfaceSystem _ui = default!;
     [Dependency] private readonly SharedContentEyeSystem _eyeSystem = default!;
     [Dependency] private readonly AccessReaderSystem _access = default!;
+    [Dependency] private readonly ItemSlotsSystem _itemSlots = default!;
+    [Dependency] private readonly Robust.Shared.Timing.IGameTiming _timing = default!;
+    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+    [Dependency] private readonly Content.Server.Salvage.SalvageSystem _salvage = default!;
+    [Dependency] private readonly ExpeditionDiskSystem _expeditionDisks = default!;
 
     private EntityQuery<MetaDataComponent> _metaQuery;
     private EntityQuery<TransformComponent> _xformQuery;
@@ -48,6 +62,7 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
     private readonly HashSet<Entity<ShuttleConsoleComponent>> _consoles = new();
 
     private static readonly ProtoId<TagPrototype> CanPilotTag = "CanPilot";
+    private static readonly TimeSpan ExpeditionConsoleCooldown = TimeSpan.FromMinutes(15);
 
     public override void Initialize()
     {
@@ -59,12 +74,16 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
         SubscribeLocalEvent<ShuttleConsoleComponent, ComponentShutdown>(OnConsoleShutdown);
         SubscribeLocalEvent<ShuttleConsoleComponent, PowerChangedEvent>(OnConsolePowerChange);
         SubscribeLocalEvent<ShuttleConsoleComponent, AnchorStateChangedEvent>(OnConsoleAnchorChange);
+        SubscribeLocalEvent<ShuttleConsoleComponent, EntInsertedIntoContainerMessage>(OnConsoleDiskSlotChanged);
+        SubscribeLocalEvent<ShuttleConsoleComponent, EntRemovedFromContainerMessage>(OnConsoleDiskSlotChanged);
         SubscribeLocalEvent<ShuttleConsoleComponent, ActivatableUIOpenAttemptEvent>(OnConsoleUIOpenAttempt);
         Subs.BuiEvents<ShuttleConsoleComponent>(ShuttleConsoleUiKey.Key, subs =>
         {
             subs.Event<ShuttleConsoleFTLBeaconMessage>(OnBeaconFTLMessage);
             subs.Event<ShuttleConsoleFTLPositionMessage>(OnPositionFTLMessage);
             subs.Event<ShuttleConsoleFTLStationDockMessage>(OnStationDockFTLMessage);
+            subs.Event<ShuttleConsoleExpeditionDiskActivateMessage>(OnExpeditionDiskActivateMessage);
+            subs.Event<ShuttleConsoleExpeditionEndMessage>(OnExpeditionEndMessage);
             subs.Event<BoundUIClosedEvent>(OnConsoleUIClose);
         });
 
@@ -155,6 +174,50 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
         RemovePilot(args.Actor);
     }
 
+    private void OnExpeditionDiskActivateMessage(Entity<ShuttleConsoleComponent> ent, ref ShuttleConsoleExpeditionDiskActivateMessage args)
+    {
+        if (_timing.CurTime < ent.Comp.ExpeditionCooldownEnd)
+        {
+            var remaining = ent.Comp.ExpeditionCooldownEnd - _timing.CurTime;
+            _popup.PopupEntity(Loc.GetString("shuttle-console-expedition-disk-cooldown", ("time", remaining.ToString("hh\\:mm\\:ss"))), ent.Owner, PopupType.MediumCaution);
+            return;
+        }
+
+        if (!TryComp<ItemSlotsComponent>(ent.Owner, out var slots) ||
+            !_itemSlots.TryGetSlot(ent.Owner, SharedShuttleConsoleComponent.DiskSlotName, out var slot, component: slots) ||
+            !slot.HasItem)
+        {
+            return;
+        }
+        EntityUid? diskUidNullable = slot.ContainerSlot?.ContainedEntity;
+        if (diskUidNullable == null)
+            return;
+
+        var diskUid = diskUidNullable.Value;
+        if (!TryComp(diskUid, out ExpeditionDiskComponent? diskComp))
+            return;
+
+        if (_expeditionDisks.TryActivateFromConsole(ent.Owner, diskUid, diskComp))
+        {
+            ent.Comp.ExpeditionCooldownEnd = _timing.CurTime + ExpeditionConsoleCooldown;
+        }
+
+        DockingInterfaceState? dockState = null;
+        UpdateState(ent.Owner, ref dockState);
+    }
+
+    private void OnExpeditionEndMessage(Entity<ShuttleConsoleComponent> ent, ref ShuttleConsoleExpeditionEndMessage args)
+    {
+        if (_salvage.TryEndExpeditionEarlyFromConsole(ent.Owner))
+        {
+            DockingInterfaceState? dockState = null;
+            UpdateState(ent.Owner, ref dockState);
+            return;
+        }
+
+        _popup.PopupEntity(Loc.GetString("salvage-expedition-shuttle-not-found"), ent.Owner, PopupType.MediumCaution);
+    }
+
     private void OnConsoleUIOpenAttempt(EntityUid uid, ShuttleConsoleComponent component,
         ActivatableUIOpenAttemptEvent args)
     {
@@ -165,6 +228,21 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
     private void OnConsoleAnchorChange(EntityUid uid, ShuttleConsoleComponent component,
         ref AnchorStateChangedEvent args)
     {
+        DockingInterfaceState? dockState = null;
+        UpdateState(uid, ref dockState);
+    }
+
+    private void OnConsoleDiskSlotChanged(EntityUid uid, ShuttleConsoleComponent component, ContainerModifiedMessage args)
+    {
+        if (!TryComp<ItemSlotsComponent>(uid, out var slots) ||
+            !_itemSlots.TryGetSlot(uid, SharedShuttleConsoleComponent.DiskSlotName, out var slot, component: slots))
+        {
+            return;
+        }
+
+        if (slot.ContainerSlot == null || args.Container.ID != slot.ContainerSlot.ID)
+            return;
+
         DockingInterfaceState? dockState = null;
         UpdateState(uid, ref dockState);
     }
@@ -238,7 +316,10 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
                 continue;
             // End Frontier
 
-            var gridDocks = result.GetOrNew(GetNetEntity(xform.GridUid.Value));
+            if (xform.GridUid is not { } gridUid)
+                continue;
+
+            var gridDocks = result.GetOrNew(GetNetEntity(gridUid));
 
             var state = new DockingPortState()
             {
@@ -272,8 +353,9 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
             Console = entity,
         };
 
-        RaiseLocalEvent(entity.Value, ref getShuttleEv);
-        entity = getShuttleEv.Console;
+        var entityUid = entity ?? consoleUid;
+        RaiseLocalEvent(entityUid, ref getShuttleEv);
+        entity = getShuttleEv.Console ?? entityUid;
 
         TryComp(entity, out TransformComponent? consoleXform);
         var shuttleGridUid = consoleXform?.GridUid;
@@ -282,10 +364,10 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
         ShuttleMapInterfaceState mapState;
         dockState ??= GetDockState();
 
-        if (shuttleGridUid != null && entity != null)
+        if (shuttleGridUid is { } shuttleGrid)
         {
-            navState = GetNavState(entity.Value, dockState.Docks);
-            mapState = GetMapState(shuttleGridUid.Value);
+            navState = GetNavState(entityUid, dockState.Docks);
+            mapState = GetMapState(shuttleGrid);
         }
         else
         {
@@ -300,8 +382,67 @@ public sealed partial class ShuttleConsoleSystem : SharedShuttleConsoleSystem
 
         if (_ui.HasUi(consoleUid, ShuttleConsoleUiKey.Key))
         {
-            _ui.SetUiState(consoleUid, ShuttleConsoleUiKey.Key, new ShuttleBoundUserInterfaceState(navState, mapState, dockState));
+            var expeditionState = GetExpeditionDiskState(consoleUid);
+            _ui.SetUiState(consoleUid, ShuttleConsoleUiKey.Key, new ShuttleBoundUserInterfaceState(navState, mapState, dockState, expeditionState));
         }
+    }
+
+    private ExpeditionDiskInterfaceState GetExpeditionDiskState(EntityUid consoleUid)
+    {
+        var consoleXform = Transform(consoleUid);
+        SalvageExpeditionComponent? expedition = null;
+        var inExpedition = consoleXform.MapUid != null && TryComp(consoleXform.MapUid.Value, out expedition);
+        var canEndExpedition = inExpedition && expedition != null && expedition.Stage >= ExpeditionStage.Running;
+
+        if (!TryComp<ItemSlotsComponent>(consoleUid, out var slots) ||
+            !_itemSlots.TryGetSlot(consoleUid, SharedShuttleConsoleComponent.DiskSlotName, out var slot, component: slots) ||
+            !slot.HasItem)
+        {
+            return new ExpeditionDiskInterfaceState(false, string.Empty, 0, string.Empty, false, TimeSpan.Zero, false, inExpedition, canEndExpedition);
+        }
+        EntityUid? diskUidNullable = slot.ContainerSlot?.ContainedEntity;
+        if (diskUidNullable == null)
+        {
+            return new ExpeditionDiskInterfaceState(false, string.Empty, 0, string.Empty, false, TimeSpan.Zero, false, inExpedition, canEndExpedition);
+        }
+
+        var diskUid = diskUidNullable.Value;
+        if (!TryComp(diskUid, out ExpeditionDiskComponent? diskComp))
+        {
+            return new ExpeditionDiskInterfaceState(false, string.Empty, 0, string.Empty, false, TimeSpan.Zero, false, inExpedition, canEndExpedition);
+        }
+
+        var difficultyNumber = diskComp.DifficultyNumber;
+        if (!_prototypeManager.TryIndex<SalvageDifficultyPrototype>(diskComp.Difficulty, out var difficultyProto))
+        {
+            var fallbackObjective = Loc.GetString($"salvage-expedition-type-{diskComp.MissionType}");
+            var (onCooldown, remaining) = GetConsoleCooldownState(consoleUid, diskComp.CooldownEnd);
+            return new ExpeditionDiskInterfaceState(true, Loc.GetString("shuttle-console-unknown"), difficultyNumber, fallbackObjective, onCooldown, remaining, !onCooldown, inExpedition, canEndExpedition);
+        }
+
+        var mission = _salvage.GetMission(diskComp.MissionType, difficultyProto, diskComp.Seed);
+        var biomeProto = _prototypeManager.Index<SalvageBiomeModPrototype>(mission.Biome);
+        var planet = string.IsNullOrWhiteSpace(Loc.GetString(biomeProto.Description))
+            ? Loc.GetString(biomeProto.ID)
+            : Loc.GetString(biomeProto.Description);
+
+        var objective = Loc.GetString($"salvage-expedition-type-{diskComp.MissionType}");
+        var (cooldown, cooldownRemaining) = GetConsoleCooldownState(consoleUid, diskComp.CooldownEnd);
+
+        return new ExpeditionDiskInterfaceState(true, planet, difficultyNumber, objective, cooldown, cooldownRemaining, !cooldown, inExpedition, canEndExpedition);
+    }
+
+    private (bool OnCooldown, TimeSpan Remaining) GetConsoleCooldownState(EntityUid consoleUid, TimeSpan diskCooldownEnd)
+    {
+        var now = _timing.CurTime;
+        var consoleCooldownEnd = TimeSpan.Zero;
+        if (TryComp<ShuttleConsoleComponent>(consoleUid, out var consoleComp))
+            consoleCooldownEnd = consoleComp.ExpeditionCooldownEnd;
+
+        var diskRemaining = diskCooldownEnd > now ? diskCooldownEnd - now : TimeSpan.Zero;
+        var consoleRemaining = consoleCooldownEnd > now ? consoleCooldownEnd - now : TimeSpan.Zero;
+        var remaining = diskRemaining > consoleRemaining ? diskRemaining : consoleRemaining;
+        return (remaining > TimeSpan.Zero, remaining);
     }
 
     public override void Update(float frameTime)

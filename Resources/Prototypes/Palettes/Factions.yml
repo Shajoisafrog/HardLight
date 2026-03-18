@@ -1,0 +1,5 @@
+- type: palette
+  id: Factions
+  name: Factions
+  colors:
+    dominos robotics: "#9900ff"

@@ -58,7 +58,7 @@
   description: A weapon that is almost as infamous as its users.
   components:
   - type: HitscanBatteryAmmoProvider
-    proto: NFPulse
+    proto: Pulse
     fireCost: 200
   - type: BatterySelfRecharger
     autoRecharge: true
@@ -170,9 +170,7 @@
     startingCharge: 1200
   - type: BatterySelfRecharger
     autoRecharge: true
-    autoRechargeRate: 24
-    autoRechargePause: true
-    autoRechargePauseTime: 30
+    autoRechargeRate: 100 #HL - 100 < 24, why was it so low
 
 - type: entity
   name: energy shotgun

@@ -36,10 +36,16 @@ public sealed class JobTrackingSystem : SharedJobTrackingSystem
     // If, through admin jiggery pokery, the player returns (or the mob is controlled), we should close the slot if it's opened.
     private void OnJobMindAdded(Entity<JobTrackingComponent> ent, ref MindAddedMessage ev)
     {
-        if (ent.Comp.Job is not { } job || ent.Comp.Active)
+        // HardLight: If the job is null, don't do anything.
+        if (ent.Comp.Job is not { } job)
+            return;
+
+        // HardLight: If the job is already active, don't do anything.
+        if (ent.Comp.Active)
             return;
 
         ent.Comp.Active = true;
+        RaiseLocalEvent(new JobTrackingStateChangedEvent()); // HardLight
 
         if (!JobShouldBeReopened(ent.Comp.Job.Value))
             return;
@@ -88,6 +94,7 @@ public sealed class JobTrackingSystem : SharedJobTrackingSystem
             return;
 
         ent.Comp.Active = false;
+        RaiseLocalEvent(new JobTrackingStateChangedEvent()); // HardLight
 
         try
         {
@@ -121,23 +128,32 @@ public sealed class JobTrackingSystem : SharedJobTrackingSystem
     {
         var activeJobCount = 0;
         var jobQuery = AllEntityQuery<JobTrackingComponent, MindContainerComponent, TransformComponent>();
-        while (jobQuery.MoveNext(out var uid, out var job, out var mindContainer, out var xform))
+        while (jobQuery.MoveNext(out var uid, out var job, out _, out var xform)) // HardLight: out var mindContainer< out _
         {
             if (exclude == uid)
                 continue;
 
             if (!job.Active
                 || job.Job != jobProtoId
-                || xform.MapID != _gameTicker.DefaultMap // Skip if they're in cryo or on expedition
-                || !_player.TryGetSessionByEntity(uid, out var session)
-                || session.State.Status != SessionStatus.InGame)
+                || xform.MapID != _gameTicker.DefaultMap) // Skip if they're in cryo or on expedition
                 continue;
 
-            if (!includeAfk && _afk.IsAfk(session))
-                continue;
+            if (_player.TryGetSessionByEntity(uid, out var session))
+            {
+                if (session.State.Status != SessionStatus.InGame)
+                    continue;
+
+                if (!includeAfk && _afk.IsAfk(session))
+                    continue;
+            }
 
             activeJobCount++;
         }
         return activeJobCount;
     }
+}
+
+// HardLight: An event raised when a job tracking component's active state changes, used for dynamic job allocation rules.
+public sealed class JobTrackingStateChangedEvent : EntityEventArgs
+{
 }

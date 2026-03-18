@@ -30,7 +30,6 @@ entities:
     components:
     - type: MetaData
     - type: Transform
-      parent: invalid
     - type: MapGrid
       chunks:
         0,0:
@@ -3831,7 +3830,7 @@ entities:
       parent: 10
     - type: Fixtures
       fixtures: {}
-- proto: Gaslock
+- proto: GaslockHighFlow
   entities:
   - uid: 46
     components:

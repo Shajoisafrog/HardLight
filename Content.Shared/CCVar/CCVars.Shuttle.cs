@@ -80,7 +80,7 @@ public sealed partial class CCVars
     ///     How long the warmup time before FTL start should be.
     /// </summary>
     public static readonly CVarDef<float> FTLStartupTime =
-        CVarDef.Create("shuttle.startup_time", 5.5f, CVar.SERVERONLY);
+        CVarDef.Create("shuttle.startup_time", 1f, CVar.SERVERONLY);
 
     /// <summary>
     ///     How long a shuttle spends in FTL.
@@ -98,14 +98,14 @@ public sealed partial class CCVars
     ///     How much time needs to pass before a shuttle can FTL again.
     /// </summary>
     public static readonly CVarDef<float> FTLCooldown =
-        CVarDef.Create("shuttle.cooldown", 2f, CVar.SERVERONLY);
+        CVarDef.Create("shuttle.cooldown", 20f, CVar.SERVERONLY);
 
     /// <summary>
     ///     The maximum <see cref="PhysicsComponent.Mass"/> a grid can have before it becomes unable to FTL.
     ///     Any value equal to or less than zero will disable this check.
     /// </summary>
     public static readonly CVarDef<float> FTLMassLimit =
-        CVarDef.Create("shuttle.mass_limit", 3000f, CVar.SERVERONLY);
+        CVarDef.Create("shuttle.mass_limit", 5000f, CVar.SERVERONLY);
 
     /// <summary>
     ///     How long to knock down entities for if they aren't buckled when FTL starts and stops.
@@ -117,7 +117,7 @@ public sealed partial class CCVars
     ///     Is the emergency shuttle allowed to be early launched.
     /// </summary>
     public static readonly CVarDef<bool> EmergencyEarlyLaunchAllowed =
-        CVarDef.Create("shuttle.emergency_early_launch_allowed", false, CVar.SERVERONLY);
+        CVarDef.Create("shuttle.emergency_early_launch_allowed", true, CVar.SERVERONLY);
 
     /// <summary>
     ///     How long the emergency shuttle remains docked with the station, in seconds.
@@ -194,4 +194,40 @@ public sealed partial class CCVars
     /// </summary>
     public static readonly CVarDef<float> GridImpulseMultiplier =
         CVarDef.Create("shuttle.grid_impulse_multiplier", 0.01f, CVar.SERVERONLY);
+
+    #region Orphaned Grid Cleanup
+
+    /// <summary>
+    ///     Whether automatic cleanup of orphaned/empty grids is enabled.
+    /// </summary>
+    public static readonly CVarDef<bool> OrphanedGridCleanupEnabled =
+        CVarDef.Create("shuttle.orphaned_grid_cleanup_enabled", true, CVar.SERVERONLY);
+
+    /// <summary>
+    ///     Minimum number of tiles a grid must have to avoid being cleaned up (unless it has important entities).
+    /// </summary>
+    public static readonly CVarDef<int> OrphanedGridMinimumTiles =
+        CVarDef.Create("shuttle.orphaned_grid_minimum_tiles", 20, CVar.SERVERONLY);
+
+    /// <summary>
+    ///     Whether to periodically check and clean up empty/nameless grids.
+    ///     This catches grids that spawn without tiles during gameplay.
+    /// </summary>
+    public static readonly CVarDef<bool> EmptyGridCleanupEnabled =
+        CVarDef.Create("shuttle.empty_grid_cleanup_enabled", true, CVar.SERVERONLY);
+
+    /// <summary>
+    ///     How often (in seconds) to check for empty/nameless grids to clean up.
+    /// </summary>
+    public static readonly CVarDef<float> EmptyGridCleanupInterval =
+        CVarDef.Create("shuttle.empty_grid_cleanup_interval", 60f, CVar.SERVERONLY);
+
+    /// <summary>
+    ///     Minimum age (in seconds) a grid must be before it can be cleaned up as empty.
+    ///     This prevents newly spawned grids from being immediately deleted before they're populated.
+    /// </summary>
+    public static readonly CVarDef<float> EmptyGridCleanupMinAge =
+        CVarDef.Create("shuttle.empty_grid_cleanup_min_age", 30f, CVar.SERVERONLY);
+
+    #endregion
 }

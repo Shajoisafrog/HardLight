@@ -48,7 +48,7 @@ public sealed class ObjectiveRewardSystem : EntitySystem
         SeedExistingObjectives();
 
         // Final sweep at round end to catch anything that completed right at the end.
-    SubscribeLocalEvent<RoundEndTextAppendEvent>(OnRoundEndTextAppend);
+        SubscribeLocalEvent<RoundEndTextAppendEvent>(OnRoundEndTextAppend);
     }
 
     private void SeedExistingObjectives()
@@ -123,6 +123,12 @@ public sealed class ObjectiveRewardSystem : EntitySystem
             if (!TryComp(objective, out ObjectiveRewardComponent? reward))
                 continue; // No reward configured
 
+            if (reward.Rewarded)
+            {
+                _rewarded.Add(objective);
+                continue;
+            }
+
             // For objectives marked as round-end only, skip early periodic payment
             if (reward.OnlyAtRoundEnd && !isRoundEnd)
                 continue;
@@ -148,6 +154,7 @@ public sealed class ObjectiveRewardSystem : EntitySystem
                 if (reward.Amount > 0 && _bank.TryBankDeposit(target.Value, reward.Amount))
                 {
                     _rewarded.Add(objective);
+                    reward.Rewarded = true;
 
                     // Optional feedback
                     if (reward.NotifyPlayer)

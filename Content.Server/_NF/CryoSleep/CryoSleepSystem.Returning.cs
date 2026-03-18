@@ -18,7 +18,6 @@ namespace Content.Server._NF.CryoSleep;
 public sealed partial class CryoSleepSystem
 {
     [Dependency] private readonly IConfigurationManager _configurationManager = default!;
-    [Dependency] private readonly IAdminLogManager _adminLogger = default!;
 
     private void InitReturning()
     {
@@ -112,7 +111,8 @@ public sealed partial class CryoSleepSystem
         }
 
         if (body != null
-            && Transform(body.Value.Body).MapUid == _storageMap)
+            && TryComp<TransformComponent>(body.Value.Body, out var bodyXform)
+            && bodyXform.MapUid == _storageMap)
         {
             QueueDel(body.Value.Body);
         }

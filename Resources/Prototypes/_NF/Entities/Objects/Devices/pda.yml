@@ -12,6 +12,9 @@
   parent: [MusicBasePDA, AdminPDA]
   id: NFAdminPDA
   components:
+  - type: Tag
+    tags:
+    - Admin
   - type: CartridgeLoader
     diskSpace: 20
     preinstalled:
@@ -27,6 +30,7 @@
       - MailMetricsCartridge
       - AppraisalCartridge
       - NetProbeCartridge
+      - NanoChatCartridge
 
 - type: entity
   parent: BasePDA
@@ -108,6 +112,9 @@
   id: ERTMailCarrierPDA
   suffix: Mail Carrier
   components:
+  - type: Tag
+    tags:
+    - Admin
   - type: Pda
     id: ERTMailCarrierIDCard
     penSlot:
@@ -349,13 +356,13 @@
 - type: entity
   parent: [BaseSecurityPDA, BaseCommandContraband]
   id: SrPDA
-  name: station representative PDA
+  name: Harbor Master's PDA
   description: Looks like it's been clawed on.
   components:
   - type: Pda
     id: SrIDCard
     penSlot:
-      startingItem: PenCentcom
+      startingItem: PublicAffairsPen
       priority: -1
       whitelist:
         tags:

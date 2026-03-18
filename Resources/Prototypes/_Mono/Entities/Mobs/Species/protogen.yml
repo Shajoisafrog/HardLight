@@ -67,6 +67,7 @@
   - type: Speech # Frontier
     allowedEmotes: ['Belch', 'Beep', 'Ping', 'Buzz'] # Frontier + Protogen stuff
     speechSounds: Pai
+  - type: PotentialPsionic #Nyano - Summary: makes potentially psionic.
   - type: Vocal # Mono
     wilhelm: "/Audio/_EE/Voice/IPC/wilhelm.ogg"
     sounds:

@@ -8,6 +8,12 @@
 - type: Tag
   id: HLMagazinePistolCaselessRifle
 
+- type: Tag
+  id: Admin
+
+- type: Tag
+  id: DartGunAmmo
+
 #region Docking Tags
 - type: Tag
   id: SecDock
@@ -47,6 +53,9 @@
 
 - type: Tag
   id: NFCartridgeGrenade40mmFlash
+
+- type: Tag
+  id: AIShipWeapon
 
 - type: Tag
   id: NFCartridgeGrenade40mmEmp
@@ -342,3 +351,14 @@
 
 - type: Tag
   id: Syndie_Multitool
+
+# Random Stuff
+
+- type: Tag
+  id: GaslockFrameMachineCircuitBoard
+
+# Forged Rifle Mag
+- type: Tag
+  id: ForgedRifleMagazine
+
+

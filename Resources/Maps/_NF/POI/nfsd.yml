@@ -38,7 +38,6 @@ entities:
     components:
     - type: MetaData
     - type: Transform
-      parent: invalid
     - type: MapGrid
       chunks:
         0,0:
@@ -4338,7 +4337,7 @@ entities:
 
         [bold]------------------------------------------------------------------------------------[/bold]
 
-         [bold]Greetings[/bold] valued TSFMC personnel. We apologize for our oversight in the original remodle of a complete chemistry room, so we have provided a donation of a [bold]full box of assorted donuts[bold] to make up for this [italic]mistake[italic].
+         [bold]Greetings[/bold] valued ColSec personnel. We apologize for our oversight in the original remodle of a complete chemistry room, so we have provided a donation of a [bold]full box of assorted donuts[bold] to make up for this [italic]mistake[italic].
 
          [italic]Central TSF is [bolditalic]NOT[/bolditalic] responsible for any health-issues and side-effects caused by consuming the donuts mentioned. By eating said donuts, you automatically agree to be liable yourself for all harm caused.[/italic]
 

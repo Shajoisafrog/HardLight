@@ -203,3 +203,14 @@
 #           reagents:
 #           - ReagentId: Water
 #             Quantity: 30
+
+- type: trait
+  id: Pisser
+  name: trait-pisser-name
+  description: trait-pisser-desc
+  category: Physical
+  components:
+    - type: PissProducer
+      maxVol: 100
+      reVol: 15
+      reHunger: 1

@@ -17,11 +17,12 @@
     ClothingUniformJumpsuitSecGrey: 3
     ClothingUniformJumpskirtSecGrey: 3
     ClothingUniformJumpsuitSecBlue: 3
-    ClothingHeadsetSecurityCommon: 3 # Frontier - Ask SR or Sheriff for keys
+    #ClothingHeadsetSecurityCommon: 3 # Frontier - Ask SR or Sheriff for keys
     ClothingMaskGasSecurity: 3
     ClothingUniformJumpsuitBrigmedic: 3
     ClothingUniformJumpskirtBrigmedic: 3
     ClothingOuterWinterSec: 2
+    ClothingOuterEVASuitHLSec: 3 #HL - HLSec-colored EVA suit meant for Shelegs, accessible to all.
     ClothingHeadHelmetBasic: 2 # Frontier
     ClothingOuterArmorBasic: 2
     ClothingNeckScarfStripedRed: 3
@@ -30,9 +31,9 @@
     ClothingMaskBreathMedicalSecurity: 3
     ClothingEyesBlindfold: 1
     ClothingNeckCollarSec: 2 # Floofstation - Collar addition
-    ClothingShoesBootsJack: 1 # Frontier - 3<1
-    ClothingShoesBootsCombat: 1
-    ClothingShoesBootsWinterSec: 2
+    ClothingShoesBootsJack: 3 # Frontier - 3<1
+    ClothingShoesBootsCombat: 3 # HL - Changed to 3 to parity Jack
+    ClothingShoesBootsWinterSec: 3 # HL - Changed to 3 to parity Jack
     ClothingHeadHelmetJustice: 1
     ClothingShoesBootsCowboyBlack: 1 # Frontier
     ClothingHeadHatCowboyBlack: 1 # Frontier

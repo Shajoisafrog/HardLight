@@ -1,6 +1,6 @@
 - type: entity
   parent: [BaseMob, StripableInventoryBase]
-  id: BaseBorgChassis
+  id: BaseBorgChassisNotIonStormable
   name: cyborg
   description: A synthetic that assists in station activity. They love being asked to state their laws over and over. #HL Edit. We have positronics, BORIS modules, and straight up AI's here. These aren't MMI-exclusive.
   save: false
@@ -85,7 +85,6 @@
   - type: BankAccount
   - type: SiliconLawProvider
     laws: Crewsimov
-  - type: IonStormTarget
   - type: Inventory
     templateId: borgnorm # Hardlight. Edits regular borgs to use our Inventories.
   - type: Hands
@@ -93,21 +92,8 @@
     disableExplosionRecursion: true
     canBeStripped: false
   - type: ComplexInteraction
-  - type: IntrinsicRadioReceiver
-  - type: IntrinsicRadioTransmitter
-    channels:
-    - Binary
-    - Common
-    - Science
-  - type: ActiveRadio
-    channels:
-    - Binary
-    - Common
-    - Science
   - type: ZombieImmune
-  - type: Repairable
-    doAfterDelay: 10
-    allowSelfRepair: false
+  - type: WeldingHealable # HardLight
   - type: BorgChassis
   - type: LockingWhitelist
     blacklist:
@@ -125,6 +111,28 @@
       cell_slot: !type:ContainerSlot { }
       borg_module: !type:Container { }
       part-container: !type:Container
+      key_slots: !type:Container # HardLight: Added a slot for encryption keys
+  # HardLight start: Added encryption key slots in addition to intrinsic radio channels.
+  - type: EncryptionKeyHolder
+    keySlots: 10
+    preserveExistingChannels: true
+    examineWhileLocked: false
+    intrinsicChannels:
+    - Binary
+    - Science
+    - Common
+  - type: IntrinsicRadioReceiver
+  - type: IntrinsicRadioTransmitter
+    intrinsicChannels:
+    - Binary
+    - Science
+    - Common
+  - type: ActiveRadio
+    intrinsicChannels:
+    - Binary
+    - Science
+    - Common
+  # HardLight end
   - type: PowerCellSlot
     cellSlotId: cell_slot
     fitsInCharger: true
@@ -258,6 +266,17 @@
     interactFailureString: petting-failure-generic-cyborg
     interactSuccessSound:
       path: /Audio/Ambience/Objects/periodic_beep.ogg
+  - type: Blindable
+  - type: EyeProtection
+  - type: Stripping
+  - type: Vore
+
+- type: entity
+  abstract: true
+  parent: BaseBorgChassisNotIonStormable
+  id: BaseBorgChassis
+  components:
+  - type: IonStormTarget
 
 - type: entity
   abstract: true
@@ -287,6 +306,26 @@
     intensitySlope: 20
     maxIntensity: 20
     canCreateVacuum: false # its for killing the borg not the station
+
+- type: entity
+  abstract: true
+  parent: BaseBorgTransponder
+  id: BaseXenoborgTransponder
+  components:
+  - type: DeviceNetwork
+    receiveFrequencyId: Xenoborg
+    transmitFrequencyId: Mothership
+  - type: SurveillanceCamera # they act like cameras for the mothership
+    networkSet: true
+    nameSet: True
+    id: Xenoborg
+  - type: Explosive
+    explosionType: Minibomb
+    deleteAfterExplosion: false # let damage threshold gib the borg
+    totalIntensity: 200 # bigger kaboom
+    intensitySlope: 20
+    maxIntensity: 100
+    canCreateVacuum: false
 
 - type: entity
   id: BaseBorgChassisNT
@@ -326,13 +365,23 @@
   - type: SiliconLawProvider
     laws: SyndicateStatic
     subverted: true
+  # HardLight start: Added encryption key slots in addition to intrinsic radio channels.
+  - type: EncryptionKeyHolder
+    keySlots: 10
+    preserveExistingChannels: true
+    examineWhileLocked: false
+    intrinsicChannels:
+    - Binary
+    - Syndicate
   - type: IntrinsicRadioTransmitter
-    channels:
+    intrinsicChannels:
     - Binary
     - Syndicate
   - type: ActiveRadio
-    channels:
+    intrinsicChannels:
+    - Binary
     - Syndicate
+  # HardLight end
   - type: ShowSyndicateIcons
   - type: MovementAlwaysTouching
   - type: Speech
@@ -344,3 +393,167 @@
       Unsexed: UnisexSiliconSyndicate
   - type: PointLight
     color: "#dd200b"
+
+- type: entity
+  id: BaseBorgChassisDerelict
+  parent: BaseBorgChassis
+  abstract: true
+  components:
+  - type: NpcFactionMember
+    factions:
+    - NanoTrasen #The seemingly best fit. It was a regular NT cyborg once, after all.
+  - type: Access
+    enabled: false
+    groups:
+    - AllAccess #Randomized access would be fun. AllAccess is the best i can think of right now that does make it too hard for it to enter the station or navigate it..
+  - type: AccessReader
+    access: [["Command"], ["Research"]]
+  # HardLight start: Added encryption key slots in addition to intrinsic radio channels.
+  - type: EncryptionKeyHolder
+    keySlots: 10
+    preserveExistingChannels: true
+    examineWhileLocked: false
+    intrinsicChannels:
+    - Binary
+  - type: IntrinsicRadioTransmitter
+    intrinsicChannels:
+    - Binary
+  - type: ActiveRadio
+    intrinsicChannels:
+    - Binary
+  # HardLight end
+  - type: IonStormTarget
+    chance: 1
+  - type: ShowJobIcons
+
+- type: entity
+  parent: BaseBorgChassisNotIonStormable
+  id: BaseXenoborgChassis
+  name: xenoborg
+  description: A man-machine hybrid that aims to replicate itself. They love extracting brains to insert into fresh Xenoborg chassis to grow their army.
+  save: false
+  abstract: true
+  components:
+  - type: Body
+    prototype: Quadborg
+  - type: Inventory
+    templateId: borgquad #Hardlight - Changes Quadborgs over to use our armor slots
+  - type: RandomMetadata
+    nameSegments:
+    - NamesXenoborg
+  - type: NameIdentifier
+    group: Xenoborg
+  - type: Sprite
+    sprite: Mobs/Silicon/chassis.rsi
+  - type: MobThresholds
+    thresholds: # slightly tankier than a normal borg
+      0: Alive
+      125: Critical
+      250: Dead
+  - type: EmagSiliconLaw # should xenoborgs be emagable?
+    stunTime: 5
+  - type: SiliconLawProvider
+    laws: XenoborgLawset # custom laws here
+  # HardLight start: Added encryption key slots in addition to intrinsic radio channels.
+  - type: EncryptionKeyHolder
+    keySlots: 10
+    preserveExistingChannels: true
+    examineWhileLocked: false
+    intrinsicChannels:
+    - Xenoborg
+    - Binary
+  - type: IntrinsicRadioTransmitter # can only use binary and xenoborg channel
+    intrinsicChannels:
+    - Xenoborg
+    - Binary
+  - type: ActiveRadio # but can hear the mothership channel
+    intrinsicChannels:
+    - Mothership
+    - Xenoborg
+    - Binary
+  # HardLight end
+  - type: BorgChassis
+    maxModules: 10
+    hasMindState: robot_e
+    noMindState: robot_e_r
+    moduleWhitelist:
+      tags:
+      - XenoborgModuleGeneric
+  - type: TypingIndicator
+    proto: xenoborg
+  - type: Speech
+    speechVerb: Robotic
+    speechSounds: Xenoborg
+    allowedEmotes:
+    - Laugh
+  - type: Vocal
+    sounds:
+      Unsexed: UnisexSiliconXenoborg
+    wilhelmProbability: 0
+  - type: DamagedSiliconAccent
+  - type: BankAccount
+  - type: UnblockableSpeech
+  - type: FootstepModifier
+    footstepSoundCollection:
+      collection: FootstepXenoborg
+  # - type: SpamEmitSound # makes a creppy noise randomly
+  #   minInterval: 30
+  #   maxInterval: 45
+  #   sound:
+  #     path: /Audio/Machines/genetics.ogg
+  #     params:
+  #       volume: -8
+  #       maxDistance: 5
+  #       variation: 0.05
+  - type: NpcFactionMember
+    factions:
+    - Xenoborg
+  - type: Hands
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 90
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Machines/warning_buzzer_xenoborg.ogg
+          params:
+            volume: 5
+    - trigger:
+        !type:DamageTrigger
+        damage: 375
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          PinpointerMothership: # drop a pinpointer to the mothership upon being destructed
+            min: 1
+            max: 1
+      - !type:EmptyContainersBehaviour
+        containers:
+        - borg_brain
+        - borg_module
+        - cell_slot
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: PointLight
+    color: "#0033ff"
+  - type: GuideHelp
+    guides:
+    - Cyborgs
+    - Robotics
+    - Xenoborgs
+  - type: Access
+    enabled: false
+    tags:
+    - Xenoborg
+  - type: AccessReader
+    access: [["Xenoborg"]]
+  - type: ShowJobIcons # not sure if it is needed
+  - type: InteractionPopup
+    interactSuccessSound:
+      path: /Audio/Ambience/Objects/periodic_beep.ogg
+  - type: Xenoborg

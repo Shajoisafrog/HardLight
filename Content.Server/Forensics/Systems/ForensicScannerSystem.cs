@@ -61,17 +61,19 @@ namespace Content.Server.Forensics
 
         private SoundSpecifier _confirmSound = new SoundPathSpecifier("/Audio/Effects/Cargo/ping.ogg");
 
-        private const int ActiveUnusedDeadDropSpesoReward = 20000;
-        private const float ActiveUnusedDeadDropFUCReward = 2.0f;
-        private const int ActiveUsedDeadDropSpesoReward = 10000;
-        private const float ActiveUsedDeadDropFUCReward = 1.0f;
-        private const int InactiveUsedDeadDropSpesoReward = 5000;
-        private const float InactiveUsedDeadDropFUCReward = 0.5f;
-        private const int DropPodSpesoReward = 10000;
-        private const float DropPodFUCReward = 1.0f;
+        private const int ActiveUnusedDeadDropSpesoReward = 50000;
+        private const float ActiveUnusedDeadDropFUCReward = 5.0f;
+        private const int ActiveUsedDeadDropSpesoReward = 20000;
+        private const float ActiveUsedDeadDropFUCReward = 2.0f;
+        private const int InactiveUsedDeadDropSpesoReward = 10000;
+        private const float InactiveUsedDeadDropFUCReward = 1.0f;
+        private const int DropPodSpesoReward = 20000;
+        private const float DropPodFUCReward = 2.0f;
         // End Frontier: payout constants
 
         private static readonly ProtoId<TagPrototype> DNASolutionScannableTag = "DNASolutionScannable";
+        private static readonly ProtoId<StackPrototype> FrontierUplinkCoinId = "FrontierUplinkCoin";
+        private static readonly ProtoId<RadioChannelPrototype> ColSecChannelId = "ColSec";  // HardLight
 
         public override void Initialize()
         {
@@ -119,7 +121,7 @@ namespace Content.Server.Forensics
                         int payout = sectorDD.FUCAccumulator.Int();
                         sectorDD.FUCAccumulator -= payout;
 
-                        var stackPrototype = _prototypeManager.Index<StackPrototype>("FrontierUplinkCoin");
+                        var stackPrototype = _prototypeManager.Index<StackPrototype>(FrontierUplinkCoinId);
                         _stackSystem.Spawn(payout, stackPrototype, Transform(target).Coordinates);
                     }
                 }
@@ -127,7 +129,7 @@ namespace Content.Server.Forensics
             else
                 fucAmount = 0;
 
-            var channel = _prototypeManager.Index<RadioChannelPrototype>("Nfsd");
+            var channel = _prototypeManager.Index<RadioChannelPrototype>(ColSecChannelId);
             string msgString = Loc.GetString(msg);
             if (fucAmount >= 1)
             {

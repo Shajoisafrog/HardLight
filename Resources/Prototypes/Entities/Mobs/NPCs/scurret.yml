@@ -160,6 +160,9 @@
   id: MobScurret
   parent: MobBaseScurret
   components:
+  - type: NpcFactionMember
+    factions:
+    - Wawa
   # The have a rich culture
   - type: RandomMetadata
     nameSegments:
@@ -193,7 +196,7 @@
       prototypes: [ EmotionalSupportScurretGear ]
     - type: NpcFactionMember
       factions:
-      - Passive
+      - Wawa
     - type: GhostRole
       makeSentient: true
       name: ghost-role-information-emotional-support-scurret-name

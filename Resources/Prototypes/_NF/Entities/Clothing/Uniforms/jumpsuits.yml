@@ -79,7 +79,7 @@
 - type: entity
   parent: ClothingUniformBase
   id: ClothingUniformJumpsuitNfsd
-  name: TSFMC jumpsuit
+  name: ColSec jumpsuit
   description: A long sleeved jumpsuit produced for deputy colonels. Designed to reduce chaffing between the legs for the comfort of skin, slime, scales, fluff, and wood.
   components:
   - type: Sprite
@@ -90,7 +90,7 @@
 - type: entity
   parent: ClothingUniformBase
   id: ClothingUniformJumpsuitNfsdShort
-  name: TSFMC jumpsuit
+  name: ColSec jumpsuit
   description: A short sleeved jumpsuit produced for deputy colonels. Designed to reduce chaffing between the legs for the comfort of skin, slime, scales, fluff, and wood.
   components:
   - type: Sprite
@@ -101,7 +101,7 @@
 - type: entity
   parent: ClothingUniformBase
   id: ClothingUniformJumpsuitNfsdTacBlack
-  name: TSFMC tactical jumpsuit
+  name: ColSec tactical jumpsuit
   description: A tactical jumpsuit for deputies in the field.
   components:
   - type: Sprite
@@ -112,7 +112,7 @@
 - type: entity
   parent: ClothingUniformBase
   id: ClothingUniformJumpsuitNfsdTacGray
-  name: TSFMC tactical jumpsuit
+  name: ColSec tactical jumpsuit
   description: A tactical jumpsuit for deputies in the field.
   components:
   - type: Sprite
@@ -123,7 +123,7 @@
 - type: entity
   parent: ClothingUniformBase
   id: ClothingUniformJumpsuitNfsdTacCamo
-  name: TSFMC tactical jumpsuit
+  name: ColSec tactical jumpsuit
   description: A tactical jumpsuit for deputies in the field.
   components:
   - type: Sprite
@@ -134,7 +134,7 @@
 - type: entity
   parent: ClothingUniformBase
   id: ClothingUniformJumpsuitNfsdTacCream
-  name: TSFMC tactical jumpsuit
+  name: ColSec tactical jumpsuit
   description: A tactical jumpsuit for deputies in the field.
   components:
   - type: Sprite
@@ -218,8 +218,8 @@
 - type: entity
   parent: ClothingUniformJumpsuitHoP
   id: ClothingUniformJumpsuitSr
-  name: station representative's uniform
-  description: A top of the line outfit for Frontier Outpost's station representative. No expense was spared in the tailoring, every stitch is a masterpiece. The fact this suit was even issued shows the trust Colonial Command is placing in their representative on this outpost.
+  name: Harbor Master's uniform
+  description: A top of the line outfit for the Harbor Master. No expense was spared in the tailoring, every stitch is a masterpiece. The fact this suit was even issued shows the trust Colonial Command is placing in the Harbor Master on this outpost.
   components:
   - type: Sprite
     sprite: _NF/Clothing/Uniforms/Jumpsuit/sr.rsi

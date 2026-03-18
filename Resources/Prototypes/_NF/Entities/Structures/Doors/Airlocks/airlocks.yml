@@ -12,7 +12,7 @@
 - type: entity
   parent: Airlock
   id: AirlockNfsd
-  suffix: TSFMC
+  suffix: ColSec
   components:
   - type: Sprite
     sprite: _NF/Structures/Doors/Airlocks/Standard/nfsd.rsi
@@ -33,7 +33,7 @@
 - type: entity
   parent: AirlockGlass
   id: AirlockNfsdGlass
-  suffix: TSFMC
+  suffix: ColSec
   components:
   - type: Sprite
     sprite: _NF/Structures/Doors/Airlocks/Glass/nfsd.rsi

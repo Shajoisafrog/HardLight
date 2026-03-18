@@ -12,7 +12,6 @@ using Content.Server.Atmos.EntitySystems;
 using Content.Server.Chat.Systems;
 using Content.Server.Explosion.EntitySystems;
 using Content.Shared.Supermatter.Components;
-using Content.Server.Lightning;
 using Content.Server.AlertLevel;
 using Content.Server.Station.Systems;
 using Content.Server.Kitchen.Components;
@@ -22,7 +21,6 @@ using Content.Server.DoAfter;
 using Content.Server.Popups;
 using Content.Shared.Audio;
 using Content.Shared.Actions.Events;
-using Content.Shared.DoAfter;
 
 namespace Content.Server.Supermatter.Systems;
 
@@ -35,7 +33,6 @@ public sealed partial class SupermatterSystem : EntitySystem
     [Dependency] private readonly TransformSystem _xform = default!;
     [Dependency] private readonly SharedAudioSystem _audio = default!;
     [Dependency] private readonly SharedAmbientSoundSystem _ambient = default!;
-    [Dependency] private readonly LightningSystem _lightning = default!;
     [Dependency] private readonly AlertLevelSystem _alert = default!;
     [Dependency] private readonly StationSystem _station = default!;
     [Dependency] private readonly DoAfterSystem _doAfter = default!;
@@ -81,7 +78,7 @@ public sealed partial class SupermatterSystem : EntitySystem
 
     public void Cycle(EntityUid uid, SupermatterComponent sm, float frameTime)
     {
-        sm.ZapAccumulator++;
+        //sm.ZapAccumulator++;
         sm.YellAccumulator++;
 
         ProcessAtmos(uid, sm, frameTime);
@@ -92,11 +89,11 @@ public sealed partial class SupermatterSystem : EntitySystem
 
         HandleSoundLoop(uid, sm);
 
-        if (sm.ZapAccumulator >= sm.ZapTimer)
-        {
-            sm.ZapAccumulator -= sm.ZapTimer;
-            SupermatterZap(uid, sm);
-        }
+        //if (sm.ZapAccumulator >= sm.ZapTimer)
+        //{
+        //    sm.ZapAccumulator -= sm.ZapTimer;
+        //    SupermatterZap(uid, sm);
+        //}
 
         if (sm.YellAccumulator >= sm.YellTimer)
         {

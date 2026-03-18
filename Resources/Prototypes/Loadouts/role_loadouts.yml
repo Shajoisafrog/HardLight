@@ -47,6 +47,7 @@
 - type: roleLoadout
   id: JobPassenger
   groups:
+  - ContractorBoxSurvival
   - PassengerJumpsuit
   - CommonBackpack
   - PassengerNeck
@@ -78,6 +79,7 @@
   - ContractorBackpackItems
   - ContractorHandItems
   - NFSpeciesSpecific
+  - ServiceForcedOuterClothing
 # HL end
 
 - type: roleLoadout
@@ -100,6 +102,7 @@
   - ContractorBackpackItems
   - ContractorHandItems
   - NFSpeciesSpecific
+  - ServiceForcedOuterClothing
 # HL end
 
 - type: roleLoadout
@@ -123,6 +126,7 @@
   - ContractorBackpackItems
   - ContractorHandItems
   - NFSpeciesSpecific
+  - ServiceForcedOuterClothing
 # HL end
 
 - type: roleLoadout
@@ -145,6 +149,7 @@
   - ContractorBackpackItems
   - ContractorHandItems
   - NFSpeciesSpecific
+  - ServiceForcedOuterClothing
 # HL end
 
 - type: roleLoadout
@@ -167,6 +172,7 @@
   - ContractorBackpackItems
   - ContractorHandItems
   - NFSpeciesSpecific
+  - SecurityForcedOuterClothing
 # HL end
 
 - type: roleLoadout
@@ -190,6 +196,7 @@
   - ContractorBackpackItems
   - ContractorHandItems
   - NFSpeciesSpecific
+  - ChaplainForcedOuterClothing
 # HL end
 
 - type: roleLoadout
@@ -213,6 +220,7 @@
   - ContractorBackpackItems
   - ContractorHandItems
   - NFSpeciesSpecific
+  - JanitorForcedOuterClothing
 # HL end
 
 - type: roleLoadout
@@ -235,6 +243,7 @@
   - ContractorBackpackItems
   - ContractorHandItems
   - NFSpeciesSpecific
+  - BotanistForcedOuterClothing
 # HL end
 
 - type: roleLoadout
@@ -258,6 +267,7 @@
   - ContractorBackpackItems
   - ContractorHandItems
   - NFSpeciesSpecific
+  - ServiceForcedOuterClothing
 # HL end
 
 - type: roleLoadout
@@ -282,6 +292,7 @@
   - ContractorBackpackItems
   - ContractorHandItems
   - NFSpeciesSpecific
+  - ServiceForcedOuterClothing
 # HL end
 
 - type: roleLoadout
@@ -305,6 +316,7 @@
   - ContractorBackpackItems
   - ContractorHandItems
   - NFSpeciesSpecific
+  - ServiceForcedOuterClothing
 # HL end
 
 # Cargo
@@ -328,6 +340,7 @@
   - ContractorBackpackItems
   - ContractorHandItems
   - NFSpeciesSpecific
+  - CargoForcedOuterClothing
 # HL end
 
 - type: roleLoadout
@@ -350,6 +363,7 @@
   - ContractorBackpackItems
   - ContractorHandItems
   - NFSpeciesSpecific
+  - CargoForcedOuterClothing
 # HL end
 
 - type: roleLoadout
@@ -396,6 +410,7 @@
   - ContractorBackpackItems
   - ContractorHandItems
   - NFSpeciesSpecific
+  - EngineerForcedOuterClothing
 # HL end
 
 - type: roleLoadout
@@ -418,6 +433,7 @@
   - ContractorBackpackItems
   - ContractorHandItems
   - NFSpeciesSpecific
+  - EngineerForcedOuterClothing
 # HL end
 
 - type: roleLoadout
@@ -441,6 +457,7 @@
   - ContractorBackpackItems
   - ContractorHandItems
   - NFSpeciesSpecific
+  - EngineerForcedOuterClothing
 # HL end
 
 - type: roleLoadout
@@ -463,6 +480,7 @@
   - ContractorBackpackItems
   - ContractorHandItems
   - NFSpeciesSpecific
+  - AtmosphericTechnicianForcedOuterClothing
 # HL end
 
 # Science
@@ -486,6 +504,7 @@
   - ContractorBackpackItems
   - ContractorHandItems
   - NFSpeciesSpecific
+  - ScienceForcedOuterClothing
 # HL end
 
 - type: roleLoadout
@@ -509,6 +528,7 @@
   - ContractorBackpackItems
   - ContractorHandItems
   - NFSpeciesSpecific
+  - ScienceForcedOuterClothing
 # HL end
 
 - type: roleLoadout
@@ -531,6 +551,7 @@
   - ContractorBackpackItems
   - ContractorHandItems
   - NFSpeciesSpecific
+  - ScienceForcedOuterClothing
 # HL end
 
 # Security
@@ -547,6 +568,7 @@
   - SecurityStar
   - SurvivalSecurity
 # HL start - Add departmental NF-style loadouts
+  - SecurityForcedOuterClothing
   - ContractorForcedOuterClothing
   - HeadofSecurityGloves
   - HeadofSecurityShoes
@@ -557,6 +579,7 @@
   - ContractorImplanter
   - ContractorBackpackItems
   - ContractorHandItems
+  - ContractorBoxSurvival
 # HL end
 
 - type: roleLoadout
@@ -571,6 +594,7 @@
   - SecurityStar
   - SurvivalSecurity
 # HL start - Add departmental NF-style loadouts
+  - SecurityForcedOuterClothing
   - WardenShoes
   - SecurityGloves
   - ContractorForcedOuterClothing
@@ -582,6 +606,7 @@
   - ContractorImplanter
   - ContractorBackpackItems
   - ContractorHandItems
+  - ContractorBoxSurvival
 # HL end
 
 - type: roleLoadout
@@ -598,6 +623,7 @@
   - SecurityStar
   - SurvivalSecurity
 # HL start - Add departmental NF-style loadouts
+  - SecurityForcedOuterClothing
   - SecurityGloves
   - ContractorForcedOuterClothing
   - ContractorFace
@@ -607,6 +633,7 @@
   - ContractorImplanter
   - ContractorBackpackItems
   - ContractorHandItems
+  - ContractorBoxSurvival
 # HL end
 
 - type: roleLoadout
@@ -622,6 +649,7 @@
   - SecurityStar
   - SurvivalSecurity
 # HL start - Add departmental NF-style loadouts
+  - SecurityForcedOuterClothing
   - DetectiveGloves
   - ContractorForcedOuterClothing
   - ContractorFace
@@ -631,6 +659,7 @@
   - ContractorImplanter
   - ContractorBackpackItems
   - ContractorHandItems
+  - ContractorBoxSurvival
 # HL end
 
 - type: roleLoadout
@@ -641,6 +670,7 @@
   - SecurityBackpack
   - SurvivalSecurity
 # HL start - Add departmental NF-style loadouts
+  - SecurityForcedOuterClothing
   - SecurityCadetGloves
   - ContractorForcedOuterClothing
   - ContractorFace
@@ -653,6 +683,7 @@
   - ContractorImplanter
   - ContractorBackpackItems
   - ContractorHandItems
+  - ContractorBoxSurvival
 # HL end
 
 # Medical
@@ -693,6 +724,7 @@
   - MedicalEyewear
   - SurvivalMedical
 # HL start - Add departmental NF-style loadouts
+  - DocForcedOuterClothing
   - ContractorNeck
   - ContractorForcedOuterClothing
   - ContractorWallet
@@ -710,6 +742,7 @@
   - MedicalEyewear
   - SurvivalMedical
 # HL start - Add departmental NF-style loadouts
+  - DocForcedOuterClothing
   - ContractorHead
   - ContractorNeck
   - MedicalInternGloves
@@ -733,6 +766,7 @@
   - ChemistOuterClothing
   - SurvivalMedical
 # HL start - Add departmental NF-style loadouts
+  - DocForcedOuterClothing
   - ChemistGloves
   - ChemistShoes
   - ContractorHead
@@ -758,6 +792,7 @@
   - MedicalEyewear
   - SurvivalMedical
 # HL start - Add departmental NF-style loadouts
+  - DocForcedOuterClothing
   - ParamedicGloves
   - ContractorNeck
   - ContractorForcedOuterClothing
@@ -773,6 +808,7 @@
   id: JobZookeeper
   groups:
 # HL start - Add departmental NF-style loadouts
+  - ServiceForcedOuterClothing
   - ServiceJumpsuit
   - CommonBackpack
   - ContractorOuterClothing
@@ -797,6 +833,7 @@
   - ReporterJumpsuit
   - CommonBackpack
 # HL start - Add departmental NF-style loadouts
+  - ServiceForcedOuterClothing
   - ContractorOuterClothing
   - ContractorForcedOuterClothing
   - ContractorHead
@@ -819,6 +856,7 @@
   - PsychologistJumpsuit
   - MedicalBackpack
 # HL start - Add departmental NF-style loadouts
+  - DocForcedOuterClothing
   - ContractorOuterClothing
   - ContractorForcedOuterClothing
   - ContractorHead
@@ -842,6 +880,7 @@
   - BoxerGloves
   - CommonBackpack
 # HL start - Add departmental NF-style loadouts
+  - BoxerForcedOuterClothing
   - ContractorHead
   - ContractorNeck
   - ContractorOuterClothing

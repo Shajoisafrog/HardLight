@@ -47,6 +47,7 @@
   - type: Tag
     tags:
       - WeldbotFixableStructure
+      - Window
   - type: Appearance
   - type: DamageVisuals
     thresholds: [5, 10, 20]
@@ -56,6 +57,9 @@
       sprite: Structures/Windows/cracks.rsi
   - type: StaticPrice
     price: 70 # Frontier: 150<70
+  - type: ShipRepairable
+    repairTime: 6
+    repairCost: 6
 
 - type: entity
   parent: ShuttleWindow
@@ -74,6 +78,7 @@
     tags:
     - Diagonal
     - WeldbotFixableStructure
+    - Window
   - type: IconSmooth
     mode: Diagonal
     key: walls # Frontier: windows<walls

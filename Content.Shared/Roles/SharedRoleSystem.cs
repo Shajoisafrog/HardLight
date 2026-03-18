@@ -372,8 +372,16 @@ public abstract class SharedRoleSystem : EntitySystem
         [NotNullWhen(true)] out Entity<MindRoleComponent, T>? role) where T : IComponent
     {
         role = null;
-        if (!Resolve(mind.Owner, ref mind.Comp))
-            return false;
+        if (mind.Comp is null)
+        {
+            if (!TryComp(mind.Owner, out MindComponent? mindComp))
+                return false;
+
+            mind.Comp = mindComp;
+        }
+// HardLight: Apparently single-handedly caused the unknown job bug.
+// I'm commenting it out instead of just deleting it for future historians.
+//            return false;
 
         foreach (var roleEnt in mind.Comp.MindRoles)
         {

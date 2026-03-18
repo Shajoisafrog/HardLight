@@ -117,3 +117,46 @@
       layers:
         - state: crypt_black
         - state: viper_label
+
+- type: entity
+  parent: [EncryptionKey, RecyclableItemDeviceTiny]
+  id: EncryptionKeyInterdyne
+  name: Interdyne Pharmaceuticals Encryption Key
+  description: An encyption key used Viper Cell operatives to communicate securely.
+  components:
+  - type: EncryptionKey
+    channels:
+    - InterdynePharma
+    defaultChannel: InterdynePharma
+  - type: Sprite
+    layers:
+    - state: crypt-interdyne
+
+- type: entity
+  parent: [EncryptionKey, RecyclableItemDeviceTiny]
+  id: EncryptionKeyDominosRobotics
+  name: Dominos Robotics Encryption Key
+  description: An encyption key used by members of Dominos Robotics to communicate securely.
+  components:
+    - type: EncryptionKey
+      channels:
+        - DominosRobotics
+      defaultChannel: DominosRobotics
+    - type: Sprite
+      layers:
+        - state: crypt_purple
+        - state: dominosrobotics_label
+- type: entity
+  parent: [EncryptionKey, RecyclableItemDeviceTiny]
+  id: EncryptionKeyADFTalon
+  name: ADF-Talon Encrypton Key
+  description: An encyption key used by members of ADF-Talon to communicate securely.
+  components:
+    - type: EncryptionKey
+      channels:
+        - ADFTalon
+      defaultChannel: ADFTalon
+    - type: Sprite
+      layers:
+        - state: crypt_avaliblue
+      

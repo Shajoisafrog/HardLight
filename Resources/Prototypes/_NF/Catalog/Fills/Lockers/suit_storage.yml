@@ -171,7 +171,7 @@
 - type: entity
   parent: [ SuitStorageBase, StorageFillEVASuitNfsd ]
   id: SuitStorageEVANfsd
-  suffix: EVA, TSFMC
+  suffix: EVA, ColSec
   components:
   - type: AccessReader
     access: [["Security"]]
@@ -293,7 +293,7 @@
 - type: entity
   id: SuitStorageCadet
   parent: SuitStorageBase
-  suffix: TSFMC Private
+  suffix: ColSec Private
   components:
   - type: StorageFill
     contents:
@@ -310,7 +310,7 @@
 - type: entity
   id: SuitStorageDeputy
   parent: SuitStorageBase
-  suffix: TSFMC Corporal
+  suffix: ColSec Corporal
   components:
   - type: StorageFill
     contents:
@@ -327,7 +327,7 @@
 - type: entity
   id: SuitStorageBrigmedic
   parent: SuitStorageBase
-  suffix: TSFMC Brigmedic
+  suffix: ColSec Brigmedic
   components:
   - type: StorageFill
     contents:
@@ -344,7 +344,7 @@
 - type: entity
   id: SuitStorageSergeant
   parent: SuitStorageBase
-  suffix: TSFMC Lieutenant
+  suffix: ColSec Lieutenant
   components:
   - type: StorageFill
     contents:
@@ -361,7 +361,7 @@
 - type: entity
   id: SuitStorageBailiff
   parent: SuitStorageBase
-  suffix: TSFMC Captain
+  suffix: ColSec Captain
   components:
   - type: StorageFill
     contents:
@@ -378,7 +378,7 @@
 - type: entity
   id: SuitStorageSheriff
   parent: SuitStorageBase
-  suffix: TSFMC Colonel
+  suffix: ColSec Colonel
   components:
   - type: StorageFill
     contents:
@@ -395,7 +395,7 @@
 - type: entity
   id: SuitStorageNfsdCombat
   parent: SuitStorageBase
-  suffix: TSFMC Combat
+  suffix: ColSec Combat
   components:
   - type: StorageFill
     contents:
@@ -412,7 +412,7 @@
 - type: entity
   id: SuitStorageNfsdCommand
   parent: SuitStorageBase
-  suffix: TSFMC Command
+  suffix: ColSec Command
   components:
   - type: StorageFill
     contents:

@@ -443,7 +443,7 @@
   categories: [ HideSpawnMenu ] # debloat spawn menu
   id: LockerWallEVAColorNfsd
   parent: LockerWallColorBase
-  name: TSFMC EVA wall locker
+  name: ColSec EVA wall locker
   components:
   - type: Sprite
     layers:

@@ -43,7 +43,7 @@ public sealed class RespawnSystem : EntitySystem
     public override void Initialize()
     {
         SubscribeLocalEvent<MindContainerComponent, MobStateChangedEvent>(OnMobStateChanged);
-        SubscribeLocalEvent<MindContainerComponent, MindRemovedMessage>(OnMindRemoved);
+        SubscribeLocalEvent<MindRemovedMessage>(OnMindRemoved);
         SubscribeLocalEvent<MindContainerComponent, CryosleepBeforeMindRemovedEvent>(OnCryoBeforeMindRemoved);
         SubscribeLocalEvent<MindContainerComponent, CryosleepWakeUpEvent>(OnCryoWakeUp);
         SubscribeLocalEvent<RoundRestartCleanupEvent>(OnRoundRestart); // Frontier
@@ -79,10 +79,12 @@ public sealed class RespawnSystem : EntitySystem
         SetRespawnTime(session.UserId, ref respawnData, _timing.CurTime + TimeSpan.FromSeconds(_respawnTime));
     }
 
-    private void OnMindRemoved(EntityUid entity, MindContainerComponent _, MindRemovedMessage e)
+    private void OnMindRemoved(MindRemovedMessage e)
     {
         if (e.Mind.Comp.UserId is null)
             return;
+
+        var entity = e.Container.Owner;
 
         // Mob is dead, don't reset spawn timer twice
         if (TryComp<MobStateComponent>(entity, out var state) && state.CurrentState == MobState.Dead)

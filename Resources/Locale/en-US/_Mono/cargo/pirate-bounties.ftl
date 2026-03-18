@@ -1,5 +1,5 @@
 pirate-bounty-item-scaf = mercenary SCAF Suit
-pirate-bounty-item-tsfmc-tacsuit = TSFMC tacsuit
+pirate-bounty-item-ColSec-tacsuit = ColSec tacsuit
 pirate-bounty-item-hfblade = HF-katana
 pirate-bounty-item-shipweapon = ship turret
 pirate-bounty-item-fentanyl = fentanyl crystal

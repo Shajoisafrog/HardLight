@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT OR AGPL-3.0-or-later OR MPL-2.0
+
 using Content.Server.Administration.Logs;
 using Content.Server.Atmos.Components;
 using Content.Server.Stunnable;
@@ -240,20 +242,16 @@ namespace Content.Server.Atmos.EntitySystems
                 mass2 = otherPhys.Mass;
             }
 
-            // when the thing on fire is more massive than the other, the following happens:
-            // - the thing on fire loses a small number of firestacks
-            // - the other thing gains a large number of firestacks
-            // so a person on fire engulfs a mouse, but an engulfed mouse barely does anything to a person
-            var total = mass1 + mass2;
-            var avg = (flammable.FireStacks + otherFlammable.FireStacks) / total;
+	    // Funky segment cherry-picked from funky-station commit af29cf8ea631c3d9a39c6602ec3d667312c630e7 by Drywink, MIT licensed
+	    // Begin Funky
+            var totalMass = mass1 + mass2;
+            var totalHeat = (flammable.FireStacks * mass1) + (otherFlammable.FireStacks * mass2);
 
-            // swap the entity losing stacks depending on whichever has the most firestack kilos
-            var (src, dest) = flammable.FireStacks * mass1 > otherFlammable.FireStacks * mass2
-                ? (-1f, 1f)
-                : (1f, -1f);
-            // bring each entity to the same firestack mass, firestacks being scaled by the other's mass
-            AdjustFireStacks(uid, src * avg * mass2, flammable, ignite: true);
-            AdjustFireStacks(otherUid, dest * avg * mass1, otherFlammable, ignite: true);
+            var desiredFireStacks = totalHeat / totalMass;
+
+            SetFireStacks(uid, desiredFireStacks, flammable, ignite: true);
+            SetFireStacks(otherUid, desiredFireStacks, otherFlammable, ignite: true);
+	    // End Funky
         }
 
         private void OnIsHot(EntityUid uid, FlammableComponent flammable, IsHotEvent args)
@@ -423,7 +421,8 @@ namespace Content.Server.Atmos.EntitySystems
         public override void Update(float frameTime)
         {
             // process all fire events
-            foreach (var (flammable, deltaTemp) in _fireEvents)
+            var fireEvents = new List<KeyValuePair<Entity<FlammableComponent>, float>>(_fireEvents);
+            foreach (var (flammable, deltaTemp) in fireEvents)
             {
                 // 100 -> 1, 200 -> 2, 400 -> 3...
                 var fireStackMod = Math.Max(MathF.Log2(deltaTemp / 100) + 1, 0);
@@ -445,9 +444,19 @@ namespace Content.Server.Atmos.EntitySystems
             _timer -= UpdateTime;
 
             // TODO: This needs cleanup to take off the crust from TemperatureComponent and shit.
+            var toProcess = new List<EntityUid>();
             var query = EntityQueryEnumerator<FlammableComponent, TransformComponent>();
-            while (query.MoveNext(out var uid, out var flammable, out _))
+            while (query.MoveNext(out var uid, out _, out _))
             {
+                toProcess.Add(uid);
+            }
+
+            foreach (var uid in toProcess)
+            {
+                if (!TryComp<FlammableComponent>(uid, out var flammable) ||
+                    !TryComp<TransformComponent>(uid, out _))
+                    continue;
+
                 // Slowly dry ourselves off if wet.
                 if (flammable.FireStacks < 0)
                 {

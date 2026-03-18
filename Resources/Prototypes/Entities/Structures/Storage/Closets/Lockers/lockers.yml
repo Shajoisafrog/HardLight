@@ -319,7 +319,7 @@
 # HoS
 - type: entity
   id: LockerHeadOfSecurity
-  parent: [BaseStructureIndestructible, BaseStructureLockImmuneToEmag, BaseStructureAccessReaderImmuneToEmag, BaseStructureDisableToolUse, LockerBaseSecure] # Frontier: add BaseStructureIndestructible, BaseStructureLockImmuneToEmag, BaseStructureAccessReaderImmuneToEmag, BaseStructureDisableToolUse
+  parent: LockerBaseSecure
   name: head of security's locker
   components:
   - type: Appearance
@@ -333,7 +333,7 @@
 # Warden
 - type: entity
   id: LockerWarden
-  parent: [BaseStructureIndestructible, BaseStructureLockImmuneToEmag, BaseStructureAccessReaderImmuneToEmag, BaseStructureDisableToolUse, LockerBaseSecure] # Frontier: add BaseStructureIndestructible, BaseStructureLockImmuneToEmag, BaseStructureAccessReaderImmuneToEmag, BaseStructureDisableToolUse
+  parent: LockerBaseSecure
   name: warden's locker
   components:
   - type: Appearance

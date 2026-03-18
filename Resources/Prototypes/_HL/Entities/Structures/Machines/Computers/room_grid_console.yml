@@ -1,0 +1,28 @@
+- type: entity
+  id: ComputerRoomGridSpawner
+  parent: [BaseStructureDisableToolUse, BaseStructureIndestructible, BaseComputer]
+  name: room grid console
+  description: Loads and stores a personal room for its linked area.
+  components:
+  - type: Sprite
+    sprite: _NF/Structures/Machines/computers.rsi
+    layers:
+    - map: ["computerLayerBody"]
+      state: computer
+    - map: ["computerLayerKeyboard"]
+      state: generic_keyboard
+    - map: ["computerLayerScreen"]
+      state: shipyard
+    - map: ["computerLayerKeys"]
+      state: telesci_key
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.RoomGridSpawnerVisuals.InUse:
+        computerLayerScreen:
+          True: { state: shipyard_scrap }
+          False: { state: shipyard }
+  - type: RoomGridSpawnerConsole
+    area_group: RoomSpawnA
+  - type: UseDelay
+    delay: 1.5

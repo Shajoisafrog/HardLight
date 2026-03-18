@@ -6,7 +6,7 @@
     <IsPackable>false</IsPackable>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <OutputPath>..\bin\Content.Client\</OutputPath>
-    <OutputType>WinExe</OutputType>
+    <OutputType Condition="'$(FullRelease)' != 'True'">Exe</OutputType>
     <WarningsAsErrors>nullable</WarningsAsErrors>
     <Nullable>enable</Nullable>
     <Configurations>Debug;Release;Tools;DebugOpt</Configurations>
@@ -24,10 +24,16 @@
     <ProjectReference Include="..\Content.Shared\Content.Shared.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="_HL\Brainwashing\HypnotizedPopup\" />
     <Folder Include="_Impstation\" />
     <Folder Include="_Starlight\Achievement\" />
     <Folder Include="_Starlight\Actions\" />
     <Folder Include="_Starlight\Audio\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="_DV\RoundEnd\NoEorgPopup.xaml.cs">
+      <DependentUpon>HypnotizedPopup.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <PropertyGroup>
     <DisableXamlIL>true</DisableXamlIL>

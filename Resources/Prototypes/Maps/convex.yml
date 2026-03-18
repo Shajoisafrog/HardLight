@@ -17,11 +17,10 @@
           stationSubtext: 'hardlight-lobby-hardlight-subtext'
           stationDescription: 'hardlight-lobby-hardlight-description'
           lobbySortOrder: 1
-        - type: StationEmergencyShuttle
-          emergencyShuttlePath: /Maps/Shuttles/emergency_delta.yml
         - type: StationJobs # 74 jobs total w/o latejoins & interns, 93 jobs total w/ latejoins & interns
           availableJobs:
             #command (7)
+            StationTrafficController: [ 1, 1 ]
             Captain: [ 1, 1 ]
             HeadOfPersonnel: [ 1, 1 ]
             HeadOfSecurity: [ 1, 1 ]
@@ -48,6 +47,7 @@
             MedicalDoctor: [ 6, 6 ]
             Paramedic: [ 1, 1 ]
             MedicalIntern: [ 4, 4 ] #intern, not counted
+            Psychologist: [ 1, 1 ]
             #science (5)
             Scientist: [ 5, 5 ]
             ResearchAssistant: [ 6, 6 ] #intern, not counted
@@ -68,11 +68,19 @@
             #silicon (4)
             StationAi: [ 1, 1 ]
             Borg: [ 3, 3 ]
-            Contractor: [ 5, 5 ]
-            Pilot: [ 5, 5 ]
-            Mercenary: [ 5, 5 ]
+            #Contractor: [ -1, -1 ]
+            #Pilot: [ 5, 5 ]
+            Mercenary: [ 0, 40 ]
             MedicalQuadBorg: [ 3, 3 ]
             ServiceQuadBorg: [ 3, 3 ]
             SalvageQuadBorg: [ 3, 3 ]
             SecurityQuadBorg: [ 3, 3 ]
             EngineeringQuadBorg: [ 3, 3 ]
+            Valet: [ 1, 1 ]
+            MailCarrier: [ 1, 1 ]
+            Prisoner: [ 3, 3 ]
+            ForensicMantis: [ 1, 1 ]
+        - type: StationDeadDrop
+          maxDeadDrops: 2 # medium station
+        - type: StationDeadDropReporting
+          messageSet: Nfsd

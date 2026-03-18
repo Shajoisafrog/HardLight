@@ -4,6 +4,7 @@
   parent: [BaseMob, MobDamageable, MobCombat, MobAtmosExposed, MobFlammable]
   abstract: true
   components:
+    - type: Vore # Floofstation - Vore
     - type: ContentEye
     - type: CameraRecoil
     - type: Fixtures
@@ -42,8 +43,10 @@
       baseWalkSpeed: 4
       baseSprintSpeed: 3
     - type: ZombieImmune
+    - type: Uncloneable
     - type: DoAfter
     - type: RotationVisuals
+      defaultRotation: 90
       horizontalRotation: 90
     - type: Examiner
     # - type: Recyclable
@@ -98,6 +101,7 @@
       noRot: true
       drawdepth: Mobs
       layers:
+        - map: [ "enum.HumanoidVisualLayers.TailBehind" ]
         - map: ["enum.HumanoidVisualLayers.Chest"]
         - map: ["enum.HumanoidVisualLayers.Head"]
         - map: ["enum.HumanoidVisualLayers.Snout"]
@@ -137,6 +141,7 @@
         - map: ["eyes"]
         - map: ["belt"]
         - map: ["neck"]
+        - map: [ "enum.HumanoidVisualLayers.TailOversuit" ]
         - map: ["back"]
         - map: ["enum.HumanoidVisualLayers.FacialHair"]
         - map: ["enum.HumanoidVisualLayers.Hair"]

@@ -1,0 +1,190 @@
+- type: startingGear
+  id: CCEngineerCYN182
+  equipment:
+    pocket1: WeaponEnergyRevolver
+    pocket2: FlashlightSecliteAntiqueProto
+    head: ClothingHeadHelmetChameleon
+    neck: TrinketHeatRes
+    # mask:
+    eyes: ClothingEyesGlassesNfsd
+    ears: ClothingHeadsetAltColCom
+    gloves: ClothingHandsGlovesSr
+    shoes: ClothingShoesChameleonNoSlips
+    # suitstorage:
+    outerClothing: ClothingOuterWinterCCWarden
+    jumpsuit: ClothingUniformJumpsuitCentcomFormal
+    belt: ClothingBeltUtilityColCommCYN182
+    back: ClothingBackpackMessengerColCommCYN182
+    id: CYN182ColcommPDA
+
+# ID card
+- type: entity
+  id: CYN182ColcommIDCard
+  parent: IDCardStandard
+  name: CYN-182's ID card (Colonial Engineer)
+  description: '"Do your jobs, be competent, and all will turn out just fine."'
+  suffix: CYN182, Admin
+  components:
+  - type: Tag
+    tags:
+    - Admin
+  - type: IdCard
+    fullName: CYN-182
+    jobTitle: job-title-colonial-engineer
+    jobIcon: JobIconColComm
+  - type: Sprite
+    layers:
+    - state: centcom
+    - state: idcentcom
+  - type: Item
+    heldPrefix: blue
+  - type: Access
+    groups:
+    - AllAccess
+    tags:
+    - CentralCommand
+
+# pda
+- type: entity
+  id: CYN182ColcommPDA
+  parent: CentcomPDA
+  suffix: CYN182, Admin
+  components:
+  - type: Tag
+    tags:
+    - Admin
+  - type: Pda
+    id: CYN182ColcommIDCard # ID card
+    penSlot:
+      startingItem: PenCentcom
+      whitelist:
+        tags:
+        - Write
+  - type: CartridgeLoader
+    preinstalled:
+    - CrewManifestCartridge
+    - NotekeeperCartridge
+    - NanoTaskCartridge
+    - NewsReaderCartridge
+    - BountyContractsCartridge
+    - AstroNavCartridge
+    - MedTekCartridge
+    - WantedListCartridge
+    - GlimmerMonitorCartridge
+    - PsiWatchCartridge
+
+# backpack
+- type: entity
+  id: ClothingBackpackMessengerColCommCYN182
+  parent: ClothingBackpackMessengerHolding
+  name: CYN's messenger bag of holding
+  description: A personally sown satchel with several straps to attach things. Seems a nametag is attached to the side.
+  suffix: CYN182, Filled
+  components:
+  - type: Tag
+    tags:
+    - Admin
+  - type: StorageFill
+    contents:
+      - id: CableHVStack
+      - id: CableHVStack
+      - id: ClothingShoesBootsMagAdv
+      - id: MindShieldImplanterDisposable
+      - id: MedicalTrackingImplanterDisposable
+      - id: DeathRattleImplanterColcommDisposable
+      - id: DeathAcidifierImplanterDisposable
+      - id: ClothingOuterHardsuitERTCentcommEngi
+      - id: BoxFolderColComClipboardNirou
+      - id: RubberStampCentcom
+      - id: HoloprojectorNfsdAntiqueProto
+      - id: PowerCellAntiqueProto
+      - id: ClothingWalletLeatherBlack
+      - id: JetpackBlackLiquidNitrogen
+
+# utility belt
+- type: entity
+  id: ClothingBeltUtilityColCommCYN182
+  parent: ClothingBeltUtility
+  name: Loose utility belt
+  description: A worn-out toolbelt with some clearly loose loops to attach your tools too. This really needs to be re-sown soon.
+  suffix: CYN182, Filled
+  components:
+  - type: Tag
+    tags:
+    - Admin
+  - type: StorageFill
+    contents:
+      - id: JawsOfLife
+      - id: PowerDrill
+      - id: WelderExperimental
+      - id: Multitool
+      - id: trayScanner
+      - id: GasAnalyzer
+      - id: HolofanProjectorAntiqueProto
+
+# jetpack
+- type: entity
+  id: JetpackBlackLiquidNitrogen
+  parent: JetpackBlack
+  name: Jetpack 
+  suffix: CYN182, Admin
+  components:
+  - type: Tag
+    tags:
+    - Admin
+  - type: GasTank
+    outputPressure: 15.00
+    air:
+      volume: 5
+      moles:
+        - 0 # oxygen
+        - 1203 # nitrogen
+      temperature: 1
+
+# smaller nullspace
+- type: entity
+  id: ClothingNullSpaceTeleporterSmall
+  parent: ClothingNullSpaceTeleporter
+  name: Portable nullspace teleporter
+  description: A new experemental design divised for more portable use to quickly get between stations and colonial command for said personel. A label says 'Use with caution, and stow when not in use.'
+  suffix: CYN182, Admin
+  components:
+    - type: Item
+      size: Large
+
+# colcomm engi hardsuit
+- type: entity
+  id: ClothingOuterHardsuitERTCentcommEngi
+  parent: ClothingOuterHardsuitERTCentcomm
+  name: ColComm engineering hardsuit
+  description: A colonial command hardsuit situated for engineering duties. Boasting a robust internally-lined weave to protect the wearer from a veriety of threats common in the field while being easier to stow. At the cost of some speed and low combat effectiveness.
+  suffix: CYN182, Admin
+  components:
+   - type: PressureProtection
+     highPressureMultiplier: 0.02
+     lowPressureMultiplier: 1000
+   - type: TemperatureProtection
+     heatingCoefficient: 0.001
+     coolingCoefficient: 0.001
+   - type: Item
+     size: Huge
+   - type: ExplosionResistance
+     damageCoefficient: 0.5
+   - type: Armor
+     modifiers:
+       coefficients:
+         Blunt: 0.85
+         Slash: 0.85
+         Piercing: 0.75
+         Heat: 0.1
+         Cold: 0.1
+         Shock: 0.1
+         Radiation: 0.1
+         Caustic: 0.1
+   - type: ZombificationResistance
+     zombificationResistanceCoefficient: 0.25
+   - type: FireProtection
+     reduction: 0.5
+   - type: ClothingSpeedModifier
+     walkModifier: 0.9
+     sprintModifier: 0.9

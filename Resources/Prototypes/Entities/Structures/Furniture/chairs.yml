@@ -75,6 +75,10 @@
     anchored: true
   - type: PotentialDeadDrop # Frontier
     hintText: dead-drop-hint-chair # Frontier
+  # Mono
+  - type: ShipRepairable
+    repairTime: 1
+    repairCost: 1
 
 #Starts unanchored, can be rotated while anchored
 - type: entity
@@ -178,17 +182,17 @@
     graph: Seat
     node: chairOfficeDark
 
-- type: entity
-  name: comfy chair
-  id: ComfyChair
-  parent: ChairBase
-  description: It looks comfy.
-  components:
-  - type: Sprite
-    state: comfy
-  - type: Construction
-    graph: Seat
-    node: chairComfy
+#- type: entity
+  #name: comfy chair
+  #id: ComfyChair
+  #parent: ChairBase
+  #description: It looks comfy.
+  #components:
+  #- type: Sprite
+    #state: comfy
+  #- type: Construction
+    #graph: Seat
+    #node: chairComfy
 
 - type: entity
   name: pilot seat

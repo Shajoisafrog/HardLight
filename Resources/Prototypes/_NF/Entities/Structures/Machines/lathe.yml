@@ -326,8 +326,8 @@
 - type: entity
   id: NfsdTechFab
   parent: [ BlueprintReceiverBase, SecurityTechFab ]
-  name: TSFMC techfab
-  description: Prints equipment for use by TSFMC.
+  name: ColSec techfab
+  description: Prints equipment for use by ColSec.
   components:
   - type: Sprite
     sprite: _NF/Structures/Machines/techfab.rsi

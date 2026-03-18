@@ -372,6 +372,16 @@
   - AmmoBox23x75mmDozd
 # HL
   - MagRailgun
+  - AmmoBox46x30mmBig
+  - AmmoBox556x45mmBigFMJ
+  - AmmoBox635x40mmCaselessBig
+  - AmmoBox762x39mmBigFMJ
+  - AmmoBox762x51mmBigFMJ
+  - AmmoBox762x54mmRBigFMJ
+  - AmmoBox9x19mmBigFMJ
+  - AmmoBox762x51mmRubberBig
+  - AmmoBox762x39mmRubberBig
+  - AmmoBox762x54mmRRubberBig
 
 #civilian = FMJ + practice + empty + rubber
 
@@ -500,6 +510,21 @@
   - AmmoBox762x51mmRubber
   - Magazine12_gaugeBeanbag
   - AmmoBox12_gaugeBeanbag
+#Parts
+  - BulletTip
+  - BulletCasing9x19mm
+  - BulletFlechette
+# big boxes
+  - AmmoBox46x30mmBig
+  - AmmoBox556x45mmBigFMJ
+  - AmmoBox635x40mmCaselessBig
+  - AmmoBox762x39mmBigFMJ
+  - AmmoBox762x51mmBigFMJ
+  - AmmoBox762x54mmRBigFMJ
+  - AmmoBox9x19mmBigFMJ
+  - AmmoBox762x51mmRubberBig
+  - AmmoBox762x39mmRubberBig
+  - AmmoBox762x54mmRRubberBig
 
 #advanced = Uranium + Incendiary
 

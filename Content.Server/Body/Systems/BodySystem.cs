@@ -13,11 +13,15 @@ using Content.Shared.Movement.Systems;
 using Robust.Shared.Audio;
 using Robust.Shared.Timing;
 using System.Numerics;
+using Robust.Shared.Map;
+using Robust.Shared.Prototypes;
+using Robust.Shared.Prototypes;
 
 // Shitmed Change
 using System.Linq;
 using Content.Shared.Damage;
 using Content.Shared.Gibbing.Events;
+using Content.Shared._HL.Fire;
 
 namespace Content.Server.Body.Systems;
 
@@ -53,6 +57,101 @@ public sealed class BodySystem : SharedBodySystem
             mind.TimeOfDeath ??= _gameTiming.CurTime; // Frontier - fix returning to body messing with the your TOD
             _ghostSystem.OnGhostAttempt(mindId, canReturnGlobal: true, mind: mind);
         }
+    }
+
+    public bool ReplaceBodyPart(
+        EntityUid bodyId,
+        BodyPartType partType,
+        BodyPartSymmetry symmetry,
+        EntProtoId replacementProto,
+        BodyComponent? body = null)
+    {
+        if (!Resolve(bodyId, ref body, logMissing: false))
+            return false;
+
+        foreach (var (partUid, partComp) in GetBodyChildren(bodyId, body))
+        {
+            if (partComp.PartType != partType)
+                continue;
+
+            if (symmetry != BodyPartSymmetry.None && partComp.Symmetry != symmetry)
+                continue;
+
+            var parentSlot = GetParentPartAndSlotOrNull(partUid);
+            if (parentSlot is null)
+                return false;
+
+            var slotId = parentSlot.Value.Slot;
+
+            if (!Containers.TryGetContainer(parentSlot.Value.Parent, GetPartSlotContainerId(slotId), out var container))
+                return false;
+
+            // Remove existing part from the container to trigger removal flow
+            Containers.Remove(partUid, container);
+
+            // Spawn and attach the replacement
+            var newPart = Spawn(replacementProto, new EntityCoordinates(parentSlot.Value.Parent, Vector2.Zero));
+            if (!TryComp(newPart, out BodyPartComponent? newPartComp))
+                return false;
+
+            return AttachPart(parentSlot.Value.Parent, slotId, newPart, null, newPartComp);
+        }
+
+        return false;
+    }
+
+    public bool ReplaceOrInsertBodyPart(
+        EntityUid bodyId,
+        BodyPartType partType,
+        BodyPartSymmetry symmetry,
+        EntProtoId replacementProto,
+        bool replaceIfPresent,
+        BodyComponent? body = null)
+    {
+        if (!Resolve(bodyId, ref body, logMissing: false))
+            return false;
+
+        if (replaceIfPresent)
+        {
+            if (ReplaceBodyPart(bodyId, partType, symmetry, replacementProto, body))
+                return true;
+        }
+        else
+        {
+            // If we shouldn't replace, bail if a matching part already exists.
+            if (GetBodyChildrenOfType(bodyId, partType, body, symmetry).Any())
+                return false;
+        }
+
+        // Try to insert into an empty slot of the desired type (and symmetry if specified).
+        string? desiredSym = symmetry == BodyPartSymmetry.None ? null : symmetry.ToString().ToLowerInvariant();
+
+        // Walk all parts to find a parent that has a suitable empty child slot.
+        foreach (var (parentId, parentComp) in GetBodyChildren(bodyId, body))
+        {
+            foreach (var (slotId, slot) in parentComp.Children)
+            {
+                if (slot.Type != partType)
+                    continue;
+
+                if (desiredSym != null && !slotId.ToLowerInvariant().Contains(desiredSym))
+                    continue;
+
+                if (!Containers.TryGetContainer(parentId, GetPartSlotContainerId(slotId), out var container))
+                    continue;
+
+                if (container.ContainedEntities.Count != 0)
+                    continue;
+
+                var newPart = Spawn(replacementProto, new EntityCoordinates(parentId, Vector2.Zero));
+                if (!TryComp(newPart, out BodyPartComponent? newPartComp))
+                    return false;
+
+                return AttachPart(parentId, slotId, newPart, parentComp, newPartComp);
+            }
+        }
+
+        return false;
     }
 
     private void OnApplyMetabolicMultiplier(
@@ -179,6 +278,10 @@ public sealed class BodySystem : SharedBodySystem
         if (!Resolve(partId, ref part, logMissing: false)
             || TerminatingOrDeleted(partId)
             || EntityManager.IsQueuedForDeletion(partId))
+            return false;
+
+        // Fireproof trait: prevent body parts from burning off while on fire.
+        if (part.Body is { } bodyEnt && HasComp<FireproofBodyPartsComponent>(bodyEnt))
             return false;
 
         return base.BurnPart(partId, part);

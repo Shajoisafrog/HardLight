@@ -66,6 +66,10 @@
   - type: StaticPrice
     price: 30 # Frontier: 75<30
   - type: RequireProjectileTarget
+  # Mono
+  - type: ShipRepairable
+    repairTime: 1
+    repairCost: 2
 
 - type: entity
   id: PoweredLightPostSmallEmpty
@@ -126,8 +130,9 @@
     state: base
   - type: PointLight
     enabled: true
-  - type: PoweredLight
-    hasLampOnSpawn: LightTube
+  - type: ContainerFill # HardLight
+    containers:
+      light_bulb: [ LightTube ]
   - type: AmbientOnPowered
   - type: AmbientSound
     volume: -15
@@ -155,8 +160,9 @@
     energy: 1
     softness: 0.9
     color: "#EEEEFF"
-  - type: PoweredLight
-    hasLampOnSpawn: LedLightTube
+  - type: ContainerFill # HardLight
+    containers:
+      light_bulb: [ LedLightTube ]
   - type: AmbientOnPowered
   - type: AmbientSound
     volume: -15
@@ -192,7 +198,7 @@
   - type: Construction
     graph: ResinStructures
     node: Xenolight
-    
+
 - type: entity
   id: WallXenolight
   name: alien light
@@ -216,4 +222,3 @@
   - type: Construction
     graph: ResinStructures
     node: WallXenolight
-  

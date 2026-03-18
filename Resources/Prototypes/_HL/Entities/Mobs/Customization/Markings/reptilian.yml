@@ -19,3 +19,107 @@
     state: chest_secondary
   - sprite: _HL/Mobs/Customization/Reptilian/chest_female_alternate.rsi
     state: nipples
+
+- type: marking
+  id: ReptilianTailNaga
+  bodyPart: Tail
+  markingCategory: Tail
+  speciesRestriction: [Skrell, Reptilian, Human]
+  sprites:
+    - sprite: _HL/Mobs/Customization/Reptilian/naga.rsi
+      state: naga_primary
+    - sprite: _HL/Mobs/Customization/Reptilian/naga.rsi
+      state: naga_secondary
+
+- type: marking
+  id: ReptilianTailNagaStriped
+  bodyPart: Tail
+  markingCategory: Tail
+  speciesRestriction: [Skrell, Reptilian, Human]
+  sprites:
+    - sprite: _HL/Mobs/Customization/Reptilian/naga.rsi
+      state: naga_striped_primary
+    - sprite: _HL/Mobs/Customization/Reptilian/naga.rsi
+      state: naga_striped_secondary
+    - sprite: _HL/Mobs/Customization/Reptilian/naga.rsi
+      state: naga_striped_tertiary
+
+- type: marking
+  id: ReptilianTailNagaRattlesnake
+  bodyPart: Tail
+  markingCategory: Tail
+  speciesRestriction: [Skrell, Reptilian, Human]
+  sprites:
+    - sprite: _HL/Mobs/Customization/Reptilian/naga.rsi
+      state: naga_rattlesnake_primary
+    - sprite: _HL/Mobs/Customization/Reptilian/naga.rsi
+      state: naga_rattlesnake_secondary
+    - sprite: _HL/Mobs/Customization/Reptilian/naga.rsi
+      state: naga_rattlesnake_tertiary
+
+# Xeno Spines
+
+- type: marking
+  id: XenoSpineGorjira
+  bodyPart: Chest
+  markingCategory: Chest
+  speciesRestriction: [Reptilian]
+  sprites:
+  - sprite: _HL/Mobs/Customization/Reptilian/xeno_spines.rsi
+    state: xeno_gorjira
+
+- type: marking
+  id: XenoSpineOsteospines
+  bodyPart: Chest
+  markingCategory: Chest
+  speciesRestriction: [Reptilian]
+  sprites:
+  - sprite: _HL/Mobs/Customization/Reptilian/xeno_spines.rsi
+    state: xeno_osteospines
+
+- type: marking
+  id: XenoSpineSpinosaurus
+  bodyPart: Chest
+  markingCategory: Chest
+  speciesRestriction: [Reptilian]
+  sprites:
+  - sprite: _HL/Mobs/Customization/Reptilian/xeno_spines.rsi
+    state: xeno_spinosaurus
+
+- type: marking
+  id: XenoSpineXenomorph
+  bodyPart: Chest
+  markingCategory: Chest
+  speciesRestriction: [Reptilian]
+  sprites:
+  - sprite: _HL/Mobs/Customization/Reptilian/xeno_spines.rsi
+    state: xeno_xenomorph
+
+# Xeno Tails
+
+- type: marking
+  id: XenoTailCurl
+  bodyPart: Tail
+  markingCategory: Tail
+  speciesRestriction: [Reptilian]
+  sprites:
+  - sprite: _HL/Mobs/Customization/Reptilian/xeno_tails.rsi
+    state: xeno_curl
+
+- type: marking
+  id: XenoTailSpike
+  bodyPart: Tail
+  markingCategory: Tail
+  speciesRestriction: [Reptilian]
+  sprites:
+  - sprite: _HL/Mobs/Customization/Reptilian/xeno_tails.rsi
+    state: xeno_spike
+
+- type: marking
+  id: XenoTailSpined
+  bodyPart: Tail
+  markingCategory: Tail
+  speciesRestriction: [Reptilian]
+  sprites:
+  - sprite: _HL/Mobs/Customization/Reptilian/xeno_tails.rsi
+    state: xeno_spined

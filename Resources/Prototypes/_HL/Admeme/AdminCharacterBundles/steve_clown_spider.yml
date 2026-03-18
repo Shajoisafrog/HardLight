@@ -59,8 +59,8 @@
     - Laugh
     - Chitter
     - Click
-    - SteveBugWeh
-    - SteveBugHew
+    # - SteveBugWeh
+    # - SteveBugHew
     - Honk
     - HarpyBeep
     - HarpyPew
@@ -249,14 +249,14 @@
       path: /Audio/Voice/Arachnid/arachnid_click.ogg
     MonkeyScreeches:
       collection: MonkeyScreeches
-    Weh:
-      collection: Weh
-    Hew:
-      collection: Hew
-    SteveBugWeh:
-      collection: Weh
-    SteveBugHew:
-      collection: Hew
+    # Weh:
+      # collection: Weh
+    # Hew:
+      # collection: Hew
+    # SteveBugWeh:
+      # collection: Weh
+    # SteveBugHew:
+      # collection: Hew
     Honk:
       collection: BikeHorn
     Gasp:
@@ -295,32 +295,32 @@
 
 
 
-- type: emote
-  id: SteveBugWeh
-  name: chat-emote-name-weh
-  category: Vocal
-  icon: Interface/Emotes/weh.png
-  whitelist:
-    components:
-    - Vocal
-  chatMessages: ["chat-emote-msg-weh"]
-  chatTriggers:
-    - weh
-    - wehs
-    - wehed
-    - wehing
+# - type: emote
+  # id: SteveBugWeh
+  # name: chat-emote-name-weh
+  # category: Vocal
+  # icon: Interface/Emotes/weh.png
+  # whitelist:
+    # components:
+    # - Vocal
+  # chatMessages: ["chat-emote-msg-weh"]
+  # chatTriggers:
+    # - weh
+    # - wehs
+    # - wehed
+    # - wehing
 
-- type: emote
-  id: SteveBugHew
-  name: chat-emote-name-hew
-  category: Vocal
-  icon: Interface/Emotes/hew.png
-  whitelist:
-    components:
-    - Vocal
-  chatMessages: ["chat-emote-msg-hew"]
-  chatTriggers:
-    - hew
-    - hews
-    - hewed
-    - hewing
+# - type: emote
+  # id: SteveBugHew
+  # name: chat-emote-name-hew
+  # category: Vocal
+  # icon: Interface/Emotes/hew.png
+  # whitelist:
+    # components:
+    # - Vocal
+  # chatMessages: ["chat-emote-msg-hew"]
+  # chatTriggers:
+    # - hew
+    # - hews
+    # - hewed
+    # - hewing

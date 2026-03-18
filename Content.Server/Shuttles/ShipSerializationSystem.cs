@@ -46,7 +46,6 @@ using Content.Shared.VendingMachines;
 using Robust.Shared.EntitySerialization.Systems; // Added for MapLoaderSystem
 using Robust.Shared.EntitySerialization;
 using Content.Shared.Access.Components; // AccessReaderComponent for access retention
-using Robust.Shared.Serialization.Manager; // For DataNodeParser
 using Robust.Shared.Map.Events; // For BeforeEntityReadEvent
 
 namespace Content.Server.Shuttles.Save
@@ -312,7 +311,7 @@ namespace Content.Server.Shuttles.Save
 
                 var gridData = new GridData
                 {
-                    GridId = grid.Owner.ToString()
+                    GridId = gridId.ToString()
                 };
 
                 // Proper tile serialization
@@ -437,6 +436,129 @@ namespace Content.Server.Shuttles.Save
             }
         }
 
+        public ShipGridData SerializeShipArea(EntityUid gridId, NetUserId playerId, string shipName, Box2 bounds, HashSet<EntityUid>? excludeEntities = null)
+        {
+            var verbose = _configManager.GetCVar(Content.Shared.CCVar.CCVars.ShipyardSaveVerbose);
+            var excludeVending = _configManager.GetCVar(Content.Shared.HL.CCVar.HLCCVars.ExcludeVendingInShipSave);
+
+            if (!_entityManager.TryGetComponent<MapGridComponent>(gridId, out var grid))
+                throw new ArgumentException($"Grid with ID {gridId} not found.");
+
+            if (!_entityManager.EntityExists(gridId) || _entityManager.IsQueuedForDeletion(gridId))
+                throw new ArgumentException($"Grid with ID {gridId} is being deleted or doesn't exist.");
+
+            var gridTransform = _entityManager.GetComponent<TransformComponent>(gridId);
+            var originalGridRotation = gridTransform.LocalRotation;
+
+            try
+            {
+                if (originalGridRotation != Angle.Zero)
+                {
+                    if (verbose)
+                        _sawmill.Debug($"Normalizing grid rotation from {originalGridRotation.Degrees:F2}° to 0° for room save");
+                    _transform.SetLocalRotation(gridId, Angle.Zero, gridTransform);
+                }
+
+                var shipGridData = new ShipGridData
+                {
+                    Metadata = new ShipMetadata
+                    {
+                        OriginalGridId = gridId.ToString(),
+                        PlayerId = playerId.ToString(),
+                        ShipName = shipName,
+                        Timestamp = DateTime.UtcNow
+                    }
+                };
+
+                var gridData = new GridData
+                {
+                    GridId = gridId.ToString(),
+                    AtmosphereData = null,
+                    DecalData = null
+                };
+
+                var tiles = _map.GetAllTiles(gridId, grid);
+                foreach (var tile in tiles)
+                {
+                    var tileDef = _tileDefManager[tile.Tile.TypeId];
+                    if (tileDef.ID == "Space")
+                        continue;
+
+                    var pos = new Vector2(tile.GridIndices.X + 0.5f, tile.GridIndices.Y + 0.5f);
+                    if (!bounds.Contains(pos))
+                        continue;
+
+                    gridData.Tiles.Add(new TileData
+                    {
+                        X = tile.GridIndices.X,
+                        Y = tile.GridIndices.Y,
+                        TileType = tileDef.ID
+                    });
+                }
+
+                var serializedEntities = new HashSet<EntityUid>();
+                var childEnumerator = gridTransform.ChildEnumerator;
+                while (childEnumerator.MoveNext(out var childUid))
+                {
+                    if (excludeEntities != null && excludeEntities.Contains(childUid))
+                        continue;
+
+                    if (!_entityManager.EntityExists(childUid) || _entityManager.IsQueuedForDeletion(childUid))
+                        continue;
+
+                    if (!_entityManager.TryGetComponent<TransformComponent>(childUid, out var childTransform))
+                        continue;
+
+                    if (!childTransform.Anchored)
+                        continue;
+
+                    if (!bounds.Contains(childTransform.LocalPosition))
+                        continue;
+
+                    var meta = _entityManager.GetComponentOrNull<MetaDataComponent>(childUid);
+                    var proto = meta?.EntityPrototype?.ID ?? string.Empty;
+                    if (string.IsNullOrEmpty(proto))
+                        continue;
+
+                    if (excludeVending && _entityManager.HasComponent<VendingMachineComponent>(childUid))
+                        continue;
+
+                    var entityData = SerializeEntity(childUid, childTransform, proto, gridId);
+                    if (entityData != null)
+                    {
+                        gridData.Entities.Add(entityData);
+                        serializedEntities.Add(childUid);
+                    }
+                }
+
+                SerializeContainedEntities(gridId, gridData, serializedEntities);
+                ValidateContainerRelationships(gridData);
+
+                shipGridData.Grids.Add(gridData);
+
+                if (verbose)
+                    _sawmill.Debug($"Room serialized: {gridData.Entities.Count} entities, {gridData.Tiles.Count} tiles");
+
+                return shipGridData;
+            }
+            finally
+            {
+                if (originalGridRotation != Angle.Zero)
+                {
+                    try
+                    {
+                        _transform.SetLocalRotation(gridId, originalGridRotation, gridTransform);
+                        if (verbose)
+                            _sawmill.Debug($"Restored grid rotation to {originalGridRotation.Degrees:F2}° after room save");
+                    }
+                    catch (Exception ex)
+                    {
+                        _sawmill.Error($"Failed to restore grid rotation after room save: {ex.Message}");
+                    }
+                }
+            }
+        }
+
         private ShipGridData SerializeShipRefactored(EntityUid gridId, NetUserId playerId, string shipName)
         {
             if (!_entityManager.TryGetComponent<MapGridComponent>(gridId, out var grid))
@@ -506,7 +628,7 @@ namespace Content.Server.Shuttles.Save
                 }
             };
 
-            var gridData = new GridData { GridId = grid.Owner.ToString() };
+            var gridData = new GridData { GridId = gridId.ToString() };
 
             // Tiles (retain existing tile extraction logic for compatibility)
             var tiles = _map.GetAllTiles(gridId, grid);
@@ -1232,6 +1354,103 @@ namespace Content.Server.Shuttles.Save
             return newGrid.Owner;
         }
 
+        public void ReconstructShipOnExistingGrid(ShipGridData shipGridData, EntityUid targetGrid, System.Numerics.Vector2 offset)
+        {
+            if (shipGridData.Grids.Count == 0)
+                throw new ArgumentException("No grid data to reconstruct.");
+
+            if (!_entityManager.TryGetComponent<MapGridComponent>(targetGrid, out var gridComp))
+                throw new ArgumentException($"Target grid {targetGrid} not found.");
+
+            var primaryGridData = shipGridData.Grids[0];
+            var tileOffset = new Vector2i((int)MathF.Round(offset.X), (int)MathF.Round(offset.Y));
+
+            foreach (var tileData in primaryGridData.Tiles)
+            {
+                if (string.IsNullOrEmpty(tileData.TileType) || tileData.TileType == "Space")
+                    continue;
+
+                try
+                {
+                    var tileDef = _tileDefManager[tileData.TileType];
+                    var tile = new Tile(tileDef.TileId);
+                    var tileCoords = new Vector2i(tileData.X + tileOffset.X, tileData.Y + tileOffset.Y);
+                    _map.SetTile(targetGrid, gridComp, tileCoords, tile);
+                }
+                catch (Exception ex)
+                {
+                    _sawmill.Error($"Failed to place tile {tileData.TileType} at ({tileData.X}, {tileData.Y}): {ex.Message}");
+                }
+            }
+
+            var entityIdMapping = new Dictionary<string, EntityUid>();
+            var hasContainerData = primaryGridData.Entities.Any(e => e.IsContainer || e.IsContained);
+
+            if (!hasContainerData)
+            {
+                foreach (var entityData in primaryGridData.Entities)
+                {
+                    if (string.IsNullOrEmpty(entityData.Prototype))
+                        continue;
+
+                    var coords = new EntityCoordinates(targetGrid, entityData.Position + offset);
+                    var newEntity = SpawnEntityWithComponents(entityData, coords, clearDefaultsForContainers: false);
+                    if (newEntity != null)
+                        entityIdMapping[entityData.EntityId] = newEntity.Value;
+                }
+
+                return;
+            }
+
+            var nonContained = new List<EntityData>();
+            var contained = new List<EntityData>();
+
+            foreach (var entityData in primaryGridData.Entities)
+            {
+                if (string.IsNullOrEmpty(entityData.Prototype))
+                    continue;
+
+                if (entityData.IsContained)
+                    contained.Add(entityData);
+                else
+                    nonContained.Add(entityData);
+            }
+
+            foreach (var entityData in nonContained)
+            {
+                var coords = new EntityCoordinates(targetGrid, entityData.Position + offset);
+                var newEntity = SpawnEntityWithComponents(entityData, coords, clearDefaultsForContainers: true);
+                if (newEntity != null)
+                    entityIdMapping[entityData.EntityId] = newEntity.Value;
+            }
+
+            foreach (var entityData in contained)
+            {
+                var tempCoords = new EntityCoordinates(targetGrid, Vector2.Zero);
+                var containedEntity = SpawnEntityWithComponents(entityData, tempCoords, clearDefaultsForContainers: true);
+                if (containedEntity == null)
+                    continue;
+
+                entityIdMapping[entityData.EntityId] = containedEntity.Value;
+
+                if (!string.IsNullOrEmpty(entityData.ParentContainerEntity) &&
+                    !string.IsNullOrEmpty(entityData.ContainerSlot) &&
+                    entityIdMapping.TryGetValue(entityData.ParentContainerEntity, out var parentContainer))
+                {
+                    if (!InsertIntoContainer(containedEntity.Value, parentContainer, entityData.ContainerSlot))
+                    {
+                        _entityManager.DeleteEntity(containedEntity.Value);
+                        entityIdMapping.Remove(entityData.EntityId);
+                    }
+                }
+                else
+                {
+                    _entityManager.DeleteEntity(containedEntity.Value);
+                    entityIdMapping.Remove(entityData.EntityId);
+                }
+            }
+        }
+
         public EntityUid ReconstructShip(ShipGridData shipGridData)
         {
             _sawmill.Info($"Reconstructing ship with {shipGridData.Grids.Count} grids");
@@ -1250,10 +1469,12 @@ namespace Content.Server.Shuttles.Save
             _map.CreateMap(out var mapId);
             _sawmill.Info($"Created new map {mapId}");
 
-            var newGrid = _mapManager.CreateGrid(mapId);
+            // Create grid entity and get its MapGridComponent without using the obsolete Component.Owner
+            var newGridEntity = _mapManager.CreateGridEntity(mapId);
+            var newGrid = _entityManager.GetComponent<MapGridComponent>(newGridEntity);
             // Ensure the new grid has physics so any subsequent docking attaches a weld joint properly.
-            _entityManager.EnsureComponent<Robust.Shared.Physics.Components.PhysicsComponent>(newGrid.Owner);
-            _sawmill.Info($"Created new grid {newGrid.Owner} on map {mapId}");
+            _entityManager.EnsureComponent<Robust.Shared.Physics.Components.PhysicsComponent>(newGridEntity);
+            _sawmill.Info($"Created new grid {newGridEntity} on map {mapId}");
 
             // Reconstruct tiles in connectivity order to prevent grid splitting
             var tilesToPlace = new List<(Vector2i coords, Tile tile)>();
@@ -1282,15 +1503,15 @@ namespace Content.Server.Shuttles.Save
             }
 
             // Place tiles maintaining connectivity
-            foreach (var (coords, tile) in tilesToPlace)
-            {
-                _map.SetTile(newGrid.Owner, newGrid, coords, tile);
-            }
+                foreach (var (coords, tile) in tilesToPlace)
+                {
+                    _map.SetTile(newGridEntity, newGrid, coords, tile);
+                }
             // Placed tiles
 
             // Apply fixgridatmos-style atmosphere to all loaded ships
             // Applying atmosphere
-            ApplyFixGridAtmosphereToGrid(newGrid.Owner);
+            ApplyFixGridAtmosphereToGrid(newGridEntity);
 
             // Restore decal data using proper DecalSystem API
             if (!string.IsNullOrEmpty(primaryGridData.DecalData))
@@ -1302,14 +1523,14 @@ namespace Content.Server.Shuttles.Save
                     var decalsFailed = 0;
 
                     // Ensure the grid has a DecalGridComponent
-                    _entityManager.EnsureComponent<DecalGridComponent>(newGrid.Owner);
+                    _entityManager.EnsureComponent<DecalGridComponent>(newGridEntity);
 
                     foreach (var (chunkPos, chunk) in decalChunkCollection.ChunkCollection)
                     {
                         foreach (var (decalId, decal) in chunk.Decals)
                         {
                             // Convert the decal coordinates to EntityCoordinates on the new grid
-                            var decalCoords = new EntityCoordinates(newGrid.Owner, decal.Coordinates);
+                                var decalCoords = new EntityCoordinates(newGridEntity, decal.Coordinates);
 
                             // Use the DecalSystem to properly add the decal
                             if (_decalSystem.TryAddDecal(decal.Id, decalCoords, out _, decal.Color, decal.Angle, decal.ZIndex, decal.Cleanable))
@@ -1352,7 +1573,7 @@ namespace Content.Server.Shuttles.Save
 
                 try
                 {
-                    var coordinates = new EntityCoordinates(newGrid.Owner, entityData.Position);
+                    var coordinates = new EntityCoordinates(newGridEntity, entityData.Position);
                     var newEntity = _entityManager.SpawnEntity(entityData.Prototype, coordinates);
 
                     // Apply rotation if it exists
@@ -1372,7 +1593,7 @@ namespace Content.Server.Shuttles.Save
                 }
             }
 
-            return newGrid.Owner;
+            return newGridEntity;
         }
 
         private bool IsEntityContained(EntityUid entityUid, EntityUid gridId)

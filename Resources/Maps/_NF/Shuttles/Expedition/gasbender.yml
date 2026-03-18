@@ -34,7 +34,6 @@ entities:
       name: Gasbender
     - type: Transform
       pos: -0.5426248,-0.4928913
-      parent: invalid
     - type: MapGrid
       chunks:
         0,0:
@@ -3465,7 +3464,7 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 5.5,-10.5
       parent: 1
-- proto: ComputerSalvageExpedition
+- proto: ComputerBroken
   entities:
   - uid: 435
     components:

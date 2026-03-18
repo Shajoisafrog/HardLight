@@ -21,3 +21,16 @@
   price: 500
   equipment:
     belt: ClothingBeltSecurityFilled
+
+- type: loadout
+  id: MercenaryClothingBeltKnifeRig
+  price: 500
+  equipment:
+    belt: CMBeltKnife
+
+- type: loadout
+  id: MercenaryClothingBeltKnifeRigFilled
+  name: Mercenary Knife Rig (Filled)
+  price: 2000
+  equipment:
+    belt: CMBeltKnifeFilled

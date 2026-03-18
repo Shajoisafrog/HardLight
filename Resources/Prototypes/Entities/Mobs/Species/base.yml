@@ -11,6 +11,7 @@
   components:
   - type: Sprite
     layers:
+    - map: [ "enum.HumanoidVisualLayers.TailBehind" ]
     - map: [ "enum.HumanoidVisualLayers.Chest" ]
     - map: [ "enum.HumanoidVisualLayers.Head" ]
     - map: [ "enum.HumanoidVisualLayers.Snout" ]
@@ -39,6 +40,7 @@
     - map: [ "outerClothing" ]
     - map: [ "belt" ] # HL: change belt over outerclothing
     - map: [ "back" ]
+    - map: [ "enum.HumanoidVisualLayers.TailOversuit" ]
     - map: [ "neck" ]
     - map: [ "enum.HumanoidVisualLayers.FacialHair" ]
     - map: [ "enum.HumanoidVisualLayers.Hair" ]
@@ -227,6 +229,7 @@
     price: 1500 # Kidnapping a living person and selling them for cred is a good move.
     deathPenalty: 0.01 # However they really ought to be living and intact, otherwise they're worth 100x less.
   - type: CanEscapeInventory # Carrying system from nyanotrasen.
+  - type: Vore # Floofstation - Vore
   - type: Tag
     tags:
     - CanPilot
@@ -237,6 +240,9 @@
   - type: SurgeryTarget # Shitmed Change
   - type: ModifyMarkings # Hardlight
   - type: ExaminableCharacter # WWDP
+  - type: PseudoItem # Hardlight change, technically cribbed from Den
+    shape:
+      - 0,0,20,5 # 1 too wide to fit inside ClothingBackpackDuffelHolding, so only bags designed to carry people can actually fit them inside
 
 - type: entity
   save: false
@@ -308,6 +314,9 @@
   - type: LayingDown
   - type: OfferItem # _HL
 
+  - type: Carriable # Goobstation
+  - type: Genetics # Funkystation - Genetics
+    mutationSlots: 8
 
 - type: entity
   save: false
@@ -326,6 +335,7 @@
     noRot: true
     # TODO BODY Turn these into individual body parts?
     layers:
+    - map: [ "enum.HumanoidVisualLayers.TailBehind" ]
     - map: [ "enum.HumanoidVisualLayers.Chest" ]
     - map: [ "enum.HumanoidVisualLayers.Head" ]
     - map: [ "enum.HumanoidVisualLayers.Snout" ]
@@ -359,6 +369,7 @@
     - map: [ "outerClothing" ]
     - map: [ "belt" ] # HL: change belt over outerclothing
     - map: [ "back" ]
+    - map: [ "enum.HumanoidVisualLayers.TailOversuit" ]
     - map: [ "neck" ]
     - map: [ "enum.HumanoidVisualLayers.FacialHair" ]
     - map: [ "enum.HumanoidVisualLayers.Hair" ]

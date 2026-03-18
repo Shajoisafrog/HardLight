@@ -12,3 +12,15 @@
 
 - type: playTimeTracker
   id: JobSalvageQuadBorg
+
+- type: playTimeTracker
+  id: JobInterdyne
+
+- type: playTimeTracker
+  id: JobInterdyneHead
+
+- type: playTimeTracker
+  id: JobCentralCommandDirectorate
+
+- type: playTimeTracker
+  id: JobColonialNavyman

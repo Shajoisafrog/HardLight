@@ -1,0 +1,79 @@
+# HTN compounds for Rain Lizards
+# Lizards that pull their targets while attacking
+
+- type: htnCompound
+  id: LizardPullAttackCompound
+  branches:
+    # First priority: Attack and pull targets
+    - tasks:
+        - !type:HTNPrimitiveTask
+          operator: !type:UtilityOperator
+            proto: NearbyMeleeTargets
+        
+        - !type:HTNCompoundTask
+          task: LizardAttackTargetCompound
+    
+    # Fallback: idle behavior
+    - tasks:
+        - !type:HTNCompoundTask
+          task: IdleCompound
+
+# Lizard-specific attack sequence that includes pulling
+- type: htnCompound
+  id: LizardAttackTargetCompound
+  branches:
+    # Unpull if being pulled by someone else
+    - preconditions:
+        - !type:PulledPrecondition
+          isPulled: true
+      tasks:
+        - !type:HTNPrimitiveTask
+          operator: !type:UnPullOperator
+            shutdownState: TaskFinished
+
+    # Escape from containers
+    - preconditions:
+        - !type:InContainerPrecondition
+          isInContainer: true
+      tasks:
+        - !type:HTNCompoundTask
+          task: EscapeCompound
+
+    # Main attack sequence: constantly move, pull them, juke around, then attack
+    - preconditions:
+        - !type:KeyExistsPrecondition
+          key: Target
+      tasks:
+        # Always move toward the target (never stops trying)
+        - !type:HTNPrimitiveTask
+          operator: !type:MoveToOperator
+            shutdownState: PlanFinished
+            pathfindInPlanning: true
+            removeKeyOnFinish: false
+            targetKey: TargetCoordinates
+            pathfindKey: TargetPathfind
+            rangeKey: InteractRange
+        
+        # Juke to adjacent tile for erratic movement
+        - !type:HTNPrimitiveTask
+          operator: !type:JukeOperator
+            jukeType: AdjacentTile
+
+        # Try to pull the target (with cooldown to prevent spam)
+        - !type:HTNPrimitiveTask
+          preconditions:
+            - !type:TargetInRangePrecondition
+              targetKey: Target
+              rangeKey: InteractRange
+          operator: !type:PullOperator
+            targetKey: Target
+            cooldown: 3
+
+        # Attack the target (primary action)
+        - !type:HTNPrimitiveTask
+          operator: !type:MeleeOperator
+            targetKey: Target
+          preconditions:
+            - !type:TargetInRangePrecondition
+              targetKey: Target
+              rangeKey: MeleeRange

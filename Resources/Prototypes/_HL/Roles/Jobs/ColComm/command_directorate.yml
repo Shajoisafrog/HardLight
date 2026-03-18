@@ -1,0 +1,33 @@
+- type: job
+  id: CentralCommandDirectorate
+  name: job-name-directorate
+  description: job-description-directorate
+  playTimeTracker: JobCentralCommandDirectorate
+  setPreference: false
+  startingGear: CentcomGear
+  icon: "JobIconColComm"
+  supervisors: job-supervisors-hos
+  canBeAntag: false
+  accessGroups:
+  - AllAccess
+  access:
+  - CentralCommand
+  - Directorate
+  - Naval
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant, DeathRattleImplantColcomm ]
+
+- type: startingGear
+  id: CentralCommandDirectorateGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitCentcomDirector
+    shoes: ClothingShoesBootsCombatFilled
+    head: ClothingHeadHatColcomcap
+    eyes: ClothingEyesGlassesSunglasses
+    gloves: ClothingHandsGlovesColorBlack
+    neck: ClothingNeckMantleDirectorate
+    id: DirectoratePDA
+    ears: ClothingHeadsetAltColCom
+    pocket1: BoxFolderBlack
+    pocket2: PenCentcom

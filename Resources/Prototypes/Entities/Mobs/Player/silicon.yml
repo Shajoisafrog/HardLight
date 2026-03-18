@@ -8,25 +8,35 @@
   - type: IntrinsicRadioTransmitter
     channels:
     - Binary
+    - ColSec
     - Common
     - Command
     - Engineering
+    - Freelance
     - Medical
+    # Needed for ColSec for some reason?
+    - Nfsd
     - Science
     - Security
     - Service
     - Supply
+    - Traffic
   - type: ActiveRadio
     channels:
     - Binary
+    - ColSec
     - Common
     - Command
     - Engineering
+    - Freelance
     - Medical
+    # See above
+    - Nfsd
     - Science
     - Security
     - Service
     - Supply
+    - Traffic
   - type: IgnoreUIRange
   - type: StationAiHeld
   - type: StationAiOverlay
@@ -66,6 +76,7 @@
     transmitFrequencyId: ShuttleTimer
   - type: RadarConsole
     followEntity: false
+    pannable: true # Mono
   - type: CommunicationsConsole
     canShuttle: false
     title: comms-console-announcement-title-station-ai

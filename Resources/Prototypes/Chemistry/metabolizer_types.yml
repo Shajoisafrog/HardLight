@@ -25,6 +25,10 @@
   id: Avali
   name: metabolizer-type-avali
 
+- type: metabolizerType #🌟Starlight🌟
+  id: Resomi
+  name: metabolizer-type-resomi
+
 - type: metabolizerType
   id: Vox
   name: metabolizer-type-vox
@@ -48,3 +52,7 @@
 - type: metabolizerType
   id: Arachnid
   name: metabolizer-type-arachnid
+
+- type: metabolizerType # HardLight
+  id: Synth
+  name: metabolizer-type-synth

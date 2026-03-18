@@ -129,6 +129,7 @@
     offset: 0.0
     rarePrototypes:
     - ClothingOuterHardsuitMaximPrototype
+    - ClothingOuterHardsuitMaxim
     rareChance: 0.05
 
 # Lockers
@@ -252,6 +253,7 @@
     - VendingMachineSyndieContraband
     # - VendingMachineSyndieDrobe # A bit less Syndicate loot
     - VendingMachineArcadia
+    - VendingMachineRMCDrobe
     rareChance: 0.01
 
 # Other
@@ -273,7 +275,7 @@
   - type: RandomSpawner
     prototypes:
     # Computers
-    - ComputerIFFCircuitboard
+    #- ComputerIFFCircuitboard
     # Lathes
     - SalvageTechFabCircuitboardNF
     - AutolatheMachineCircuitboard
@@ -293,7 +295,7 @@
     - AmmoTechFabCircuitboard
     - ShuttleGunSvalinnMachineGunCircuitboard
     #- SecurityTechFabCircuitboard
-    - ComputerIFFCircuitboard
+    #- ComputerIFFCircuitboard
     rareChance: 0.03
 
 - type: entity

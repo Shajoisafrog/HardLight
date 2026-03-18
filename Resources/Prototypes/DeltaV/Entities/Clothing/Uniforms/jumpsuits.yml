@@ -1,0 +1,11 @@
+
+- type: entity
+  parent: ClothingUniformBase
+  id: ClothingUniformJumpsuitCentcomDirector
+  name: CC Director's jumpsuit
+  description: A sharp and professional jumpsuit worn by a high-ranking member of Colonial Command.
+  components:
+  - type: Sprite
+    sprite: DeltaV/Clothing/Uniforms/Jumpsuit/centcom_officer.rsi
+  - type: Clothing
+    sprite: DeltaV/Clothing/Uniforms/Jumpsuit/centcom_officer.rsi

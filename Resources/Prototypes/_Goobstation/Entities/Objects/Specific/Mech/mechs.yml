@@ -74,8 +74,8 @@
       types:
         Blunt: 20
   - type: MovementSpeedModifier
-    baseWalkSpeed: 1
-    baseSprintSpeed: 2
+    baseWalkSpeed: 2
+    baseSprintSpeed: 4
   - type: Damageable
     damageModifierSet: MediumArmorNT
   - type: StaticPrice
@@ -101,7 +101,7 @@
   id: MechClarke
   parent: [ BaseMech, IndustrialMech, BaseC2ExpeditionContraband ]
   name: Clarke
-  description: A fast-moving mech for space travel. It has built-in trusts.
+  description: A fast-moving mech for space travel. It has built-in thrusters.
   components:
   - type: Sprite
     drawdepth: Mobs
@@ -132,9 +132,8 @@
       types:
         Blunt: 26
   - type: MovementSpeedModifier
-    baseWalkSpeed: 1
-    baseSprintSpeed: 2
-    baseWeightlessModifier: 2
+    baseWalkSpeed: 3
+    baseSprintSpeed: 5
   - type: CanMoveInAir
   - type: MovementAlwaysTouching
   - type: StaticPrice

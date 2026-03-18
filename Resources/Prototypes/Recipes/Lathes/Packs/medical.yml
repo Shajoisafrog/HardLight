@@ -44,6 +44,7 @@
   - DiseaseSwab
   - BodyBag
   - WhiteCane
+  - AACTablet
 
 - type: latheRecipePack
   id: RollerBedsStatic
@@ -71,6 +72,8 @@
   - MedkitAdvanced
   - MedkitRadiation
   - MedkitCombat
+  - SyringeCase
+  - SyringeCaseAlt
 
 - type: latheRecipePack
   id: MedicalBoardsStatic
@@ -116,6 +119,7 @@
   recipes:
   - ChemicalPayload
   - CryostasisBeaker
+  - BluespaceCryobeaker
   - SyringeCryostasis
   - BluespaceBeaker
   - SyringeBluespace

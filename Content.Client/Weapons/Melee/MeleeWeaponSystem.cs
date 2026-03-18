@@ -216,7 +216,16 @@ public sealed partial class MeleeWeaponSystem : SharedMeleeWeaponSystem
 
         // This should really be improved. GetEntitiesInArc uses pos instead of bounding boxes.
         // Server will validate it with InRangeUnobstructed.
-        var entities = GetNetEntityList(ArcRayCast(userPos, direction.ToWorldAngle(), component.Angle, distance, userXform.MapID, user).ToList());
+        // If we're piloting a mech, ignore both the mech and the pilot so the raycast
+        // can reach targets in front of the mech instead of being blocked by the mech's colliders.
+        var ignores = new List<EntityUid> { user };
+        if (TryComp(user, out Content.Shared.Mech.Components.MechPilotComponent? mp) && mp.Mech != default)
+        {
+            // Put mech first so physics raycast skips mech colliders.
+            ignores.Insert(0, mp.Mech);
+        }
+
+        var entities = GetNetEntityList(ArcRayCast(userPos, direction.ToWorldAngle(), component.Angle, distance, userXform.MapID, user, ignores.ToArray()).ToList());
         RaisePredictiveEvent(new HeavyAttackEvent(GetNetEntity(meleeUid), entities.GetRange(0, Math.Min(MaxTargets, entities.Count)), GetNetCoordinates(coordinates)));
     }
 

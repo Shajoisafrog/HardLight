@@ -27,3 +27,6 @@ trait-bluespace-breasts-desc = Through augmentation, genetic enhancement, or blu
 
 trait-barrel-breasts-name = Bluespace Barrel Breasts
 trait-barrel-breasts-desc = You are capable of such vast quantities of milk that you can fill a bluespace barrel in one go. Go outshine the cheese caves.(15000u)
+
+trait-pisser-name = Pissing
+trait-pisser-desc = You're able to piss on or in things!

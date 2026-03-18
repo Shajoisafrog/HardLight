@@ -63,8 +63,8 @@
         - state: bluespacehiggsdisplacer
     - type: Organ
       slotId: heart
-      onAdd:
-        - type: BluespaceShunt
+      # onAdd:
+      #   - type: BluespaceShunt
 
 - type: entity
   id: CyberneticsHiggsAnchor
@@ -80,8 +80,8 @@
         - state: higgsanchor
     - type: Organ #ERIS this badly needs its own organ component so we dont HAVE to have it replace an organ, can you look at it. also give this the no psionics trait
       slotId: liver # done
-      onAdd:
-        - type: BluespaceShunt # PLACEHOLDER, adding real stuff soon
+      # onAdd:
+      #   - type: BluespaceShunt # PLACEHOLDER, adding real stuff soon
 
 - type: entity
   id: CyberneticsHiggsCerebralTrainer
@@ -97,8 +97,8 @@
         - state: cerebraltrainer
     - type: Organ #ERIS this badly needs its own organ component so we dont HAVE to have it replace an organ, can you look at it. give it the same organ component as the Anchor so players cant use them both at once. also give this the psionics trait + power overwhelming
       slotId: liver # done
-      onAdd:
-        - type: BluespaceShunt # PLACEHOLDER, adding real stuff soon
+      # onAdd:
+      #   - type: BluespaceShunt # PLACEHOLDER, adding real stuff soon
 
 - type: entity
   id: CyberneticsCortexBomb

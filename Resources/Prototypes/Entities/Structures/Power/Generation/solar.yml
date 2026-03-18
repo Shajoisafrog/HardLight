@@ -53,6 +53,11 @@
   - type: GuideHelp
     guides:
     - SolarPanels
+  # Mono
+  - type: ShipRepairable
+    repairTo: SolarPanel
+    repairTime: 1
+    repairCost: 2
 
 - type: entity
   id: SolarPanelPlasma
@@ -64,7 +69,7 @@
     supplyRampTolerance: 500
     supplyRampRate: 500
   - type: NFSolarPanel # Frontier: SolarPanel<NFSolarPanel (grid-based tracking)
-    maxSupply: 1000
+    maxSupply: 2000
   - type: Sprite
     sprite: Structures/Power/Generation/solar_panel.rsi
     state: solar_panel_plasma
@@ -98,7 +103,7 @@
     supplyRampTolerance: 500
     supplyRampRate: 500
   - type: NFSolarPanel # Frontier: SolarPanel<NFSolarPanel (grid-based tracking)
-    maxSupply: 1500
+    maxSupply: 4500
   - type: Sprite
     sprite: Structures/Power/Generation/solar_panel.rsi
     state: solar_panel_uranium

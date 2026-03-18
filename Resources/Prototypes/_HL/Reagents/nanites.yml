@@ -1,0 +1,106 @@
+- type: reagent
+  id: InertNanites
+  name: reagent-name-inertnanites
+  group: Medicine
+  desc: reagent-desc-inertnanites
+  physicalDesc: reagent-physical-desc-shiny
+  flavor: metallic
+  color: "#79b5b4"
+  recognizable: true
+  worksOnTheDead: false
+  metabolisms:
+    Medicine:
+      metabolismRate: 0.5
+      effects:
+      - !type:HealthChange
+        conditions:
+        - !type:OrganType
+          type: Synth
+        damage:
+          groups:
+            Brute: -1.5
+            Burn: -1.5
+          types:
+            Bloodloss: -0.5
+            Poison: -1
+            Radiation: -1
+      - !type:ModifyBleedAmount
+        conditions:
+        - !type:OrganType
+          type: Synth
+        amount: -0.15
+      - !type:ModifyBloodLevel
+        conditions:
+        - !type:OrganType
+          type: Synth
+        amount: 2.5
+      - !type:HealthChange
+        conditions:
+        - !type:OrganType
+          type: Synth
+          shouldHave: false
+        damage:
+          types:
+            Poison: 0.2
+  footstepSound:
+    collection: FootstepBlood
+    params:
+      volume: 6
+
+- type: reagent
+  id: Nanites
+  name: reagent-name-nanites
+  group: Medicine
+  desc: reagent-desc-nanites
+  physicalDesc: reagent-physical-desc-glowing
+  flavor: metallic
+  color: "#8afffd"
+  recognizable: true
+  worksOnTheDead: true
+  metabolisms:
+    Medicine:
+      metabolismRate: 0.25
+      effects:
+      - !type:HealthChange
+        conditions:
+        - !type:OrganType
+          type: Synth
+        damage:
+          groups:
+            Brute: -3
+            Burn: -3
+          types:
+            Bloodloss: -1
+            Poison: -2
+            Radiation: -2
+      - !type:ModifyBleedAmount
+        conditions:
+        - !type:OrganType
+          type: Synth
+        amount: -0.3
+      - !type:ModifyBloodLevel
+        conditions:
+        - !type:OrganType
+          type: Synth
+        amount: 5
+      - !type:HealthChange
+        conditions:
+        - !type:OrganType
+          type: Synth
+          shouldHave: false
+        damage:
+          types:
+            Slash: 3
+            Piercing: 3
+            Blunt: 1
+      - !type:Emote
+        conditions:
+        - !type:OrganType
+          type: Synth
+          shouldHave: false
+        emote: Scream
+        probability: 0.2
+  footstepSound:
+    collection: FootstepBlood
+    params:
+      volume: 6

@@ -1,9 +1,3 @@
-# SPDX-FileCopyrightText: 2025 Ark
-# SPDX-FileCopyrightText: 2025 Ilya246
-# SPDX-FileCopyrightText: 2025 starch
-#
-# SPDX-License-Identifier: AGPL-3.0-or-later
-
 # Base
 
 - type: entity
@@ -45,9 +39,9 @@
           bounds: "-0.25,-0.25,0.25,0.25"
         density: 800
         mask:
-        - MachineMask
+        - FullTileMask
         layer:
-        - MachineLayer
+        - WallLayer
   - type: Transform
     anchored: true
   - type: Rotatable
@@ -72,12 +66,14 @@
     visibleFromOtherGrids: true
     radarColor: "#9999FF"
     scale: 1
+    shape: square
   - type: ShipGunType
     shipType: Kinetic
   - type: ShipGunClass
     shipClass: Medium
   - type: LightningTarget
     priority: 1
+  - type: ThermalSignature # at least most have a thermal signature when firing
 
 - type: entity
   id: BallisticArtilleryUnanchorable
@@ -156,6 +152,7 @@
     visibleFromOtherGrids: true
     radarColor: "#9999FF"
     scale: 1
+    shape: square
   - type: Gun
     fireRate: 3
     soundGunshot:
@@ -251,6 +248,7 @@
     visibleFromOtherGrids: true
     radarColor: "#9999FF"
     scale: 1
+    shape: square
   - type: Gun
     fireRate: 3
     soundGunshot:

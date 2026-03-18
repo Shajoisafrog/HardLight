@@ -27,7 +27,6 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 using System.Linq;
 using Content.Shared.Humanoid;
-using Content.Shared.Stacks; // Frontier
 
 namespace Content.Server.Materials;
 
@@ -235,9 +234,13 @@ public sealed class MaterialReclaimerSystem : SharedMaterialReclaimerSystem
         if (!Resolve(item, ref composition, false))
             return;
 
+        var stackCount = 1;
+        if (TryComp<StackComponent>(item, out var materialStackComp))
+            stackCount = materialStackComp.Count;
+
         foreach (var (material, amount) in composition.MaterialComposition)
         {
-            var outputAmount = (int) (amount * efficiency);
+            var outputAmount = (int) (amount * efficiency * stackCount);
             _materialStorage.TryChangeMaterialAmount(reclaimer, material, outputAmount, storage);
         }
 
@@ -249,9 +252,9 @@ public sealed class MaterialReclaimerSystem : SharedMaterialReclaimerSystem
                 out var materialOverflow);
             var amountConsumed = storedAmount - materialOverflow;
             _materialStorage.TryChangeMaterialAmount(reclaimer, storedMaterial, -amountConsumed, storage);
-            foreach (var stack in stacks)
+            foreach (var stackEnt in stacks)
             {
-                _stack.TryMergeToContacts(stack);
+                _stack.TryMergeToContacts(stackEnt);
             }
         }
     }
@@ -269,6 +272,10 @@ public sealed class MaterialReclaimerSystem : SharedMaterialReclaimerSystem
 
         efficiency *= reclaimerComponent.Efficiency;
 
+        var stackCount = 1;
+        if (TryComp<StackComponent>(item, out var materialStackComp))
+            stackCount = materialStackComp.Count;
+
         var totalChemicals = new Solution();
 
         if (Resolve(item, ref composition, false))
@@ -276,7 +283,7 @@ public sealed class MaterialReclaimerSystem : SharedMaterialReclaimerSystem
             foreach (var (key, value) in composition.ChemicalComposition)
             {
                 // TODO use ReagentQuantity
-                totalChemicals.AddReagent(key, value * efficiency, false);
+                totalChemicals.AddReagent(key, value * efficiency * stackCount, false);
             }
         }
 
@@ -286,9 +293,7 @@ public sealed class MaterialReclaimerSystem : SharedMaterialReclaimerSystem
         if (reclaimerComponent.UseOldSolutionLogic &&
             TryComp<SolutionContainerManagerComponent>(item, out var solutionContainer))
         {
-            var solutionScale = efficiency;
-            if (TryComp<StackComponent>(item, out var stack))
-                solutionScale *= stack.Count;
+            var solutionScale = efficiency * stackCount;
             foreach (var (_, soln) in _solutionContainer.EnumerateSolutions((item, solutionContainer)))
             {
                 var solution = soln.Comp.Solution;
@@ -303,9 +308,7 @@ public sealed class MaterialReclaimerSystem : SharedMaterialReclaimerSystem
             if (_solutionContainer.TryGetDrainableSolution(item, out _, out var drainableSolution))
             {
                 // Frontier: respect stacks and efficiency
-                var solutionScale = efficiency;
-                if (TryComp<StackComponent>(item, out var stack))
-                    solutionScale *= stack.Count;
+                var solutionScale = efficiency * stackCount;
                 drainableSolution.ScaleSolution(solutionScale); // Scale in situ, entity will be destroyed.
                 // End Frontier
                 totalChemicals.AddSolution(drainableSolution, _prototype);
@@ -317,9 +320,7 @@ public sealed class MaterialReclaimerSystem : SharedMaterialReclaimerSystem
             if (_solutionContainer.TryGetExtractableSolution(item, out _, out var extractableSolution))
             {
                 // Frontier: respect stacks and efficiency
-                var solutionScale = efficiency;
-                if (TryComp<StackComponent>(item, out var stack))
-                    solutionScale *= stack.Count;
+                var solutionScale = efficiency * stackCount;
                 extractableSolution.ScaleSolution(solutionScale); // Scale in situ, entity will be destroyed.
                 // End Frontier
                 totalChemicals.AddSolution(extractableSolution, _prototype);

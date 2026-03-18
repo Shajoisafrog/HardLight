@@ -11,7 +11,7 @@
 - type: pointOfInterest
   id: Nfsd
   parent: BasePOI
-  name: 'TSFMC Sector FOB'
+  name: 'ColSec Sector FOB'
   minimumDistance: 4750
   maximumDistance: 6500
   spawnGroup: MarketStation
@@ -27,7 +27,7 @@
 
 - type: gameMap
   id: Nfsd
-  mapName: 'TSFMC Sector FOB'
+  mapName: 'ColSec Sector FOB'
   mapPath: /Maps/_NF/POI/nfsd.yml
   minPlayers: 0
   stations:
@@ -35,7 +35,7 @@
       stationProto: SecurityFrontierOutpost
       components:
         - type: StationNameSetup
-          mapNameTemplate: 'TSFMC Sector FOB'
+          mapNameTemplate: 'ColSec Sector FOB'
         - type: ExtraStationInformation
           iconPath: /Textures/_NF/Structures/Decoration/banner.rsi/nfsd-banner.png
           stationSubtext: 'frontier-lobby-Colsec-subtext'

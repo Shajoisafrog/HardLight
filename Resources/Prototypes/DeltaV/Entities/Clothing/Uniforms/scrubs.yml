@@ -1,0 +1,10 @@
+- type: entity
+  parent: ClothingUniformBase
+  id: UniformScrubsColorCybersun
+  name: CyberSun scrubs
+  description: The official uniform of CyberSun's R&D division
+  components:
+  - type: Sprite
+    sprite: DeltaV/Clothing/Uniforms/Scrubs/cybersun.rsi
+  - type: Clothing
+    sprite: DeltaV/Clothing/Uniforms/Scrubs/cybersun.rsi

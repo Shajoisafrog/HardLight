@@ -81,6 +81,7 @@
       - RadLow
       - RadFull
   - type: PowerSupplier
+  - type: ThermalSignature # Mono
   - type: Anchorable
   - type: Rotatable
   - type: Pullable
@@ -98,6 +99,7 @@
         whitelist:
           components:
           - GasTank
+  - type: HLPersistOnShipSave # HardLight
   - type: UseDelay
     delay: 1
 

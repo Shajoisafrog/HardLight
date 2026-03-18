@@ -1,9 +1,3 @@
-# SPDX-FileCopyrightText: 2025 Ilya246
-# SPDX-FileCopyrightText: 2025 Redrover1760
-# SPDX-FileCopyrightText: 2025 starch
-#
-# SPDX-License-Identifier: AGPL-3.0-or-later
-
 # Station one w/ infinite ammo
 
 - type: entity
@@ -73,11 +67,15 @@
   - type: RadarBlip
     radarColor: "#D90000"
     scale: 4
+    shape: square
     visibleFromOtherGrids: true
   - type: ShipGunType
     shipType: Ballistic
   - type: ShipGunClass
     shipClass: Superheavy
+  - type: ShipRepairable
+    repairTime: 45
+    repairCost: 300
 
 # Ship one w/ limited ammo
 

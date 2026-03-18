@@ -1,0 +1,90 @@
+- type: latheRecipe
+  id: BulletTip
+  result: MaterialBulletTip
+  completetime: 5
+  materials:
+    Steel: 10
+
+- type: latheRecipe
+  id: BulletCasing9x19mm
+  result: MaterialBulletCasing9x19mm
+  completetime: 5
+  materials:
+    Brass: 10
+
+- type: latheRecipe
+  id: BulletFlechette
+  result: MaterialBulletFlechette
+  completetime: 5
+  materials:
+    Plasteel: 10
+
+- type: latheRecipe
+  id: AmmoBoxBig
+  abstract: true
+  completetime: 5
+  materials:
+    Steel: 4500
+
+- type: latheRecipe
+  id: AmmoBoxBigRubber
+  abstract: true
+  completetime: 5
+  materials:
+    Steel: 4000
+    Plastic: 1500
+
+- type: latheRecipe
+  id: AmmoBox46x30mmBig
+  parent: AmmoBoxBig
+  result: AmmoBox46x30mmBig
+
+- type: latheRecipe
+  id: AmmoBox556x45mmBigFMJ
+  parent: AmmoBoxBig
+  result: AmmoBox556x45mmBigFMJ
+
+- type: latheRecipe
+  id: AmmoBox57x28mmBig
+  parent: AmmoBoxBig
+  result: AmmoBox57x28mmBig
+
+- type: latheRecipe
+  id: AmmoBox635x40mmCaselessBig
+  parent: AmmoBoxBig
+  result: AmmoBox635x40mmCaselessBig
+
+- type: latheRecipe
+  id: AmmoBox762x39mmBigFMJ
+  parent: AmmoBoxBig
+  result: AmmoBox762x39mmBigFMJ
+
+- type: latheRecipe
+  id: AmmoBox762x51mmBigFMJ
+  parent: AmmoBoxBig
+  result: AmmoBox762x51mmBigFMJ
+
+- type: latheRecipe
+  id: AmmoBox762x54mmRBigFMJ
+  parent: AmmoBoxBig
+  result: AmmoBox762x54mmRBigFMJ
+
+- type: latheRecipe
+  id: AmmoBox9x19mmBigFMJ
+  parent: AmmoBoxBig
+  result: AmmoBox9x19mmBigFMJ
+
+- type: latheRecipe
+  id: AmmoBox762x51mmRubberBig
+  parent: AmmoBoxBigRubber
+  result: AmmoBox762x51mmRubberBig
+
+- type: latheRecipe
+  id: AmmoBox762x39mmRubberBig
+  parent: AmmoBoxBigRubber
+  result: AmmoBox762x39mmRubberBig
+
+- type: latheRecipe
+  id: AmmoBox762x54mmRRubberBig
+  parent: AmmoBoxBigRubber
+  result: AmmoBox762x54mmRRubberBig

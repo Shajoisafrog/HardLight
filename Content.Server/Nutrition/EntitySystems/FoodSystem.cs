@@ -1,62 +1,16 @@
-// SPDX-FileCopyrightText: 2021 FoLoKe
-// SPDX-FileCopyrightText: 2021 Paul
-// SPDX-FileCopyrightText: 2021 Paul Ritter
-// SPDX-FileCopyrightText: 2022 Chris
-// SPDX-FileCopyrightText: 2022 Flipp Syder
-// SPDX-FileCopyrightText: 2022 Jezithyr
-// SPDX-FileCopyrightText: 2022 Kara D
-// SPDX-FileCopyrightText: 2022 Vera Aguilera Puerto
-// SPDX-FileCopyrightText: 2022 metalgearsloth
-// SPDX-FileCopyrightText: 2022 mirrorcult
-// SPDX-FileCopyrightText: 2022 wrexbe
-// SPDX-FileCopyrightText: 2023 Checkraze
-// SPDX-FileCopyrightText: 2023 Chief-Engineer
-// SPDX-FileCopyrightText: 2023 DrSmugleaf
-// SPDX-FileCopyrightText: 2023 Emisse
-// SPDX-FileCopyrightText: 2023 LankLTE
-// SPDX-FileCopyrightText: 2023 Leon Friedrich
-// SPDX-FileCopyrightText: 2023 Mr0maks
-// SPDX-FileCopyrightText: 2023 Nemanja
-// SPDX-FileCopyrightText: 2023 Pieter-Jan Briers
-// SPDX-FileCopyrightText: 2023 Tunguso4ka
-// SPDX-FileCopyrightText: 2023 Visne
-// SPDX-FileCopyrightText: 2023 Ygg01
-// SPDX-FileCopyrightText: 2023 brainfood1183
-// SPDX-FileCopyrightText: 2023 deltanedas <@deltanedas:kde.org>
-// SPDX-FileCopyrightText: 2023 keronshb
-// SPDX-FileCopyrightText: 2024 Cojoke
-// SPDX-FileCopyrightText: 2024 Dvir
-// SPDX-FileCopyrightText: 2024 Ed
-// SPDX-FileCopyrightText: 2024 GreyMario
-// SPDX-FileCopyrightText: 2024 Kara
-// SPDX-FileCopyrightText: 2024 LittleNyanCat
-// SPDX-FileCopyrightText: 2024 Magnus Larsen
-// SPDX-FileCopyrightText: 2024 Mervill
-// SPDX-FileCopyrightText: 2024 Plykiya
-// SPDX-FileCopyrightText: 2024 Smirnov Peter
-// SPDX-FileCopyrightText: 2024 TemporalOroboros
-// SPDX-FileCopyrightText: 2024 Whatstone
-// SPDX-FileCopyrightText: 2024 beck-thompson
-// SPDX-FileCopyrightText: 2024 deltanedas
-// SPDX-FileCopyrightText: 2024 nikthechampiongr
-// SPDX-FileCopyrightText: 2024 themias
-// SPDX-FileCopyrightText: 2025 Blu
-// SPDX-FileCopyrightText: 2025 Tayrtahn
-// SPDX-FileCopyrightText: 2025 ark1368
-// SPDX-FileCopyrightText: 2025 tonotom
-// SPDX-FileCopyrightText: 2025 tonotom1
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
 using Content.Server.Body.Components;
 using Content.Server.Body.Systems;
+using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.EntitySystems;
+using Solution = Content.Shared.Chemistry.Components.Solution;
 using Content.Server.Inventory;
 using Content.Server.Nutrition.Components;
 using Content.Shared.Nutrition.Components;
 using Content.Server.Popups;
 using Content.Server.Stack;
 using Content.Shared.Administration.Logs;
+using System;
+using System.Text;
 using Content.Shared.Body.Components;
 using Content.Shared.Body.Organ;
 using Content.Shared.Chemistry;
@@ -124,6 +78,7 @@ public sealed class FoodSystem : EntitySystem
         SubscribeLocalEvent<FoodComponent, AfterInteractEvent>(OnFeedFood);
         SubscribeLocalEvent<FoodComponent, GetVerbsEvent<AlternativeVerb>>(AddEatVerb);
         SubscribeLocalEvent<FoodComponent, ConsumeDoAfterEvent>(OnDoAfter);
+        SubscribeLocalEvent<FoodComponent, ComponentStartup>(OnFoodStartup);
         SubscribeLocalEvent<InventoryComponent, IngestionAttemptEvent>(OnInventoryIngestAttempt);
     }
 
@@ -299,9 +254,20 @@ public sealed class FoodSystem : EntitySystem
         var forceFeed = args.User != args.Target;
 
         args.Handled = true;
-        var transferAmount = entity.Comp.TransferAmount != null ? FixedPoint2.Min((FixedPoint2) entity.Comp.TransferAmount, solution.Volume) : solution.Volume;
+        StackComponent? stackComp = null;
+        if (TryComp<StackComponent>(entity, out var foundStack))
+            stackComp = foundStack;
 
-        var split = _solutionContainer.SplitSolution(soln.Value, transferAmount);
+        var stackCount = stackComp?.Count ?? 1;
+        var isStacked = stackCount > 1;
+        var sourceSolution = isStacked ? new Solution(solution) : solution;
+        var transferAmount = entity.Comp.TransferAmount != null
+            ? FixedPoint2.Min((FixedPoint2) entity.Comp.TransferAmount, sourceSolution.Volume)
+            : sourceSolution.Volume;
+
+        var split = isStacked
+            ? sourceSolution.SplitSolution(transferAmount)
+            : _solutionContainer.SplitSolution(soln.Value, transferAmount);
 
         // Get the stomach with the highest available solution volume
         var highestAvailable = FixedPoint2.Zero;
@@ -364,19 +330,15 @@ public sealed class FoodSystem : EntitySystem
 
         args.Repeat = !forceFeed;
 
-        _solutionContainer.SetCapacity(soln.Value, soln.Value.Comp.Solution.MaxVolume - transferAmount); // Frontier: remove food capacity after taking a bite.
-
-        if (TryComp<StackComponent>(entity, out var stack))
+        if (stackComp != null && stackComp.Count > 1)
         {
-            //Not deleting whole stack piece will make troubles with grinding object
-            if (stack.Count > 1)
-            {
-                _stack.SetCount(entity.Owner, stack.Count - 1);
-                _solutionContainer.TryAddSolution(soln.Value, split);
-                return;
-            }
+            // Consume a single item from the stack without altering remaining reagents.
+            _stack.SetCount(entity.Owner, stackComp.Count - 1);
+            return;
         }
-        else if (GetUsesRemaining(entity.Owner, entity.Comp) > 0)
+
+        _solutionContainer.SetCapacity(soln.Value, soln.Value.Comp.Solution.MaxVolume - transferAmount); // Frontier: remove food capacity after taking a bite.
+        if (GetUsesRemaining(entity.Owner, entity.Comp) > 0)
         {
             return;
         }
@@ -426,6 +388,41 @@ public sealed class FoodSystem : EntitySystem
                 // Put the trash in the user's hand
                 _hands.TryPickupAnyHand(user, spawnedTrash);
             }
+        }
+    }
+
+    private void OnFoodStartup(EntityUid uid, FoodComponent component, ComponentStartup args)
+    {
+        if (!TryComp<StackComponent>(uid, out _))
+            return;
+
+        if (!_solutionContainer.TryGetSolution(uid, component.Solution, out _, out var solution))
+            return;
+
+        var stackSig = EnsureComp<StackSignatureComponent>(uid);
+        var builder = new StringBuilder();
+        var prototypeId = Prototype(uid)?.ID;
+        if (prototypeId != null)
+            builder.Append(prototypeId).Append('|');
+
+        AppendSolutionSignature(builder, solution);
+
+        var signature = builder.ToString();
+        if (stackSig.Signature == signature)
+            return;
+
+        stackSig.Signature = signature;
+        Dirty(uid, stackSig);
+    }
+
+    private static void AppendSolutionSignature(StringBuilder builder, Solution solution)
+    {
+        foreach (var reagent in solution.Contents.OrderBy(r => r.Reagent.Prototype, StringComparer.Ordinal))
+        {
+            builder.Append(reagent.Reagent.Prototype)
+                .Append('=')
+                .Append(reagent.Quantity.Value)
+                .Append(';');
         }
     }
 
@@ -498,8 +495,10 @@ public sealed class FoodSystem : EntitySystem
             // Check if the food is in the whitelist
             if (_whitelistSystem.IsWhitelistPass(ent.Comp1.SpecialDigestible, food))
                 return true;
-            // They can only eat whitelist food and the food isn't in the whitelist. It's not edible.
-            return false;
+
+            // If their diet is whitelist exclusive, then they cannot eat anything but what follows their whitelisted tags. Else, they can eat their tags AND human food.
+            if (ent.Comp1.IsSpecialDigestibleExclusive)
+                return false;
         }
 
         if (component.RequiresSpecialDigestion)

@@ -29,6 +29,8 @@ using Content.Shared._NF.Mech.Equipment.Events; // Frontier
 using Content.Shared.Emag.Components;
 using Content.Shared.Emag.Systems;
 using Content.Shared.Weapons.Ranged.Events;
+using Robust.Shared.Configuration;
+using Content.Shared.HL.CCVar;
 
 namespace Content.Shared.Mech.EntitySystems;
 
@@ -48,6 +50,7 @@ public abstract class SharedMechSystem : EntitySystem
     [Dependency] private readonly SharedPopupSystem _popup = default!;
     [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
     [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
+    [Dependency] private readonly IConfigurationManager _config = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -66,6 +69,7 @@ public abstract class SharedMechSystem : EntitySystem
         SubscribeLocalEvent<MechPilotComponent, GetMeleeWeaponEvent>(OnGetMeleeWeapon);
         SubscribeLocalEvent<MechPilotComponent, CanAttackFromContainerEvent>(OnCanAttackFromContainer);
         SubscribeLocalEvent<MechPilotComponent, AttackAttemptEvent>(OnAttackAttempt);
+        SubscribeLocalEvent<MechEquipmentComponent, ShotAttemptedEvent>(OnShotAttempted);
     }
 
     private void OnToggleEquipmentAction(EntityUid uid, MechComponent component, MechToggleEquipmentEvent args)
@@ -161,6 +165,7 @@ public abstract class SharedMechSystem : EntitySystem
         _actions.AddAction(pilot, ref component.MechCycleActionEntity, component.MechCycleAction, mech);
         _actions.AddAction(pilot, ref component.MechUiActionEntity, component.MechUiAction, mech);
         _actions.AddAction(pilot, ref component.MechEjectActionEntity, component.MechEjectAction, mech);
+        _actions.AddAction(pilot, ref component.ToggleActionEntity, component.ToggleAction, mech); //Goobstation Mech Lights toggle action
 
         RaiseEquipmentEquippedEvent((mech, component), pilot); // Frontier (note: must send pilot separately, not yet in their seat)
         _actions.AddAction(pilot, ref component.MechRadarUiActionEntity, component.MechRadarUiAction, mech);
@@ -472,6 +477,22 @@ public abstract class SharedMechSystem : EntitySystem
     {
         if (args.Target == component.Mech)
             args.Cancel();
+    }
+
+    // Goobstation: Prevent guns being used out of mechs if CCVAR is set.
+    // Credit to gluesniffer from Goobstation for this code.
+    private void OnShotAttempted(EntityUid uid, MechEquipmentComponent component, ref ShotAttemptedEvent args)
+    {
+        if (!component.EquipmentOwner.HasValue
+            || !TryComp<MechComponent>(component.EquipmentOwner.Value, out var mech))
+        {
+            if (!_config.GetCVar(HLCCVars.MechGunOutsideMech))
+                args.Cancel();
+            return;
+        }
+
+        var ev = new HandleMechEquipmentBatteryEvent();
+        RaiseLocalEvent(uid, ev);
     }
 
     private void UpdateAppearance(EntityUid uid, MechComponent? component = null,

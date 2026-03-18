@@ -1,6 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Numerics;
+using Content.Shared._Goobstation.MartialArts.Events; // Goobstation - Martial Arts
 using Content.Shared.ActionBlocker;
 using Content.Shared.Actions.Events;
 using Content.Shared.Administration.Components;
@@ -440,6 +441,9 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
             return false;
         }
 
+        if (!TryGetAttackCoordinates(attack, out var attackCoordinates))
+            return false;
+
         // Attack confirmed
         for (var i = 0; i < swings; i++)
         {
@@ -467,7 +471,7 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
                     throw new NotImplementedException();
             }
 
-            DoLungeAnimation(user, weaponUid, weapon.Angle, TransformSystem.ToMapCoordinates(GetCoordinates(attack.Coordinates)), weapon.Range, animation);
+                    DoLungeAnimation(user, weaponUid, weapon.Angle, TransformSystem.ToMapCoordinates(attackCoordinates), weapon.Range, animation);
         }
 
         var attackEv = new MeleeAttackEvent(weaponUid);
@@ -479,6 +483,24 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
     }
 
     protected abstract bool InRange(EntityUid user, EntityUid target, float range, ICommonSession? session);
+
+    private bool TryGetAttackCoordinates(AttackEvent attack, out EntityCoordinates coordinates)
+    {
+        coordinates = default;
+
+        if (!TryGetEntity(attack.Coordinates.NetEntity, out var coordinateEntity)
+            || coordinateEntity == EntityUid.Invalid
+            || !EntityManager.EntityExists(coordinateEntity.Value)
+            || EntityManager.IsQueuedForDeletion(coordinateEntity.Value)
+            || TerminatingOrDeleted(coordinateEntity.Value)
+            || !HasComp<TransformComponent>(coordinateEntity.Value))
+        {
+            return false;
+        }
+
+        coordinates = new EntityCoordinates(coordinateEntity.Value, attack.Coordinates.Position);
+        return true;
+    }
 
     protected virtual void DoLightAttack(EntityUid user, LightAttackEvent ev, EntityUid meleeUid, MeleeWeaponComponent component, ICommonSession? session)
     {
@@ -544,7 +566,9 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
         RaiseLocalEvent(target.Value, attackedEvent);
 
         var modifiedDamage = DamageSpecifier.ApplyModifierSets(damage + hitEvent.BonusDamage + attackedEvent.BonusDamage, hitEvent.ModifiersList);
-        var damageResult = Damageable.TryChangeDamage(target, modifiedDamage, origin: user, partMultiplier: component.ClickPartDamageMultiplier); // Shitmed Change
+        var damageResult = Damageable.TryChangeDamage(target, modifiedDamage, ignoreResistances: resistanceBypass, origin: user, partMultiplier: component.ClickPartDamageMultiplier); // Shitmed Change
+        var comboEv = new ComboAttackPerformedEvent(user, target.Value, meleeUid, ComboAttackType.Harm);
+        RaiseLocalEvent(user, comboEv);
 
         if (damageResult is {Empty: false})
         {
@@ -585,7 +609,10 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
         if (!TryComp(user, out TransformComponent? userXform))
             return false;
 
-        var targetMap = TransformSystem.ToMapCoordinates(GetCoordinates(ev.Coordinates));
+        if (!TryGetAttackCoordinates(ev, out var clickCoords))
+            return false;
+
+        var targetMap = TransformSystem.ToMapCoordinates(clickCoords);
 
         if (targetMap.MapId != userXform.MapID)
             return false;
@@ -595,6 +622,7 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
         var distance = Math.Min(component.Range, direction.Length());
 
         var damage = GetDamage(meleeUid, user, component);
+        var resistanceBypass = GetResistanceBypass(meleeUid, user, component);
         var entities = GetEntityList(ev.Entities);
 
         if (entities.Count == 0)
@@ -629,6 +657,18 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
         // Validate client
         for (var i = entities.Count - 1; i >= 0; i--)
         {
+            var candidate = entities[i];
+
+            if (candidate == EntityUid.Invalid
+                || !EntityManager.EntityExists(candidate)
+                || EntityManager.IsQueuedForDeletion(candidate)
+                || TerminatingOrDeleted(candidate)
+                || !HasComp<TransformComponent>(candidate))
+            {
+                entities.RemoveAt(i);
+                continue;
+            }
+
             if (ArcRaySuccessful(entities[i],
                     userPos,
                     direction.ToWorldAngle(),
@@ -650,7 +690,7 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
 
         foreach (var entity in entities)
         {
-            if (entity == user ||
+            if (entity == EntityUid.Invalid || entity == user ||
                 !damageQuery.HasComponent(entity))
                 continue;
 
@@ -695,11 +735,14 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
                 continue;
             }
 
-            var attackedEvent = new AttackedEvent(meleeUid, user, GetCoordinates(ev.Coordinates));
+            var attackedEvent = new AttackedEvent(meleeUid, user, clickCoords);
             RaiseLocalEvent(entity, attackedEvent);
             var modifiedDamage = DamageSpecifier.ApplyModifierSets(damage + hitEvent.BonusDamage + attackedEvent.BonusDamage, hitEvent.ModifiersList);
 
-            var damageResult = Damageable.TryChangeDamage(entity, modifiedDamage, origin: user, partMultiplier: component.HeavyPartDamageMultiplier); // Shitmed Change
+            var damageResult = Damageable.TryChangeDamage(entity, modifiedDamage, ignoreResistances: resistanceBypass, origin: user, partMultiplier: component.HeavyPartDamageMultiplier); // Shitmed Change
+
+            var comboEv = new ComboAttackPerformedEvent(user, entity, meleeUid, ComboAttackType.HarmLight);
+            RaiseLocalEvent(user, comboEv);
 
             if (damageResult != null && damageResult.GetTotal() > FixedPoint2.Zero)
             {
@@ -732,15 +775,15 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
             _meleeSound.PlayHitSound(target, user, GetHighestDamageSound(appliedDamage, _protoManager), hitEvent.HitSoundOverride, component);
         }
 
-        if (appliedDamage.GetTotal() > FixedPoint2.Zero)
+        if (appliedDamage.GetTotal() > FixedPoint2.Zero && targets.Count > 0 && targets[0] != EntityUid.Invalid && TryComp(targets[0], out TransformComponent? targetXform))
         {
-            DoDamageEffect(targets, user, Transform(targets[0]));
+            DoDamageEffect(targets, user, targetXform);
         }
 
         return true;
     }
 
-    protected HashSet<EntityUid> ArcRayCast(Vector2 position, Angle angle, Angle arcWidth, float range, MapId mapId, EntityUid ignore)
+    protected HashSet<EntityUid> ArcRayCast(Vector2 position, Angle angle, Angle arcWidth, float range, MapId mapId, EntityUid origin, params EntityUid[] ignores)
     {
         // TODO: This is pretty sucky.
         var widthRad = arcWidth;
@@ -753,12 +796,13 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
         for (var i = 0; i < increments; i++)
         {
             var castAngle = new Angle(baseAngle + increment * i);
+            var primaryIgnore = ignores != null && ignores.Length > 0 ? ignores[0] : EntityUid.Invalid;
             var res = _physics.IntersectRay(mapId,
                 new CollisionRay(position,
                     castAngle.ToWorldVec(),
                     AttackMask),
                 range,
-                ignore,
+                primaryIgnore,
                 false)
                 .ToList();
 
@@ -768,7 +812,11 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
                 var resChecked = res.Where(x => x.Distance.Equals(res[0].Distance));
                 foreach (var r in resChecked)
                 {
-                    if (Interaction.InRangeUnobstructed(ignore, r.HitEntity, range + 0.1f, overlapCheck: false))
+                    // Exclude any explicitly ignored entities.
+                    if (ignores != null && ignores.Contains(r.HitEntity))
+                        continue;
+
+                    if (Interaction.InRangeUnobstructed(origin, r.HitEntity, range + 0.1f, overlapCheck: false))
                         resSet.Add(r.HitEntity);
                 }
             }
@@ -842,7 +890,6 @@ public abstract class SharedMeleeWeaponSystem : EntitySystem
         {
             return false;
         }
-
 
         if (MobState.IsIncapacitated(target.Value))
         {

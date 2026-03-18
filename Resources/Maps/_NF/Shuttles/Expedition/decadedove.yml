@@ -33,7 +33,6 @@ entities:
       name: DecadeDove
     - type: Transform
       pos: -2.0101273,0.04338789
-      parent: invalid
     - type: MapGrid
       chunks:
         0,0:
@@ -2465,7 +2464,7 @@ entities:
     - type: Transform
       pos: 13.5,5.5
       parent: 1
-- proto: ComputerSalvageExpedition
+- proto: ComputerBroken
   entities:
   - uid: 333
     components:

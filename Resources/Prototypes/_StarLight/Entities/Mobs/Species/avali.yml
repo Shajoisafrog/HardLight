@@ -107,12 +107,35 @@
         Female: FemaleAvali
         Unsexed: MaleAvali
     - type: MovementSpeedModifier
-      weightlessAcceleration: 1.6 # Avalis are specifically built to fly in low-g environments
-      weightlessFriction: 1
-      weightlessModifier: 1
+      baseWeightlessAcceleration: 1.6 # Avalis are specifically built to fly in low-g environments
+      baseWeightlessFriction: 1
+      baseWeightlessModifier: 1
     - type: Damageable
       damageContainer: Biological
       damageModifierSet: Avali
+    - type: Destructible # HardLight: Avali now turn into fried chicken when ashed.
+      thresholds:
+      - trigger:
+          !type:DamageTypeTrigger
+          damageType: Blunt
+          damage: 400
+        behaviors:
+        - !type:GibBehavior { }
+      - trigger: # Frontier - Removed round remover
+          !type:DamageTypeTrigger
+          damageType: Heat
+          damage: 1500
+        behaviors:
+        - !type:SpawnEntitiesBehavior
+          spawnInContainer: true
+          spawn:
+            FoodMeatChickenFriedMystery:
+              min: 2
+              max: 5
+        - !type:BurnBodyBehavior { }
+        - !type:PlaySoundBehavior
+          sound:
+            collection: MeatLaserImpact
     - type: DamageVisuals
       damageOverlayGroups:
         Brute:

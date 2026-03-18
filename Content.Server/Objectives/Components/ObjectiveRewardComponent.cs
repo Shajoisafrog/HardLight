@@ -1,4 +1,5 @@
 using Robust.Shared.GameStates;
+using Robust.Shared.Utility;
 
 namespace Content.Server.Objectives.Components;
 
@@ -33,4 +34,11 @@ public sealed partial class ObjectiveRewardComponent : Component
     /// </summary>
     [DataField]
     public bool OnlyAtRoundEnd = false;
+
+    /// <summary>
+    /// Whether this objective reward has already been paid out.
+    /// Stored on the component to prevent duplicate payouts even if the system reloads.
+    /// </summary>
+    [ViewVariables]
+    public bool Rewarded;
 }

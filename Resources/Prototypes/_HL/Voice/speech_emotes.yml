@@ -1,22 +1,4 @@
 - type: emote
-  id: Growl
-  name: chat-emote-name-growl
-  category: Vocal
-  icon: { sprite: _RMC14/Actions/xeno_emotes.rsi, state: growl }
-  whitelist:
-    components:
-    - Vocal
-  blacklist:
-    components:
-    - BorgChassis
-  chatMessages: ["chat-emote-msg-growl"]
-  chatTriggers:
-  - growl
-  - growls
-  - growling
-  - growled
-
-- type: emote
   id: Yip
   name: chat-emote-name-yip
   category: Vocal
@@ -171,8 +153,8 @@
     - trilling?
 
 - type: emote
-  id: Mar
-  name: chat-emote-name-mar
+  id: Marr
+  name: chat-emote-name-marr
   category: Vocal
   available: false
   whitelist:
@@ -181,16 +163,16 @@
   blacklist:
     components:
     - BorgChassis
-  chatMessages: ["chat-emote-msg-mar"]
+  chatMessages: ["chat-emote-msg-marr"]
   chatTriggers:
-    - mar
-    - mar.
-    - mar!
-    - mar?
-    - mars
-    - mars.
-    - mars!
-    - mars?
+    - marr
+    - marr.
+    - marr!
+    - marr?
+    - marrs
+    - marrs.
+    - marrs!
+    - marrs?
 
 - type: emote
   id: Wurble
@@ -294,3 +276,21 @@
   - squawks.
   - squawks!
   - squawks?
+
+- type: emote
+  id: Pout
+  name: chat-emote-name-pout
+  category: Vocal
+  available: false
+  whitelist:
+    components:
+    - Vocal
+  blacklist:
+    tags:
+    - SiliconEmotes
+  chatMessages: ["chat-emote-msg-pout"]
+  chatTriggers:
+  - pout
+  - pouts
+  - pouted
+  - pouting

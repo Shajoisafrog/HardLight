@@ -29,8 +29,8 @@
       transmitFrequencyId: CrewMonitor
       receiveFrequencyId: SuitSensor
       autoConnect: false
-#    - type: WirelessNetworkConnection
-#      range: 500
+    - type: WirelessNetworkConnection
+      range: 25000
 #    - type: StationLimitedNetwork
     - type: ApcPowerReceiver
       powerLoad: 200

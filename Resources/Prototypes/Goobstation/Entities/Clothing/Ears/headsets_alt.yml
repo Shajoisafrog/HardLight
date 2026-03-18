@@ -1,0 +1,51 @@
+- type: entity
+  parent: [ClothingHeadset, BaseC3ContrabandUnredeemable, ContrabandClothing] # HardLight: Added BaseC3ContrabandUnredeemable and ContrabandClothing.
+  id: ClothingHeadsetChronolegioneer
+  name: futuristic over-ear headset
+  description: A headset from the future that can pick up most station frequencies.
+  components:
+  # HardLight start: Replaced starting encryption keys with intrinsic radio channels.
+  - type: ActiveRadio
+    intrinsicChannels:
+    - Future
+    - Binary
+    - ColCom
+    - Command
+    - ColSec
+    - Security
+    - Syndicate
+    - Freelance
+    - Medical
+    - Engineering
+    - Science
+    - Supply
+    - Service
+    - Common
+  - type: EncryptionKeyHolder
+    intrinsicChannels:
+    - Future
+    - Binary
+    - ColCom
+    - Command
+    - ColSec
+    - Security
+    - Syndicate
+    - Freelance
+    - Medical
+    - Engineering
+    - Science
+    - Supply
+    - Service
+    - Common
+  # HardLight end
+  - type: Sprite
+    sprite: Goobstation/Clothing/Ears/Headsets/chronolegioneer.rsi
+  - type: Clothing
+    sprite: Goobstation/Clothing/Ears/Headsets/chronolegioneer.rsi
+
+- type: entity
+  parent: ClothingHeadsetChronolegioneer
+  id: ClothingHeadsetChronolegioneerUnremoveable
+  suffix: Unremoveable
+  components:
+  - type: Unremoveable

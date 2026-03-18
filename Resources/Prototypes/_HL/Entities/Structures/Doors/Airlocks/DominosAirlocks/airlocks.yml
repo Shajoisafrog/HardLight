@@ -1,0 +1,15 @@
+- type: entity
+  parent: AirlockGlass
+  id: DominosRoboticsAirlockGlass
+  suffix: Faction, DominosRobotics, Glass
+  components:
+  - type: Sprite
+    sprite: _HL/Structures/Doors/Airlocks/Glass/dominosrobotics.rsi
+
+- type: entity
+  parent: Airlock
+  id: DominosRoboticsAirlock
+  suffix: Faction, DominosRobotics,
+  components:
+  - type: Sprite
+    sprite: _HL/Structures/Doors/Airlocks/Standard/dominosrobotics.rsi

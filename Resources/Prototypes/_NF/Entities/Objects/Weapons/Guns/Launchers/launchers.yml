@@ -78,7 +78,7 @@
     manufacturer: weapon-details-manufacturer-nanotrasen-munitions
 
 - type: entity
-  name: TSFMC grenade launcher
+  name: ColSec grenade launcher
   parent: [BaseC2ContrabandUnredeemable, WeaponLauncherChinaLake]
   id: WeaponLauncherNfsdLake
   description: Able to lob both grenades and darts!

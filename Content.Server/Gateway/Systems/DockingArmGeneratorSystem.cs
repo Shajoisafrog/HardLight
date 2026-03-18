@@ -248,12 +248,12 @@ public sealed class DockingArmGeneratorSystem : EntitySystem
         Vector2 preferredPosition = Vector2.Zero;
         Angle spawnAngle = Angle.Zero;
 
-        if (sourceGatewayUid != null && TryComp<TransformComponent>(sourceGatewayUid, out var sourceXform))
+        if (sourceGatewayUid != null && TryComp(sourceGatewayUid, out TransformComponent? sourceXform))
         {
             targetMapId = sourceXform.MapID;
             // Calculate initial preferred position near the gateway
             var random = new Random(_random.Next());
-            var spawnDistance = random.Next(20, 40);
+            var spawnDistance = random.Next(120, 150);
             spawnAngle = random.NextAngle();
             preferredPosition = sourceXform.WorldPosition + spawnAngle.ToVec() * spawnDistance;
 
@@ -266,7 +266,7 @@ public sealed class DockingArmGeneratorSystem : EntitySystem
         }
 
         // Find a clear spawn location (assume typical dock is roughly 30 tiles radius)
-        const float estimatedDockRadius = 30f;
+        const float estimatedDockRadius = 120f;
         if (!TryFindClearSpawnLocation(targetMapId, preferredPosition, estimatedDockRadius, out var spawnPosition))
         {
             Log.Error($"Could not find clear space to spawn dock - area around gateway is too crowded!");
@@ -280,7 +280,7 @@ public sealed class DockingArmGeneratorSystem : EntitySystem
         {
             // Get the generator component to access and increment the dock counter
             var dockNumber = 1;
-            if (ent.Comp.Generator != null && TryComp<DockingArmGeneratorComponent>(ent.Comp.Generator, out var genComp))
+            if (ent.Comp.Generator != null && TryComp(ent.Comp.Generator, out DockingArmGeneratorComponent? genComp))
             {
                 dockNumber = genComp.DockCounter++;
             }
@@ -292,14 +292,14 @@ public sealed class DockingArmGeneratorSystem : EntitySystem
             EnsureComp<IFFComponent>(dockingArmGrid.Value);
 
             // Track this dock in the generator component
-            if (ent.Comp.Generator != null && TryComp<DockingArmGeneratorComponent>(ent.Comp.Generator, out genComp))
+            if (ent.Comp.Generator != null && TryComp(ent.Comp.Generator, out genComp))
             {
                 genComp.SpawnedDocks.Add(dockingArmGrid.Value);
             }
 
             // Rotate the dock to face toward the gateway/station (perpendicular to spawn direction)
             // Add 90 degrees (π/2) to make it face tangentially, forming a ring pattern
-            if (TryComp<TransformComponent>(dockingArmGrid.Value, out var dockXform))
+            if (TryComp(dockingArmGrid.Value, out TransformComponent? dockXform))
             {
                 var rotationToGateway = (sourceXform.WorldPosition - spawnPosition).ToAngle();
                 var tangentialRotation = rotationToGateway + Angle.FromDegrees(90);

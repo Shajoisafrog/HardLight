@@ -28,4 +28,38 @@
   icon:
     sprite: /Textures/_HL/Interface/Misc/job_icons.rsi
     state: Cartel
-  jobName: job-name-cartel-lieutenant 
+  jobName: job-name-cartel-lieutenant
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconInterdyne
+  icon:
+    sprite: /Textures/_HL/Interface/Misc/job_icons.rsi
+    state: interdyne-doctor-icon
+  jobName: job-name-interdyne
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconInterdyneHead
+  icon:
+    sprite: /Textures/_HL/Interface/Misc/job_icons.rsi
+    state: interdyne-head-icon
+  jobName: job-name-interdyne-head
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDirectorate
+  icon:
+    sprite: /Textures/Interface/Misc/job_icons.rsi # place holder
+    state: ColComm # place holder
+  jobName: job-name-directorate
+  allowSelection: false
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconNaval
+  icon:
+    sprite: /Textures/Interface/Misc/job_icons.rsi # place holder
+    state: ColComm # place holder
+  jobName: job-name-naval
+  allowSelection: false

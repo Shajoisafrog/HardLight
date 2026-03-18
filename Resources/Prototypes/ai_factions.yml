@@ -9,6 +9,63 @@
   - Revolutionary
   - AllHostile
   - Wizard
+  - Xenoborg
+  - WizFedFaction # Frontier
+  - BloodCultNF # Frontier
+  - PirateNF # Frontier
+  - ExplorersExpeditionNF # Frontier
+  - ArtifactConstruct # Frontier
+  - StreetGangNF # Frontier
+  - DinosaursNF # Frontier
+  - MercenariesExpeditionNF # Frontier
+  - SiliconsExpeditionNF # Frontier
+  - AberrantFleshExpeditionNF # Frontier
+  - ContrabandClothing # Frontier
+  - ContrabandDetection # Frontier
+  - TSFMC # Mono
+  - TSFMCTurret # Mono
+  - USSP # Mono
+  
+  
+- type: npcFaction
+  id: Wawa
+  hostile:
+  - Lizard
+  - AgressiveLizard
+  - SimpleHostile
+  - Zombie
+  - Xeno
+  - AllHostile
+  
+- type: npcFaction
+  id: Lizard
+  friendly: # Frontier
+  - AgressiveLizard # Frontier
+  hostile:
+  - Mouse
+  - Wawa
+  - SimpleHostile # Frontier
+  - Zombie # Frontier
+  - Xeno # Frontier
+  - AllHostile # Frontier
+  
+- type: npcFaction
+  id: AgressiveLizard
+  friendly: # Frontier
+  - Lizard # Frontier
+  hostile:
+  - Mouse
+  - Wawa
+  - SimpleHostile # Frontier
+  - NanoTrasen
+  - Syndicate
+  - Xeno
+  - PetsNT
+  - Zombie
+  - Revolutionary
+  - AllHostile
+  - Wizard
+  - Xenoborg
   - WizFedFaction # Frontier
   - BloodCultNF # Frontier
   - PirateNF # Frontier
@@ -36,6 +93,7 @@
   - Dragon
   - AllHostile
   - Wizard
+  - Xenoborg
   - WizFedFaction # Frontier
   - BloodCultNF # Frontier
   - PirateNF # Frontier
@@ -63,10 +121,10 @@
   id: PetsNT
   hostile:
   - Mouse
-  # - SimpleHostile # Frontier
-  # - Zombie # Frontier
-  # - Xeno # Frontier
-  # - AllHostile # Frontier
+  - SimpleHostile # Frontier
+  - Zombie # Frontier
+  - Xeno # Frontier
+  - AllHostile # Frontier
   # - Wizard # Frontier
 
 - type: npcFaction
@@ -80,6 +138,7 @@
   - Revolutionary
   - AllHostile
   - Wizard
+  - Xenoborg
   - WizFedFaction # Frontier
   - BloodCultNF # Frontier
   - PirateNF # Frontier
@@ -112,6 +171,7 @@
   - Dragon
   - AllHostile
   - Wizard
+  - Xenoborg
   - WizFedFaction # Frontier
   - BloodCultNF # Frontier
   - PirateNF # Frontier
@@ -154,6 +214,7 @@
   - TSFMC # Mono
   - TSFMCTurret # Mono
   - USSP # Mono
+  - Xenoborg
 
 - type: npcFaction
   id: Zombie
@@ -182,6 +243,7 @@
   - TSFMC # Mono
   - TSFMCTurret # Mono
   - USSP # Mono
+  - Xenoborg
 
 - type: npcFaction
   id: Revolutionary
@@ -192,6 +254,7 @@
   - Dragon
   - AllHostile
   - Wizard
+  - Xenoborg
   - WizFedFaction # Frontier
   - BloodCultNF # Frontier
   - PirateNF # Frontier
@@ -222,6 +285,7 @@
   - Zombie
   - Revolutionary
   - Wizard
+  - Xenoborg
   - TSFMC # Mono
   - TSFMCTurret # Mono
   - PirateNF # Mono
@@ -241,6 +305,23 @@
   - Xeno
   - Zombie
   - Revolutionary
+  - AllHostile
+  - Xenoborg
+
+- type: npcFaction
+  id: Xenoborg
+  hostile:
+  # they have brains
+  - NanoTrasen
+  - Syndicate
+  - Zombie
+  - Revolutionary
+  - Wizard
+
+  - Xeno # rivalry
+
+  # cause they are hostile to them
+  - SimpleHostile 
   - AllHostile
   # - WizFedFaction # Frontier
   - BloodCultNF # Frontier

@@ -25,9 +25,12 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
 using Content.Shared.DeviceNetwork.Components;
-using Content.Server.Salvage.Expeditions; // Frontier
-using Content.Server._NF.Medical.SuitSensors; // Frontier
-using Content.Shared.Emp; // Frontier
+using Content.Shared.Emp;
+// Frontier start
+using Content.Server.Salvage.Expeditions;
+using Content.Server._NF.Medical.SuitSensors;
+using Content.Shared.FloofStation;
+// Frontier end
 
 namespace Content.Server.Medical.SuitSensors;
 
@@ -73,7 +76,11 @@ public sealed class SuitSensorSystem : EntitySystem
         //var sensors = EntityManager.EntityQueryEnumerator<SuitSensorComponent, DeviceNetworkComponent>(); // Frontier modification
         var sensors = EntityQueryEnumerator<SuitSensorComponent, DeviceNetworkComponent, TransformComponent>(); // Frontier modification
 
-        while (sensors.MoveNext(out var uid, out var sensor, out var device, out var xform)) // Frontier modification
+        while (sensors.MoveNext(
+                   out var uid,
+                   out var sensor,
+                   out var device,
+                   out var xform)) // Frontier modification
         {
             if (device.TransmitFrequency is null)
                 continue;
@@ -95,17 +102,16 @@ public sealed class SuitSensorSystem : EntitySystem
             if (status == null)
                 continue;
 
-            //Retrieve active server address if the sensor isn't connected to a server
-            if (sensor.ConnectedServer == null)
+            // HardLight: Always bind to the active server for the sensor's current map.
+            // This keeps crew monitor data correct when players transfer between stations/maps.
+            if (!_singletonServerSystem.TryGetActiveServerAddress<CrewMonitoringServerComponent>(xform.MapID, out var address))
             {
-                // Frontier - PR 1053 QoL changes to coordinates display
-                // if (!_singletonServerSystem.TryGetActiveServerAddress<CrewMonitoringServerComponent>(sensor.StationId!.Value, out var address))
-                if (!_singletonServerSystem.TryGetActiveServerAddress<CrewMonitoringServerComponent>(xform.MapID, out var address))
-                    continue;
-
-
-                sensor.ConnectedServer = address;
+                sensor.ConnectedServer = null;
+                continue;
             }
+
+            if (sensor.ConnectedServer != address) // HardLight
+                sensor.ConnectedServer = address;
 
             // Send it to the connected server
             var payload = SuitSensorToPacket(status);
@@ -391,7 +397,10 @@ public sealed class SuitSensorSystem : EntitySystem
 
         // check if sensor is enabled and worn by user
         // Frontier: sensors work off grids
-        if (sensor.Mode == SuitSensorMode.SensorOff || sensor.User == null || !HasComp<MobStateComponent>(sensor.User)) // || transform.GridUid == null
+        if (sensor.Mode == SuitSensorMode.SensorOff
+            || sensor.User == null
+            || !HasComp<MobStateComponent>(sensor.User) // vored? hide from pesky medics
+            || HasComp<VoredComponent>(sensor.User)) // || transform.GridUid == null
             return null;
         // End Frontier
 

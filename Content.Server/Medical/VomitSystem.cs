@@ -14,6 +14,8 @@ using Content.Shared.StatusEffect;
 using Robust.Server.Audio;
 using Robust.Shared.Audio;
 using Robust.Shared.Prototypes;
+using Content.Shared.FloofStation;
+using Robust.Shared.Containers;
 
 namespace Content.Server.Medical
 {
@@ -31,17 +33,21 @@ namespace Content.Server.Medical
         [Dependency] private readonly ForensicsSystem _forensics = default!;
         [Dependency] private readonly BloodstreamSystem _bloodstream = default!;
 
-        [ValidatePrototypeId<SoundCollectionPrototype>]
-        private const string VomitCollection = "Vomit";
+        private static readonly ProtoId<SoundCollectionPrototype> VomitCollection = new("Vomit");
 
         private readonly SoundSpecifier _vomitSound = new SoundCollectionSpecifier(VomitCollection,
             AudioParams.Default.WithVariation(0.2f).WithVolume(-4f));
+        [Dependency] private readonly SharedContainerSystem _containerSystem = default!;
 
         /// <summary>
         /// Make an entity vomit, if they have a stomach.
         /// </summary>
         public void Vomit(EntityUid uid, float thirstAdded = -40f, float hungerAdded = -40f)
         {
+            // Floofstation - Vore
+            if (TryComp<VoreComponent>(uid, out var vore))
+                _containerSystem.EmptyContainer(vore.Stomach);
+
             // Main requirement: You have a stomach
             var stomachList = _body.GetBodyOrganEntityComps<StomachComponent>(uid);
             if (stomachList.Count == 0)

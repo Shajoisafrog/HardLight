@@ -34,6 +34,7 @@
     - Traitor
     - Revolutionary
     - Zombie
+    - Xenoborgs
     #- Wizard
     - KesslerSyndromeScheduler
     - RampingStationEventScheduler
@@ -53,7 +54,8 @@
     - Traitor
     - Revolutionary
     - Zombie
-    #- Wizard
+    - Xenoborgs
+    - Wizard
     - BasicStationEventScheduler
     - KesslerSyndromeScheduler
     - MeteorSwarmMildScheduler
@@ -69,7 +71,7 @@
   showInVote: false #2boring2vote
   description: extended-description
   rules:
-    - RampingStationEventScheduler
+    - BasicStationEventScheduler
     - MeteorSwarmScheduler
 
 - type: gamePreset
@@ -102,7 +104,7 @@
   showInVote: false #Admin Use
   description: secret-description
   rules:
-    - RampingStationEventScheduler
+    - BasicStationEventScheduler
     - MeteorSwarmScheduler
 
 - type: gamePreset
@@ -200,6 +202,22 @@
     - MeteorSwarmScheduler
 
 - type: gamePreset
+  id: Xenoborgs
+  alias:
+    - xenoborgs
+  name: xenoborgs-title
+  description: xenoborgs-description
+  showInVote: false
+  rules:
+  - Xenoborgs
+  - DummyNonAntagChance
+  - SubGamemodesRuleNoXenoborg # no two motherships
+  - BasicStationEventScheduler
+  - MeteorSwarmScheduler
+  - SpaceTrafficControlEventScheduler
+  - BasicRoundstartVariation
+
+- type: gamePreset
   id: Zombie
   alias:
     - zombie
@@ -242,6 +260,7 @@
     - NFAdventure
     - BasicRoundstartVariation
 #    - NFRoundstartVariation
+    - DynamicJobAllocation
 
 - type: gamePreset
   id: NFPirate
@@ -253,6 +272,7 @@
   showInVote: true
   rules:
     #- Secret
-    - NFAdventure
-    - BasicRoundstartVariation
-#    - NFRoundstartVariation
+    #- NFAdventure
+    #- BasicRoundstartVariation
+    #- NFRoundstartVariation
+    - DynamicJobAllocation

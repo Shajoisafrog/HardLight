@@ -33,3 +33,19 @@
 - type: accessLevel
   id: NanotrasenAdmiral
   name: id-card-access-level-nanotrasen-admiral
+
+- type: accessLevel
+  id: Interdyne
+  name: id-card-access-level-interdyne
+
+- type: accessLevel
+  id: InterdyneHead
+  name: id-card-access-level-interdyne-head
+
+- type: accessLevel
+  id: Directorate
+  name: id-card-access-level-directorate
+
+- type: accessLevel
+  id: Naval
+  name: id-card-access-level-naval

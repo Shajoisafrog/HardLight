@@ -138,7 +138,7 @@
 - type: entity
   parent: NFHolopadPoiBase
   id: NFHolopadNFSDReception
-  suffix: TSFMC Reception, POI
+  suffix: ColSec Reception, POI
   components:
   - type: Label
     currentLabel: nf-holopad-general-Colsec-reception
@@ -146,7 +146,7 @@
 - type: entity
   parent: NFHolopadPoiBase
   id: NFHolopadNFSDSheriff
-  suffix: TSFMC Colonel, POI
+  suffix: ColSec Colonel, POI
   components:
   - type: Label
     currentLabel: nf-holopad-general-Colsec-sheriff-office
@@ -154,7 +154,7 @@
 - type: entity
   parent: NFHolopadPoiBase
   id: NFHolopadNFSDLobby
-  suffix: TSFMC Lobby, POI
+  suffix: ColSec Lobby, POI
   components:
   - type: Label
     currentLabel: nf-holopad-general-Colsec-lobby

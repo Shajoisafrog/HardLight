@@ -32,7 +32,6 @@ entities:
     - type: MetaData
       name: Sprinter
     - type: Transform
-      parent: invalid
     - type: MapGrid
       chunks:
         0,0:
@@ -2416,7 +2415,7 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -2.5,9.5
       parent: 1
-- proto: ComputerSalvageExpedition
+- proto: ComputerBroken
   entities:
   - uid: 272
     components:

@@ -1,9 +1,3 @@
-// SPDX-FileCopyrightText: 2025 GoobBot <uristmchands@proton.me>
-// SPDX-FileCopyrightText: 2025 deltanedas <39013340+deltanedas@users.noreply.github.com>
-// SPDX-FileCopyrightText: 2025 deltanedas <@deltanedas:kde.org>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
 using Content.Shared._Goobstation.Factory.Filters;
 using Content.Shared._Goobstation.Factory.Slots;
 using Content.Shared.Containers.ItemSlots;
@@ -20,12 +14,15 @@ using Robust.Shared.Containers;
 using Robust.Shared.Map;
 using Robust.Shared.Physics.Events;
 using Robust.Shared.Timing;
+using Robust.Shared.Configuration;
+using Robust.Shared.Player;
+using Robust.Shared;
 
 namespace Content.Shared._Goobstation.Factory;
 
 public sealed class RoboticArmSystem : EntitySystem
 {
-    [Dependency] private readonly AutomationSystem _automation = default!;
+
     [Dependency] private readonly AutomationFilterSystem _filter = default!;
     [Dependency] private readonly CollisionWakeSystem _wake = default!;
     [Dependency] private readonly ExclusiveSlotsSystem _exclusive = default!;
@@ -37,11 +34,13 @@ public sealed class RoboticArmSystem : EntitySystem
     [Dependency] private readonly SharedPowerReceiverSystem _power = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly TurfSystem _turf = default!;
+    [Dependency] private readonly EntityLookupSystem _lookup = default!;
+    [Dependency] private readonly IConfigurationManager _cfg = default!;
 
     private EntityQuery<ItemComponent> _itemQuery;
     private EntityQuery<ThrownItemComponent> _thrownQuery;
     private TimeSpan _nextUpdate = TimeSpan.Zero;
-    private static readonly TimeSpan _updateDelay = TimeSpan.FromSeconds(0.5);
+    private static readonly TimeSpan _updateDelay = TimeSpan.FromSeconds(5);
 
     public override void Initialize()
     {
@@ -73,6 +72,9 @@ public sealed class RoboticArmSystem : EntitySystem
         var query = EntityQueryEnumerator<RoboticArmComponent>();
         while (query.MoveNext(out var uid, out var comp))
         {
+            if (!HasPlayerInRange(uid))
+                continue;
+
             if (!_power.IsPowered(uid))
                 continue;
 
@@ -95,6 +97,19 @@ public sealed class RoboticArmSystem : EntitySystem
                 StartMoving(ent);
             }
         }
+    }
+
+    private bool HasPlayerInRange(EntityUid uid)
+    {
+        var range = _cfg.GetCVar(CVars.NetMaxUpdateRange);
+        var coords = Transform(uid).Coordinates;
+
+        foreach (var _ in _lookup.GetEntitiesInRange<ActorComponent>(coords, range))
+        {
+            return true;
+        }
+
+        return false;
     }
 
     private void OnInit(Entity<RoboticArmComponent> ent, ref ComponentInit args)

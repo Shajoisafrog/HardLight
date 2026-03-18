@@ -47,7 +47,6 @@ entities:
       name: Anchor
     - type: Transform
       pos: 0.55555725,0.5
-      parent: invalid
     - type: MapGrid
       chunks:
         -1,-1:
@@ -4623,7 +4622,7 @@ entities:
     - type: Transform
       pos: -2.5,7.5
       parent: 1
-- proto: ComputerTabletopSalvageExpedition
+- proto: ComputerTabletopBroken
   entities:
   - uid: 619
     components:

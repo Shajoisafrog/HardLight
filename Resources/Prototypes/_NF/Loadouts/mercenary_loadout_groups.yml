@@ -1,7 +1,7 @@
 - type: loadoutGroup
   id: MercenaryJumpsuit
   name: loadout-group-contractor-jumpsuit
-  loadouts: #First Section: Role specific freebies/discounts/rewards
+  loadouts: # First Section: Role specific freebies/discounts/rewards
   - MercenaryClothingUniformJumpsuitMercenary
   - MercenaryClothingUniformJumpskirtMercenary
   - MercenaryClothingUniformJumpsuitPrivateSec
@@ -49,10 +49,11 @@
   - MercenaryClothingOuterArmorPunkOrange # Punkish (Static visuals)
   - MercenaryClothingOuterArmorPunkRed # Punkish (Static visuals)
   - MercenaryClothingOuterArmorPunkRandomized # Punkish (Randomized visuals)
-  - MercenaryClothingOuterArmoredJacketPMCBlue #HL - added PMC armored jacket
-  - MercenaryClothingOuterArmoredJacketPMCGreen #HL - added PMC armored jacket
-  - MercenaryClothingOuterArmoredJacketPMCOlive #HL - added PMC armored jacket
+  - MercenaryClothingOuterArmoredJacketPMCBlue # HL - added PMC armored jacket
+  - MercenaryClothingOuterArmoredJacketPMCGreen # HL - added PMC armored jacket
+  - MercenaryClothingOuterArmoredJacketPMCOlive # HL - added PMC armored jacket
   - MercenaryClothingOuterArmorCaptainCarapace
+  - LoadoutClothingOuterMarsHoodie
   subgroups:
   - PilotOuterClothing
   - ContractorOuterClothing
@@ -159,6 +160,8 @@
   - MercenaryClothingBeltMilitaryWebbing
   - MercenaryClothingBeltMilitaryWebbingMed
   - MercenaryClothingBeltSecurity
+  - MercenaryClothingBeltKnifeRig
+  - MercenaryClothingBeltKnifeRigFilled
   subgroups:
   - ContractorBelt
 
@@ -168,7 +171,8 @@
   minLimit: 0
   loadouts:
   - MercenaryWt550Loadout
-  #- MercenaryC20rLoadout
+# HardLight: I miss you.
+#  - MercenaryC20rLoadout
   - MercenaryKammererLoadout
   - MercenaryEnforcerLoadout
   - MercenaryLecterLoadout
@@ -177,7 +181,7 @@
   - MercenaryLaserCarbineLoadout
   - MercenaryLaserCannonLoadout
   - MercenaryDisablerSMGLoadout
-  - MercenaryShotgunVortexLoadout # hard light
+  - MercenaryShotgunVortexLoadout # HardLight
   fallbacks:
   - MercenaryWt550Loadout
 

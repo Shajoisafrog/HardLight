@@ -1,0 +1,42 @@
+# Author Info
+# GitHub: Generic_Eagle
+# Discord: Generic_Eagle
+
+# Maintainer Info
+# GitHub: Generic_Eagle
+# Discord: Generic_Eagle
+
+# Shuttle Notes:
+#
+- type: vessel
+  id: Bumblebee
+  name: AI Bumble Bee
+  description: A sector security vessel designed for rapid deployment of high-explosive payloads.
+  price: 60000  # ~57k appraisal value. Charon alone is 40k.
+  category: Small
+  group: Security
+  access: Security
+  shuttlePath: /Maps/_HL/Shuttles/ColSec/bumblebee.yml
+  guidebookPage: Null
+  class:
+  - Pursuit
+  engine:
+  - APU
+
+- type: gameMap
+  id: Bumblebee
+  mapName: 'AI Bumble Bee'
+  mapPath: /Maps/_HL/Shuttles/ColSec/bumblebee.yml
+  minPlayers: 0
+  stations:
+    Bumblebee:
+      stationProto: StandardFrontierSecurityVessel
+      components:
+        - type: StationNameSetup
+          mapNameTemplate: 'Bumble Bee {1}'
+          nameGenerator:
+            !type:NanotrasenNameGenerator
+            prefixCreator: '14'
+        - type: StationJobs
+          availableJobs: {}
+

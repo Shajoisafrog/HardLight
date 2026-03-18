@@ -56,14 +56,6 @@
       "directions": 4
     },
     {
-      "name": "snout_fhusky_primary",
-      "directions": 4
-    },
-    {
-      "name": "snout_fhusky_secondary",
-      "directions": 4
-    },
-    {
       "name": "snout_fscanid_primary",
       "directions": 4
     },
@@ -309,14 +301,6 @@
     },
     {
       "name": "snout_birdsmall_tertiary",
-      "directions": 4
-    },
-    {
-      "name": "snout_husky_primary",
-      "directions": 4
-    },
-    {
-      "name": "snout_husky_secondary",
       "directions": 4
     },
     {

@@ -8,10 +8,10 @@ using Content.Shared.Popups;
 using Content.Shared.Physics;
 using Content.Shared._Starlight;
 using System.Linq;
-using Content.Server.Light.Components;
 using Content.Server.Ghost;
 using Robust.Server.Containers;
 using Robust.Shared.Prototypes;
+using Content.Shared.Light.Components; // HardLight: Merged with upstream
 
 namespace Content.Server._Starlight.NullSpace;
 
@@ -31,14 +31,14 @@ public sealed class EtherealPhaseSystem : EntitySystem
     public override void Initialize()
     {
         base.Initialize();
-        SubscribeLocalEvent<NullPhaseComponent, MapInitEvent>(OnInit);
+        SubscribeLocalEvent<NullPhaseComponent, ComponentStartup>(OnStartup);
         SubscribeLocalEvent<NullPhaseComponent, ComponentShutdown>(OnShutdown);
         SubscribeLocalEvent<NullPhaseComponent, GotEquippedEvent>(OnEquipped);
         SubscribeLocalEvent<NullPhaseComponent, GotUnequippedEvent>(OnUnequipped);
         SubscribeLocalEvent<NullPhaseComponent, NullPhaseActionEvent>(OnPhaseAction);
     }
 
-    private void OnInit(EntityUid uid, NullPhaseComponent component, MapInitEvent args)
+    private void OnStartup(EntityUid uid, NullPhaseComponent component, ComponentStartup args)
     {
         Toggle(uid, component, true);
     }
@@ -64,7 +64,8 @@ public sealed class EtherealPhaseSystem : EntitySystem
 
     private void OnPhaseAction(EntityUid uid, NullPhaseComponent component, NullPhaseActionEvent args)
     {
-        Phase(uid);
+        // Perform phase on the user performing the action, not the provider entity.
+        Phase(args.Performer);
         args.Handled = true;
     }
 
@@ -80,14 +81,6 @@ public sealed class EtherealPhaseSystem : EntitySystem
     {
         if (TryComp<NullSpaceComponent>(uid, out var ethereal))
         {
-            var tileref = Transform(uid).Coordinates.GetTileRef();
-            if (tileref != null
-            && _physics.GetEntitiesIntersectingBody(uid, (int)CollisionGroup.Impassable).Count > 0)
-            {
-                _popup.PopupEntity(Loc.GetString("revenant-in-solid"), uid, uid);
-                return false;
-            }
-
             if (HasComp<ShadekinComponent>(uid))
             {
                 var lightQuery = _lookup.GetEntitiesInRange(uid, 5, flags: LookupFlags.StaticSundries)
@@ -101,7 +94,7 @@ public sealed class EtherealPhaseSystem : EntitySystem
             else
                 SpawnAtPosition(ShadekinShadow, Transform(uid).Coordinates);
 
-            RemComp(uid, ethereal);
+            RemComp<NullSpaceComponent>(uid);
         }
         else
         {

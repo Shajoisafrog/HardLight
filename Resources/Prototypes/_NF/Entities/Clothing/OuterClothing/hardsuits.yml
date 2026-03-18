@@ -151,8 +151,8 @@
 - type: entity
   parent: [ ClothingOuterHardsuitBaseNFNfsd, BaseC3ExpeditionContraband ]
   id: ClothingOuterHardsuitNfsdBronze
-  name: TSFMC M73 tacsuit
-  description: The standard-issue TSFMC tacsuit for patrol duty. This bronze variant has private rank markings.
+  name: ColSec M73 tacsuit
+  description: The standard-issue ColSec tacsuit for patrol duty. This bronze variant has private rank markings.
   components:
   - type: Sprite
     sprite: _NF/Clothing/OuterClothing/Hardsuits/nfsd_bronze.rsi
@@ -178,8 +178,8 @@
 - type: entity
   parent: ClothingOuterHardsuitNfsdBronze
   id: ClothingOuterHardsuitNfsdSilver
-  name: TSFMC M73 tacsuit
-  description: The standard-issue TSFMC tacsuit for patrol duty. This silver variant has corporal rank markings.
+  name: ColSec M73 tacsuit
+  description: The standard-issue ColSec tacsuit for patrol duty. This silver variant has corporal rank markings.
   components:
   - type: Sprite
     sprite: _NF/Clothing/OuterClothing/Hardsuits/nfsd_silver.rsi
@@ -191,8 +191,8 @@
 - type: entity
   parent: ClothingOuterHardsuitNfsdBronze
   id: ClothingOuterHardsuitNfsdGold
-  name: TSFMC M73 tacsuit
-  description: The standard-issue TSFMC tacsuit for patrol duty. This gold variant has senior rank markings.
+  name: ColSec M73 tacsuit
+  description: The standard-issue ColSec tacsuit for patrol duty. This gold variant has senior rank markings.
   components:
   - type: Sprite
     sprite: _NF/Clothing/OuterClothing/Hardsuits/nfsd_gold.rsi
@@ -204,7 +204,7 @@
 - type: entity
   parent: ClothingOuterHardsuitBaseNFNfsd
   id: ClothingOuterHardsuitNfsdSheriff
-  name: TSFMC M92 tacsuit
+  name: ColSec M92 tacsuit
   description: A heavy tacsuit, capable of taking a lot of physical damage.
   components:
   - type: Sprite
@@ -231,7 +231,7 @@
 - type: entity
   parent: ClothingOuterHardsuitNfsdBronze
   id: ClothingOuterHardsuitNfsdBrigmedic
-  name: TSFMC M73-M tacsuit
+  name: ColSec M73-M tacsuit
   description: A variant of the M73 tacsuit for combat medical and NBC use. Provides greater caustic and radiation protection.
   components:
   - type: Sprite
@@ -253,8 +253,8 @@
 - type: entity
   parent: [BaseC2ContrabandUnredeemable, ClothingOuterHardsuitJuggernaut, BaseC3ExpeditionContraband] # Jugger Suit
   id: ClothingOuterHardsuitNfsdExperimental
-  name: TSFMC M92-X tacsuit
-  description: A experimental modification of the M92 tacsuit for spec-ops units of the TSFMC. Externally the same, internally its higher-quality alloys and fabric.
+  name: ColSec M92-X tacsuit
+  description: A experimental modification of the M92 tacsuit for spec-ops units of the ColSec. Externally the same, internally its higher-quality alloys and fabric.
   components:
   - type: Sprite
     sprite: _NF/Clothing/OuterClothing/Hardsuits/nfsd_experimental.rsi
@@ -286,8 +286,8 @@
 - type: entity
   parent: [ ClothingOuterHardsuitBaseNFNfsd, BaseC3ExpeditionContraband ]
   id: ClothingOuterHardsuitNfsdCombat
-  name: TSFMC M93 tacsuit
-  description: A heavily armored TSFMC suit. Space proof, with thick armor plating at the expense of mobility.
+  name: ColSec M93 tacsuit
+  description: A heavily armored ColSec suit. Space proof, with thick armor plating at the expense of mobility.
   components:
   - type: Sprite
     sprite: _NF/Clothing/OuterClothing/Hardsuits/nfsd_combat.rsi
@@ -307,14 +307,14 @@
         Radiation: 0.2
         Caustic: 0.35
   - type: ClothingSpeedModifier
-    walkModifier: 0.825
-    sprintModifier: 0.825
+    walkModifier: 0.8
+    sprintModifier: 0.8
 
 #Security Command Hardsuit
 - type: entity
   parent: ClothingOuterHardsuitBaseNFNfsd
   id: ClothingOuterHardsuitNfsdCommand
-  name: TSFMC M93-C tacsuit
+  name: ColSec M93-C tacsuit
   description: A variant of the M93 tacsuit with slightly better plating. It isn't much extra.
   components:
   - type: Sprite
@@ -328,9 +328,9 @@
   - type: Armor
     modifiers:
       coefficients:
-        Blunt: 0.225
-        Slash: 0.325
-        Piercing: 0.325
+        Blunt: 0.25
+        Slash: 0.35
+        Piercing: 0.35
         Heat: 0.25
         Radiation: 0.15
         Caustic: 0.25

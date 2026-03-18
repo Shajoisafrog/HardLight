@@ -15,6 +15,11 @@
   - type: SolutionContainerManager
   - type: Sprite
     state: produce
+  - type: Stack
+    stackType: BotanyProduce
+    count: 1
+  - type: StackSignature
+  - type: StackSpawnSelf
   # let cows eat raw produce like wheat and oats
   - type: Food
     requiredStomachs: 2
@@ -31,9 +36,17 @@
   id: FoodProduceBase
   abstract: true
   components:
+  - type: Perishable
+    rotAfter: 300 # 5 minutes outside a body until rotting, 15 to completely perish
+    molsPerSecondPerUnitMass: 0
   - type: SolutionContainerManager
   - type: Sprite
     state: produce
+  - type: Stack
+    stackType: BotanyProduce
+    count: 1
+  - type: StackSignature
+  - type: StackSpawnSelf
   - type: Produce
   - type: PotencyVisuals
   - type: Appearance
@@ -55,6 +68,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
+        maxVol: 250
         reagents:
         - ReagentId: Flour
           Quantity: 10
@@ -77,6 +91,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
+        maxVol: 250
         reagents:
         - ReagentId: UncookedAnimalProteins
           Quantity: 10
@@ -99,6 +114,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
+        maxVol: 250
         reagents:
         - ReagentId: Oats
           Quantity: 10
@@ -123,6 +139,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
+        maxVol: 250
         reagents:
         - ReagentId: Sugar
           Quantity: 10
@@ -158,7 +175,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 13
+        maxVol: 250
         reagents:
         - ReagentId: Nutriment
           Quantity: 3
@@ -246,6 +263,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
+        maxVol: 250
         reagents:
         - ReagentId: Histamine
           Quantity: 3
@@ -278,6 +296,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
+        maxVol: 250
         reagents:
         - ReagentId: SulfuricAcid
           Quantity: 15
@@ -339,7 +358,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 6
+        maxVol: 250
         reagents:
         - ReagentId: Nutriment
           Quantity: 4
@@ -381,7 +400,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 7
+        maxVol: 250
         reagents:
         - ReagentId: MuteToxin
           Quantity: 5
@@ -479,6 +498,8 @@
           Quantity: 1
         - ReagentId: Carbon
           Quantity: 2
+  - type: Food
+    requiresSpecialDigestion: true
 
 - type: entity
   name: mimana peel
@@ -526,7 +547,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 12
+        maxVol: 250
         reagents:
         - ReagentId: JuiceCarrot
           Quantity: 5
@@ -564,7 +585,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 14
+        maxVol: 250
         reagents:
         - ReagentId: Nutriment
           Quantity: 10
@@ -596,7 +617,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 18
+        maxVol: 250
         reagents:
         - ReagentId: Nutriment
           Quantity: 10
@@ -628,7 +649,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 9
+        maxVol: 250
         reagents:
         - ReagentId: Nutriment
           Quantity: 5
@@ -666,7 +687,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 20
+        maxVol: 250
         reagents:
         - ReagentId: Vitamin
           Quantity: 4
@@ -760,7 +781,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 14
+        maxVol: 250
         reagents:
         - ReagentId: Haloperidol
           Quantity: 5
@@ -803,7 +824,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 16
+        maxVol: 250
         reagents:
         - ReagentId: Nutriment
           Quantity: 10
@@ -841,7 +862,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 14
+        maxVol: 250
         reagents:
         - ReagentId: Nutriment
           Quantity: 10
@@ -883,7 +904,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 14
+        maxVol: 250
         reagents:
         - ReagentId: Nutriment
           Quantity: 7
@@ -942,7 +963,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 24
+        maxVol: 250
         reagents:
         - ReagentId: Nutriment
           Quantity: 5
@@ -993,7 +1014,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 14
+        maxVol: 250
         reagents:
         - ReagentId: Blood
           Quantity: 10
@@ -1046,7 +1067,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 14
+        maxVol: 250
         reagents:
         - ReagentId: Nutriment
           Quantity: 10
@@ -1075,7 +1096,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 14
+        maxVol: 250
         reagents:
         - ReagentId: Nutriment
           Quantity: 10
@@ -1111,7 +1132,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 30
+        maxVol: 250
         reagents:
         - ReagentId: Nutriment
           Quantity: 10
@@ -1152,7 +1173,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 14
+        maxVol: 250
         reagents:
         - ReagentId: Nutriment
           Quantity: 2
@@ -1188,7 +1209,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 20
+        maxVol: 250
         reagents:
         - ReagentId: Cornmeal
           Quantity: 15
@@ -1248,7 +1269,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 18
+        maxVol: 250
         reagents:
         - ReagentId: Nutriment
           Quantity: 10
@@ -1281,7 +1302,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 18
+        maxVol: 250
         reagents:
         - ReagentId: Nutriment
           Quantity: 10
@@ -1311,6 +1332,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
+        maxVol: 250
         reagents:
         - ReagentId: Nutriment
           Quantity: 5
@@ -1323,6 +1345,7 @@
   - type: Tag
     tags:
     - Vegetable
+    - Mushroom
 
 # Slices
 
@@ -1331,10 +1354,15 @@
   id: ProduceSliceBase
   abstract: true
   components:
+  - type: Stack
+    stackType: ProduceSlice
+    count: 1
+  - type: StackSignature
+  - type: StackSpawnSelf
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 3
+        maxVol: 100
         reagents:
         - ReagentId: Nutriment
           Quantity: 2
@@ -1385,7 +1413,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 5
+        maxVol: 100
         reagents:
         - ReagentId: Nutriment
           Quantity: 2
@@ -1416,7 +1444,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 5
+        maxVol: 100
         reagents:
         - ReagentId: Nutriment
           Quantity: 2
@@ -1445,7 +1473,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 18
+        maxVol: 250
         reagents:
           - ReagentId: Nutriment
             Quantity: 4
@@ -1481,7 +1509,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 18
+        maxVol: 250
         reagents:
           - ReagentId: Nutriment
             Quantity: 4
@@ -1513,7 +1541,6 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 20 ##I'm pretty sure this has to match the total of 100 potency yields
         reagents:
         - ReagentId: Aloe
           Quantity: 10
@@ -1551,7 +1578,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 22
+        maxVol: 250
         reagents:
         - ReagentId: Nutriment
           Quantity: 2
@@ -1583,7 +1610,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 22
+        maxVol: 250
         reagents:
         - ReagentId: Nutriment
           Quantity: 2
@@ -1616,7 +1643,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 40
+        maxVol: 250
         reagents:
         - ReagentId: Ultravasculine
           Quantity: 20
@@ -1634,6 +1661,9 @@
     entries:
       Taco: Lingzhi
       Burger: Lingzhi
+  - type: Tag
+    tags:
+    - Mushroom
 
 - type: entity
   name: ambrosia vulgaris
@@ -1648,7 +1678,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 24
+        maxVol: 250
         reagents:
         - ReagentId: Bicaridine
           Quantity: 5
@@ -1693,7 +1723,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 20
+        maxVol: 250
         reagents:
         - ReagentId: Omnizine
           Quantity: 3
@@ -1735,7 +1765,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 25
+        maxVol: 250
         reagents:
         - ReagentId: Stellibinin
           Quantity: 25
@@ -1772,7 +1802,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 15
+        maxVol: 250
         reagents:
         - ReagentId: Razorium
           Quantity: 15
@@ -1839,7 +1869,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 15
+        maxVol: 250
         reagents:
         - ReagentId: Amatoxin
           Quantity: 10
@@ -1858,10 +1888,13 @@
     entries:
       Taco: FlyAmanita
       Burger: FlyAmanita
+  - type: Tag
+    tags:
+    - Mushroom
 
 - type: entity
   name: gatfruit
-  parent: [ FoodProduceBase, BaseC3SyndicateContrabandUnredeemable ] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContrabandUnredeemable
+  parent: [ FoodProduceBase, BaseC3SyndicateContrabandNoValue ] # Frontier: BaseSyndicateContraband<BaseC3SyndicateContrabandUnredeemable
   id: FoodGatfruit
   description: A delicious, gun-shaped fruit with a thick wooden stem.
   components:
@@ -1871,7 +1904,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 10
+        maxVol: 250
         reagents:
 #        - ReagentId: Nutriment # Frontier
 #          Quantity: 5 # Frontier
@@ -1883,7 +1916,7 @@
     seedId: gatfruit
   - type: Food
     trash:
-    - NFWeaponRevolverRitland45 # Frontier: WeaponRevolverPython<NFWeaponRevolverRitland45
+    - NFWeaponRevolverRitland45Anom  # Hardlight: A Ritland with no FUCvalue
   - type: Tag
     tags:
     - Fruit # It's in the name
@@ -1904,7 +1937,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 10
+        maxVol: 250
         reagents:
 #        - ReagentId: Nutriment # Frontier
 #          Quantity: 5 # Frontier
@@ -1952,6 +1985,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
+        maxVol: 250
         reagents:
         - ReagentId: Rice
           Quantity: 10
@@ -1969,7 +2003,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 4
+        maxVol: 250
         reagents:
         - ReagentId: Nutriment
           Quantity: 4
@@ -2004,7 +2038,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 4
+        maxVol: 250
         reagents:
         - ReagentId: Nutriment
           Quantity: 1
@@ -2033,7 +2067,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 7
+        maxVol: 250
         reagents:
         - ReagentId: Nutriment
           Quantity: 5
@@ -2069,7 +2103,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 25
+        maxVol: 250
         reagents:
         - ReagentId: Nutriment
           Quantity: 10
@@ -2133,7 +2167,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 5
+        maxVol: 100
         reagents:
         - ReagentId: Nutriment
           Quantity: 2
@@ -2172,7 +2206,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 25
+        maxVol: 250
         reagents:
         - ReagentId: Nutriment
           Quantity: 10
@@ -2237,7 +2271,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 5
+        maxVol: 100
         reagents:
         - ReagentId: Nutriment
           Quantity: 2
@@ -2272,7 +2306,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 9
+        maxVol: 250
         reagents:
         - ReagentId: Nutriment
           Quantity: 5
@@ -2305,7 +2339,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 11
+        maxVol: 250
         reagents:
         - ReagentId: Nutriment
           Quantity: 5
@@ -2345,7 +2379,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 20
+        maxVol: 250
         reagents:
         - ReagentId: Nutriment
           Quantity: 10
@@ -2408,7 +2442,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 5
+        maxVol: 250
         reagents:
         - ReagentId: Nutriment
           Quantity: 3
@@ -2440,7 +2474,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 8
+        maxVol: 250
         reagents:
         - ReagentId: Happiness
           Quantity: 3
@@ -2477,7 +2511,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 25
+        maxVol: 250
         reagents:
         - ReagentId: PumpkinFlesh
           Quantity: 20
@@ -2527,7 +2561,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 25
+        maxVol: 250
         reagents:
         - ReagentId: Ammonia
           Quantity: 10
@@ -2574,11 +2608,10 @@
   - type: FlavorProfile
     flavors:
       - cotton
-  - type: Food
-    requiresSpecialDigestion: true
   - type: SolutionContainerManager
     solutions:
       food:
+        maxVol: 250
         reagents:
         - ReagentId: Fiber
           Quantity: 10
@@ -2604,11 +2637,10 @@
   - type: FlavorProfile
     flavors:
       - pyrotton
-  - type: Food
-    requiresSpecialDigestion: true
   - type: SolutionContainerManager
     solutions:
       food:
+        maxVol: 250
         reagents:
         - ReagentId: Fiber
           Quantity: 5
@@ -2642,7 +2674,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 8
+        maxVol: 250
         reagents:
         - ReagentId: Nutriment
           Quantity: 3
@@ -2716,7 +2748,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 5
+        maxVol: 250
         reagents:
         - ReagentId: Nutriment
           Quantity: 2
@@ -2745,7 +2777,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 40
+        maxVol: 250
         reagents:
         - ReagentId: Pomelustine
           Quantity: 30
@@ -2782,7 +2814,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 20
+        maxVol: 100
         reagents:
         - ReagentId: Pomelustine
           Quantity: 15
@@ -2797,3 +2829,78 @@
     tags:
     - Fruit
     - Slice # Flooftier
+
+- type: entity
+  name: bloonion bulb
+  description: A strange floating bulb.. Nothing worth crying over.
+  parent: BaseStructureDynamic
+  id: FoodBloonion
+  components:
+  - type: Appearance
+  - type: Sprite
+    drawdepth: Items
+    noRot: true
+    sprite: Objects/Specific/Hydroponics/bloonion.rsi
+    state: produce
+  - type: Item
+    size: Small
+    sprite: Objects/Specific/Hydroponics/bloonion.rsi
+    heldPrefix: produce
+  - type: Produce
+    seedId: bloonion
+  - type: Tag
+    tags:
+    - Vegetable
+  - type: PotencyVisuals
+  - type: FlavorProfile
+    flavors:
+    - onion
+    - strange
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 250
+        canReact: false
+        reagents:
+        - ReagentId: Potassium
+          Quantity: 1
+        - ReagentId: Phosphorus
+          Quantity: 1
+        - ReagentId: Sugar
+          Quantity: 1
+        - ReagentId: Allicin
+          Quantity: 4
+  - type: Extractable
+    grindableSolutionName: food
+  - type: ExplodeOnTrigger
+  - type: Explosive
+    explosionType: Default
+    maxIntensity: 0.001
+    intensitySlope: 1
+    totalIntensity: 0.1
+  - type: Damageable
+    damageContainer: Biological
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 1
+      behaviors:
+      - !type:SpillBehavior
+        solution: food
+      - !type:TriggerBehavior
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: InteractionOutline
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.20
+          position: 0, 0.35
+        density: 80
+        mask:
+        - MobMask
+        layer:
+        - MobLayer

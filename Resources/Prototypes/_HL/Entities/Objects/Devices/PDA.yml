@@ -103,6 +103,7 @@
       - NewsReaderCartridge
       - BountyContractsCartridge
       - AstroNavCartridge
+      - NanoChatCartridge
   - type: Tag #  Ignore Chameleon tags
     tags:
     - DoorBumpOpener
@@ -266,3 +267,121 @@
   parent: [BaseContractorPDA, MusicianPDA]
   id: ContractorMusicianPDA
   suffix: Contractor
+
+
+### Interdyne PDAs
+- type: entity
+  parent: BasePDA
+  id: InterdynePDA
+  name: interdyne doctor PDA
+  description: A medical PDA issued to Interdyne personnel. Smells like medical malpractice.
+  components:
+  - type: Pda
+    id: InterdyneIDCard
+  - type: Appearance
+    appearanceDataInit:
+      enum.PdaVisuals.PdaType:
+        !type:String
+        pda-interdyne
+  - type: Sprite
+    sprite: _HL/Objects/Devices/interdyne_pda.rsi
+    layers:
+    - map: [ "enum.PdaVisualLayers.Base" ]
+      state: "pda-interdyne"
+    - state: "light-overlay"
+      map: [ "enum.PdaVisualLayers.Flashlight" ]
+      shader: "unshaded"
+      visible: false
+    - state: "id-overlay"
+      map: [ "enum.PdaVisualLayers.IdLight" ]
+      shader: "unshaded"
+      visible: false
+  - type: Icon
+    sprite: _HL/Objects/Devices/interdyne_pda.rsi
+    state: pda-interdyne
+  - type: PdaBorderColor
+    borderColor: "#4C4C4C"
+    accentVColor: "#CC70B5"
+
+- type: entity
+  parent: BasePDA
+  id: InterdyneHeadPDA
+  name: interdyne head PDA
+  description: A medical PDA issued to Interdyne head personnel. Smells like orchestrating medical malpractice.
+  components:
+  - type: Pda
+    id: InterdyneHeadIDCard
+  - type: Appearance
+    appearanceDataInit:
+      enum.PdaVisuals.PdaType:
+        !type:String
+        pda-interdynehead
+  - type: Sprite
+    sprite: _HL/Objects/Devices/interdyne_pda.rsi
+    layers:
+    - map: [ "enum.PdaVisualLayers.Base" ]
+      state: "pda-interdynehead"
+    - state: "light-overlay"
+      map: [ "enum.PdaVisualLayers.Flashlight" ]
+      shader: "unshaded"
+      visible: false
+    - state: "id-overlay"
+      map: [ "enum.PdaVisualLayers.IdLight" ]
+      shader: "unshaded"
+      visible: false
+  - type: Icon
+    sprite: _HL/Objects/Devices/interdyne_pda.rsi
+    state: pda-interdynehead
+  - type: PdaBorderColor
+    borderColor: "#A59DA5"
+    accentVColor: "#CC70B5"
+
+- type: entity
+  parent: CentcomPDA
+  id: DirectoratePDA
+  name: directorate PDA
+  description: It looks rough and worn despite it's bright and official look. This PDA has certainly seen extensive, multi-decade use...
+  components:
+  - type: Pda
+    id: DirectorateIDCard
+  - type: Tag #  Ignore Chameleon tags
+    tags:
+    - Admin
+    - DoorBumpOpener
+  - type: PdaBorderColor
+    borderColor: "#010101"
+    accentHColor: "#FFD700"
+    accentVColor: "#FFD700"
+  - type: Icon
+    sprite: _NF/Objects/Devices/pda.rsi # Frontier
+    state: pda-directorate
+  - type: Appearance
+    appearanceDataInit:
+     enum.PdaVisuals.PdaType:
+       !type:String
+       pda-directorate
+
+- type: entity
+  parent: CentcomPDA
+  id: NavalPDA
+  name: naval PDA
+  description: A rugged naval-issue PDA with a dark blue casing.
+  components:
+  - type: Pda
+    id: NavalIDCard
+  - type: Tag #  Ignore Chameleon tags
+    tags:
+    - Admin
+    - DoorBumpOpener
+  - type: PdaBorderColor
+    borderColor: "#1A1A2E"
+    accentHColor: "#2A4A7F"
+    accentVColor: "#1E3A5F"
+  - type: Icon
+    sprite: _NF/Objects/Devices/pda.rsi # Frontier
+    state: pda-sof
+  - type: Appearance
+    appearanceDataInit:
+     enum.PdaVisuals.PdaType:
+       !type:String
+       pda-sof

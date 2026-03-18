@@ -7544,41 +7544,6 @@ entities:
             109: -37.024284,-18.00072
         - node:
             color: '#FFFFFFFF'
-            id: SpaceStationSign1
-          decals:
-            1058: -44,90
-        - node:
-            color: '#FFFFFFFF'
-            id: SpaceStationSign2
-          decals:
-            1057: -43,90
-        - node:
-            color: '#FFFFFFFF'
-            id: SpaceStationSign3
-          decals:
-            1056: -42,90
-        - node:
-            color: '#FFFFFFFF'
-            id: SpaceStationSign4
-          decals:
-            3656: -41,90
-        - node:
-            color: '#FFFFFFFF'
-            id: SpaceStationSign5
-          decals:
-            1054: -40,90
-        - node:
-            color: '#FFFFFFFF'
-            id: SpaceStationSign6
-          decals:
-            1055: -39,90
-        - node:
-            color: '#FFFFFFFF'
-            id: SpaceStationSign7
-          decals:
-            1323: -38,90
-        - node:
-            color: '#FFFFFFFF'
             id: StairsMS
           decals:
             5652: -44,-5

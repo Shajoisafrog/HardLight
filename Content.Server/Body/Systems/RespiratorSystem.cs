@@ -6,6 +6,7 @@ using Content.Shared._Shitmed.Body.Organ; // Shitmed Change
 using Content.Server.Chat.Systems;
 using Content.Server.EntityEffects.EffectConditions;
 using Content.Server.EntityEffects.Effects;
+using Content.Shared._Goobstation.MartialArts.Components; // Goobstation - Martial Arts
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Alert;
 using Content.Shared.Atmos;
@@ -21,6 +22,8 @@ using Content.Shared.Mobs.Systems;
 using JetBrains.Annotations;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
+using Content.Shared.Movement.Pulling.Components; // Goobstation
+using Content.Shared.Movement.Pulling.Systems; // Goobstation
 
 namespace Content.Server.Body.Systems;
 
@@ -52,6 +55,20 @@ public sealed class RespiratorSystem : EntitySystem
         SubscribeLocalEvent<RespiratorComponent, ApplyMetabolicMultiplierEvent>(OnApplyMetabolicMultiplier);
     }
 
+    // Goobstation start
+    // Can breathe check for grab
+    public bool CanBreathe(EntityUid uid, RespiratorComponent respirator)
+    {
+        if(respirator.Saturation < respirator.SuffocationThreshold)
+            return false;
+        if (TryComp<PullableComponent>(uid, out var pullable)
+            && pullable.GrabStage == GrabStage.Suffocate)
+            return false;
+
+        return !HasComp<KravMagaBlockedBreathingComponent>(uid);
+    }
+    // Goobstation end
+
     private void OnMapInit(Entity<RespiratorComponent> ent, ref MapInitEvent args)
     {
         ent.Comp.NextUpdate = _gameTiming.CurTime + ent.Comp.UpdateInterval;
@@ -66,9 +83,26 @@ public sealed class RespiratorSystem : EntitySystem
     {
         base.Update(frameTime);
 
-        var query = EntityQueryEnumerator<RespiratorComponent, BodyComponent>();
-        while (query.MoveNext(out var uid, out var respirator, out var body))
+        var toProcess = new List<EntityUid>();
+        try
         {
+            var query = EntityQueryEnumerator<RespiratorComponent, BodyComponent>();
+            while (query.MoveNext(out var uid, out _, out _))
+            {
+                toProcess.Add(uid);
+            }
+        }
+        catch (Exception e) when (e is InvalidOperationException || e.Message.Contains("Collection was modified"))
+        {
+            return;
+        }
+
+        foreach (var uid in toProcess)
+        {
+            if (!TryComp<RespiratorComponent>(uid, out var respirator) ||
+                !TryComp<BodyComponent>(uid, out var body))
+                continue;
+
             if (_gameTiming.CurTime < respirator.NextUpdate)
                 continue;
 
@@ -94,7 +128,7 @@ public sealed class RespiratorSystem : EntitySystem
                 }
             }
 
-            if (respirator.Saturation < respirator.SuffocationThreshold)
+            if (!CanBreathe(uid, respirator)) // Goobstation
             {
                 if (_gameTiming.CurTime >= respirator.LastGaspEmoteTime + respirator.GaspEmoteCooldown)
                 {

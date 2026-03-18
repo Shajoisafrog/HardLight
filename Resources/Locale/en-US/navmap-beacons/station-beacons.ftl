@@ -28,6 +28,7 @@ station-beacon-morgue = Morgue
 station-beacon-surgery = Surgery
 station-beacon-psychology = Psychology
 station-beacon-clinic = Clinic
+station-beacon-genetics = Genetics
 
 station-beacon-science = Science
 station-beacon-research-and-development = Research
@@ -42,6 +43,7 @@ station-beacon-cargo = Cargo
 station-beacon-cargo-bay = Cargo Bay
 station-beacon-qm = QM
 station-beacon-salvage = Salvage
+station-beacon-mailroom = Mailroom
 
 station-beacon-engineering = Engineering
 station-beacon-ce = CE
@@ -82,4 +84,4 @@ station-beacon-disposals = Disposals
 station-beacon-cryosleep = Cryosleep
 station-beacon-escape-pod = Escape Pod
 station-beacon-vox = Vox Break Room
-station-beacon-nfsd = TSFMC
+station-beacon-nfsd = ColSec

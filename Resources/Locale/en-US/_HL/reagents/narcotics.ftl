@@ -6,7 +6,7 @@
 reagent-name-bite = Bite
 reagent-desc-bite = A dark purple precursor chemical with mild stimulant properties. The first step in a dangerous synthesis.
 
-### Venom (Stage 2) 
+### Venom (Stage 2)
 reagent-name-venom = Venom
 reagent-desc-venom = A toxic green-black liquid with potent combat enhancing properties. Highly unstable and dangerous.
 
@@ -31,7 +31,7 @@ bite-effect-alert = Your nerves tingle.
 bite-effect-energy = Energy flows through you.
 bite-effect-hunger = You feel restless.
 
-### Venom Effects (Stage 2)  
+### Venom Effects (Stage 2)
 venom-effect-power = Power surges through you!
 venom-effect-invincible = You feel unstoppable!
 venom-effect-enhanced = Your body feels enhanced!
@@ -110,4 +110,7 @@ reagent-desc-black-blood = Corrupted blood, blackened by unknown chemicals. An o
 
 reagent-effect-guidebook-change-blood-reagent = Changes blood reagent to {$reagent}
 reagent-effect-guidebook-restore-blood-reagent = Restores blood to its original type
+
+## Insemination
+reagent-effect-guidebook-inseminate = Fertilizes the eggs of reproductive organs
 

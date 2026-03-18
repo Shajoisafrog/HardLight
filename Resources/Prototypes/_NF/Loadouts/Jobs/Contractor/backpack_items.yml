@@ -555,3 +555,10 @@
   storage:
     back:
     - RubberStampEngineer
+
+- type: loadout
+  id: ContractorClothingHeadHatHairflower
+  price: 100
+  storage:
+    back:
+    - ClothingHeadHatHairflower

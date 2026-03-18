@@ -59,5 +59,24 @@
     ClothingHandsStripedWhiteWarmers: 2
     ClothingUnderSocksStripedWhite: 2
     ClothingUniformStripedWhiteThong: 2
+    ClothingUnderSocksPrideAce: 3
+    ClothingUnderSocksPrideAro: 3
+    ClothingUnderSocksPrideBi: 3
+    ClothingUnderSocksPrideGay: 3
+    ClothingUnderSocksPrideInter: 3
+    ClothingUnderSocksPrideLesbian: 3
+    ClothingUnderSocksPrideNon: 3
+    ClothingUnderSocksPridePan: 3
+    ClothingUnderSocksPrideTrans: 3
+    ClothingHandsStripePurpleWarmers: 3
+    ClothingHandsPrideAce: 3
+    ClothingHandsPrideAro: 3
+    ClothingHandsPrideBi: 3
+    ClothingHandsPrideGay: 3
+    ClothingHandsPrideInter: 3
+    ClothingHandsPrideLesbian: 3
+    ClothingHandsPrideNon: 3
+    ClothingHandsPridePan: 3
+    ClothingHandsPrideTrans: 3
   contrabandInventory:
     ClothingNeckScarfStripedLesbianLong: 2

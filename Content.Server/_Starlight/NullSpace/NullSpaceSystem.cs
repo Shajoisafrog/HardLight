@@ -12,6 +12,8 @@ using Content.Shared._Starlight.NullSpace;
 using Content.Shared.Movement.Pulling.Systems;
 using Content.Shared.Movement.Pulling.Components;
 using Content.Server.Atmos.EntitySystems;
+using Content.Shared.Stunnable;
+using Robust.Shared.Player;
 
 namespace Content.Server._Starlight.NullSpace;
 
@@ -22,11 +24,14 @@ public sealed class EtherealSystem : SharedEtherealSystem
     [Dependency] private readonly EyeSystem _eye = default!;
     [Dependency] private readonly NpcFactionSystem _factions = default!;
     [Dependency] private readonly PullingSystem _pulling = default!;
+    [Dependency] private readonly EntityLookupSystem _lookup = default!;
+    [Dependency] private readonly SharedStunSystem _stun = default!;
 
     public override void Initialize()
     {
         base.Initialize();
         SubscribeLocalEvent<NullSpaceComponent, AtmosExposedGetAirEvent>(OnExpose);
+        SubscribeLocalEvent<BluespacePulseActionEvent>(OnBluespacePulse);
     }
 
     public override void OnStartup(EntityUid uid, NullSpaceComponent component, MapInitEvent args)
@@ -126,6 +131,24 @@ public sealed class EtherealSystem : SharedEtherealSystem
             return;
 
         args.Gas = null;
+        args.Handled = true;
+    }
+
+    private void OnBluespacePulse(BluespacePulseActionEvent args)
+    {
+        var radius = args.Radius;
+        var stunTime = System.TimeSpan.FromSeconds(args.StunSeconds);
+
+        var origin = args.Performer;
+        foreach (var ent in _lookup.GetEntitiesInRange(origin, radius))
+        {
+            if (!HasComp<NullSpaceComponent>(ent))
+                continue;
+
+            RemComp<NullSpaceComponent>(ent);
+            _stun.TryParalyze(ent, stunTime, true);
+        }
+
         args.Handled = true;
     }
 }

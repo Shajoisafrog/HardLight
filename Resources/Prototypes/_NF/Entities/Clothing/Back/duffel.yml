@@ -10,7 +10,7 @@
 - type: entity
   parent: ClothingBackpackDuffelSecurity
   id: ClothingBackpackDuffelNfsdBrown
-  name: TSFMC duffel
+  name: ColSec duffel
   components:
   - type: Sprite
     sprite: _NF/Clothing/Back/Duffels/nfsd_brown.rsi
@@ -48,3 +48,13 @@
   - type: Construction
     graph: NFGoblinMadeClothingBackpackDuffelTrashBlue
     node: NFGoblinMadeClothingBackpackDuffelTrashBlue
+
+- type: entity
+  parent: ClothingBackpackDuffelHolding
+  id: ClothingBackpackDuffelHoldingSleepsack
+  name: Body Bag of Holding
+  description: A padded duffelbag that opens into a localized, air-permeable pocket of bluespace. Specifically designed to carry humanoids comfortably.
+  components:
+  - type: Storage
+    grid:
+      - 0,0,20,5 # 1 wider than ClothingBackpackDuffelHolding, capable of fitting the StorableSpecies pseudoitem

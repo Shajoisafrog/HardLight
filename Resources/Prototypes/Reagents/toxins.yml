@@ -95,6 +95,9 @@
               Poison: 2
         - !type:ChemVomit
           conditions:
+          - !type:OrganType # HardLight: Prevents Synths vomiting
+            type: Synth
+            shouldHave: false
           - !type:ReagentThreshold
             min: 2
           probability: 0.2
@@ -297,6 +300,10 @@
             Radiation: 3
       - !type:ChemRerollPsionic
         bonusMultiplier: 5
+      - !type:RandomMutation # Funkystation - genetics
+        probability: .02 # Kept low as rad damage already causes mutations. May need to be removed.
+        minMutations: 1
+        maxMutations: 1
 
 - type: reagent
   id: HeartbreakerToxin
@@ -494,6 +501,12 @@
           - !type:OrganType
             type: Animal
             shouldHave: false
+          - !type:OrganType
+            type: Vox
+            shouldHave: false
+          - !type:OrganType # HardLight
+            type: Synth
+            shouldHave: false
         type: Local
         visualType: MediumCaution
         messages: [ "generic-reagent-effect-sick" ]
@@ -504,10 +517,22 @@
           - !type:OrganType
             type: Animal
             shouldHave: false
+          - !type:OrganType
+            type: Vox
+            shouldHave: false
+          - !type:OrganType # HardLight: Prevents Synths vomiting
+            type: Synth
+            shouldHave: false
       - !type:HealthChange
         conditions:
         - !type:OrganType
           type: Animal
+          shouldHave: false
+        - !type:OrganType
+            type: Vox
+            shouldHave: false
+        - !type:OrganType # HardLight
+          type: Synth
           shouldHave: false
         damage:
           types:
@@ -517,6 +542,8 @@
         - !type:OrganType
           type: Animal
           shouldHave: true
+        - !type:OrganType # HardLight
+          type: Synth
         reagent: Protein
         amount: 0.5
       - !type:AdjustReagent # Frontier: Goblin
@@ -525,6 +552,12 @@
           type: Goblin # Frontier: Goblin
         reagent: Protein # Frontier: Goblin
         amount: 0.5 # Frontier: Goblin
+      - !type:AdjustReagent
+        conditions:
+        - !type:OrganType
+          type: Vox
+        reagent: Protein
+        amount: 0.25
 
 - type: reagent
   id: Allicin
@@ -727,3 +760,19 @@
           shouldHave: false
         walkSpeedModifier: 0.4
         sprintSpeedModifier: 0.4
+
+- type: reagent
+  id: ToxinTrash
+  name: reagent-name-toxintrash
+  group: Toxins
+  desc: reagent-desc-toxintrash
+  flavor: trashy
+  physicalDesc: reagent-physical-desc-nondescript
+  metabolisms:
+    Food:
+      effects:
+      - !type:SatiateHunger
+        factor: 1
+        conditions:
+        - !type:OrganType
+          type: Vox

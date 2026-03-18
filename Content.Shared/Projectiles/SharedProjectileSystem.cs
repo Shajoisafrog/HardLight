@@ -41,6 +41,7 @@ using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Interaction;
 using Content.Shared.Inventory;
 using Content.Shared.Mobs.Components;
+using Content.Shared.Movement.Events; // Mono
 using Content.Shared.Throwing;
 using Content.Shared.Tag;
 using Content.Shared.Weapons.Ranged.Components;
@@ -67,8 +68,7 @@ public abstract partial class SharedProjectileSystem : EntitySystem
 {
     public const string ProjectileFixture = "projectile";
 
-    [Dependency] private readonly INetManager _netManager = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
+
     [Dependency] private readonly SharedAudioSystem _audio = default!;
     [Dependency] private readonly SharedColorFlashEffectSystem _color = default!;
     [Dependency] private readonly DamageableSystem _damageableSystem = default!;
@@ -79,7 +79,8 @@ public abstract partial class SharedProjectileSystem : EntitySystem
     [Dependency] private readonly SharedPhysicsSystem _physics = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly TagSystem _tag = default!;
-    [Dependency] private readonly IParallelManager _parallel = default!;
+    private static readonly string GunCanAimShooterTag = "GunCanAimShooter";
+
     [Dependency] private readonly IGameTiming _gameTiming = default!;
     [Dependency] private readonly INetManager _net = default!;
 
@@ -102,8 +103,26 @@ public abstract partial class SharedProjectileSystem : EntitySystem
         SubscribeLocalEvent<EmbeddableProjectileComponent, ActivateInWorldEvent>(OnEmbedActivate);
         SubscribeLocalEvent<EmbeddableProjectileComponent, RemoveEmbeddedProjectileEvent>(OnEmbedRemove);
         SubscribeLocalEvent<EmbeddableProjectileComponent, ComponentShutdown>(OnEmbeddableCompShutdown);
+        SubscribeLocalEvent<EmbeddableProjectileComponent, PreventCollideEvent>(EmbeddablePreventCollision);
 
         SubscribeLocalEvent<EmbeddedContainerComponent, EntityTerminatingEvent>(OnEmbeddableTermination);
+        // Subscribe to ensure MetaDataComponent on projectile entities for networking
+        SubscribeLocalEvent<ProjectileComponent, ComponentStartup>(OnProjectileMetaStartup);
+
+        // Mono
+        SubscribeLocalEvent<ProjectileComponent, TileFrictionEvent>(OnTileFriction);
+    }
+
+    /// <summary>
+    /// Ensures that a MetaDataComponent exists on projectiles for network serialization.
+    /// </summary>
+    private void OnProjectileMetaStartup(EntityUid uid, ProjectileComponent component, ComponentStartup args)
+    {
+        // Check if the entity still exists before trying to add a component
+        if (!EntityManager.EntityExists(uid))
+            return;
+
+        EnsureComp<MetaDataComponent>(uid);
     }
 
     private void OnStartCollide(EntityUid uid, ProjectileComponent component, ref StartCollideEvent args)
@@ -483,10 +502,23 @@ public abstract partial class SharedProjectileSystem : EntitySystem
             return;
         }
 
-        if ((component.Shooter == args.OtherEntity || component.Weapon == args.OtherEntity) &&
-            component.Weapon != null && _tag.HasTag(component.Weapon.Value, "GunCanAimShooter") &&
-            TryComp<TargetedProjectileComponent>(uid, out var targeted) && targeted.Target == args.OtherEntity)
+            if ((component.Shooter == args.OtherEntity || component.Weapon == args.OtherEntity) &&
+            component.Weapon != null && _tag.HasTag(component.Weapon.Value, GunCanAimShooterTag) &&
+            TryComp<TargetedProjectileComponent>(uid, out var targeted) && EntityManager.GetEntity(targeted.Target) == args.OtherEntity)
             return;
+    }
+
+    // Goobstation - Crawling fix
+    private void EmbeddablePreventCollision(EntityUid uid, EmbeddableProjectileComponent component, ref PreventCollideEvent args)
+    {
+        if (TryComp<RequireProjectileTargetComponent>(args.OtherEntity, out var requireTarget) && requireTarget?.Active == true)
+            args.Cancelled = true;
+    }
+
+    // Mono
+    private void OnTileFriction(Entity<ProjectileComponent> ent, ref TileFrictionEvent args)
+    {
+        args.Modifier = ent.Comp.LinearDampening;
     }
 
     public void SetShooter(EntityUid id, ProjectileComponent component, EntityUid shooterId)

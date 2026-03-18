@@ -26,13 +26,15 @@
     # - BaseStationSiliconLawCrewsimov
     - BaseStationAllEventsEligible
     - BaseStationNanotrasen
-    - BaseStationDeliveries
+    # - BaseStationDeliveries
     - BaseStationSectorServices
     - NFBaseStationCargo
     - BaseStationSectorNews
     - BaseStationSiliconLawFrontierStation
     - BaseStationRenameWarpPoints
-    - BaseStationMail
+    # - BaseStationMail
+    # - BaseStationCargoMarket # bugged
+    - BaseStationCryoTeleportation
   categories: [ HideSpawnMenu ]
   components:
     - type: Transform
@@ -43,6 +45,7 @@
     - BaseStation
     - BaseStationAlertLevels
     - BaseStationNanotrasen
+    - BaseStationCryoTeleportation
   categories: [ HideSpawnMenu ]
   components:
     - type: Transform
@@ -69,7 +72,7 @@
   - BaseStationRecords
   - BaseStationSiliconLawFrontierStation
   - BaseStationSectorNews
-  - BaseStationMail # Mail
+  # - BaseStationMail # Mail
   - BaseStationSectorServices # Hosts all sector-wide services
   - BaseStationDampening
   - BaseStationDeadDropHintExempt # No hints
@@ -81,7 +84,7 @@
   - BaseStationMagnet
   - BaseStationExpeditions
   - BaseStationNanotrasen
-  - BaseStationDeliveries
+  # - BaseStationDeliveries
   categories: [ HideSpawnMenu ]
   components:
   - type: Transform

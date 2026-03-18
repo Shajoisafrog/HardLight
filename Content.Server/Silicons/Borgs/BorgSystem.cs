@@ -5,6 +5,7 @@ using Content.Server.DeviceNetwork.Systems;
 using Content.Server.Explosion.EntitySystems;
 using Content.Server.Hands.Systems;
 using Content.Server.PowerCell;
+using Content.Server.Radio.Components;
 using Content.Shared.UserInterface;
 using Content.Shared.Access;
 using Content.Shared.Access.Components;
@@ -35,6 +36,7 @@ using Robust.Shared.Random;
 using Robust.Shared.Timing;
 using System.Linq;
 using Content.Server.Access.Systems; // Frontier
+using Robust.Shared.Prototypes;
 
 namespace Content.Server.Silicons.Borgs;
 
@@ -63,8 +65,7 @@ public sealed partial class BorgSystem : SharedBorgSystem
     [Dependency] private readonly ISharedPlayerManager _player = default!;
     [Dependency] private readonly AccessSystem _access = default!; // Frontier
 
-    [ValidatePrototypeId<JobPrototype>]
-    public const string BorgJobId = "Borg";
+    public static readonly ProtoId<JobPrototype> BorgJobId = new("Borg");
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -107,7 +108,6 @@ public sealed partial class BorgSystem : SharedBorgSystem
 
         if (TryComp<WiresPanelComponent>(uid, out var panel) && !panel.Open)
         {
-            if (brain != null || module != null)
             {
                 Popup.PopupEntity(Loc.GetString("borg-panel-not-open"), uid, args.User);
             }

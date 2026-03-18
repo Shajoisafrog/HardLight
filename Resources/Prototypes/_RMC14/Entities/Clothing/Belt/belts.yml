@@ -1,0 +1,26 @@
+- type: entity
+  parent: NFClothingBeltStorageBase
+  id: CMBeltKnife
+  name: M276 pattern knife rig
+  description: The M276 is the standard load-bearing equipment of the UNMC. It consists of a modular belt with various clips. This version is specially designed to store knives. Not commonly issued, but kept in service.
+  components:
+  - type: Sprite
+    sprite: _RMC14/Objects/Clothing/Belt/knife/jungle-classic.rsi
+  - type: Clothing
+    sprite: _RMC14/Objects/Clothing/Belt/knife/jungle-classic.rsi
+  - type: Storage
+    grid:
+    - 0,0,7,3
+    whitelist:
+      tags:
+      - Knife
+
+- type: entity
+  id: CMBeltKnifeFilled
+  parent: CMBeltKnife
+  suffix: Filled
+  components:
+  - type: StorageFill
+    contents:
+      - id: CombatKnife
+        amount: 4

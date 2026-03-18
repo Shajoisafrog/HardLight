@@ -1,0 +1,647 @@
+- type: entity
+  id: HL_LizardHead
+  parent: BaseMobCarp
+  name: lizard head
+  description: eats Wawas
+  abstract: true
+  components:
+  - type: LizardCombatSprite
+  - type: Sprite
+    sprite: _HL/Lizard/lizard.rsi
+    state: lizardheadclosed
+  - type: Tool
+    speedModifier: 1.5
+    qualities:
+      - Prying
+  - type: Prying
+    pryPowered: true
+    force: true
+    useSound:
+      path: /Audio/Items/crowbar.ogg
+  - type: MobState
+  - type: Deathgasp
+  - type: MobStateActions
+    actions:
+      Critical:
+      - ActionCritSuccumb
+      - ActionCritFakeDeath
+      - ActionCritLastWords
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      100: Critical
+      120: Dead
+  - type: SlowOnDamage
+    speedModifierThresholds:
+      95: 0.5
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 3
+    baseSprintSpeed: 4.5
+  - type: Stamina
+    critThreshold: 100
+  - type: LayingDown
+  - type: MeleeWeapon
+    altDisarm: false
+    angle: 0
+    soundHit:
+     collection: AlienClaw
+    animation: WeaponArcBite
+    damage:
+      types:
+        Blunt: 5
+        Slash: 5
+  - type: Puller
+    needsHands: false
+  - type: GhostRole
+    allowMovement: true
+    allowSpeech: true
+    makeSentient: true
+    name: ghost-role-information-rainlizard-name
+    description: ghost-role-information-rainlizard-description
+    rules: ghost-role-information-rainlizard-rules
+    raffle:
+      settings: default
+  - type: GhostTakeoverAvailable
+  - type: TypingIndicator
+    proto: alien
+  - type: NightVision
+  - type: CumProducer
+    maxVol: 250
+    reVol: 50
+    reHunger: 1
+  - type: DamageStateVisuals
+    states:
+      Alive:
+        Base: lizardheadclosed
+      Critical:
+        Base: critlizardhead
+      Dead:
+        Base: deadlizardhead
+
+- type: entity
+  id: BlueRainLizard
+  parent: HL_LizardHead
+  name: Blue Rain Lizard
+  components:
+  - type: NpcFactionMember
+    factions:
+    - Lizard
+  - type: Sprite
+    drawdepth: Mobs
+    sprite: _HL/Lizard/lizard.rsi
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: lizardheadclosed
+      scale: 0.6, 0.6
+      color: "#3363ac"
+      shader: unshaded
+  - type: Fixtures
+    fixtures: # TODO: This needs a second fixture just for mob collisions.
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.35
+        density: 10000 #Density is not final, adjust accordingly if the number of tail segments is reduced or increased
+        restitution: 0.0
+        mask:
+        - MobMask
+        layer:
+        - MobLayer
+  - type: SegmentedEntity
+    numberOfSegments: 3
+    staticOffset: 0.35
+    staticScale: 0.6
+    useTaperSystem: true
+    taperOffset: 3
+    texturePath: /Textures/_HL/Lizard/bluesegment.png
+    shaderId: unshaded
+
+- type: entity
+  id: HostileBlueRainLizard
+  parent: BlueRainLizard
+  name: hostile Blue Rain Lizard
+  components:
+  - type: HTN
+    rootTask:
+      task: LizardPullAttackCompound
+  - type: NpcFactionMember
+    factions:
+    - AgressiveLizard
+  - type: Sprite
+    drawdepth: Mobs
+    sprite: _HL/Lizard/lizard.rsi
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: lizardheadopen
+      scale: 0.6, 0.6
+      color: "#3363ac"
+      shader: unshaded
+
+- type: entity
+  id: GreenRainLizard
+  parent: HL_LizardHead
+  name: Green Rain Lizard
+  components:
+  - type: NpcFactionMember
+    factions:
+    - Lizard
+  - type: Sprite
+    drawdepth: Mobs
+    sprite: _HL/Lizard/lizard.rsi
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: lizardheadclosed
+      scale: 0.8, 0.8
+      color: "#14fc00"
+      shader: unshaded
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      130: Critical
+      160: Dead
+  - type: SlowOnDamage
+    speedModifierThresholds:
+      100: 0.5
+  - type: Stamina
+    critThreshold: 100
+  - type: MeleeWeapon
+    altDisarm: false
+    angle: 0
+    soundHit:
+     collection: AlienClaw
+    animation: WeaponArcBite
+    damage:
+      types:
+        Blunt: 6
+        Slash: 6
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 2.5
+    baseSprintSpeed: 3.5
+  - type: SegmentedEntity
+    numberOfSegments: 3
+    initialRadius: 0.5
+    staticOffset: 0.5
+    staticScale: 0.5
+    initialSegmentId: greenRainLizardInitialSegment
+    segmentId: greenRainLizardSegment
+    useTaperSystem: true
+    taperOffset: 3
+    texturePath: /Textures/_HL/Lizard/greensegment.png
+    shaderId: unshaded
+
+- type: entity
+  id: HostileGreenRainLizard
+  parent: GreenRainLizard
+  name: hostile Green Rain Lizard
+  components:
+  - type: HTN
+    rootTask:
+      task: LizardPullAttackCompound
+  - type: NpcFactionMember
+    factions:
+    - AgressiveLizard
+  - type: Sprite
+    drawdepth: Mobs
+    sprite: _HL/Lizard/lizard.rsi
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: lizardheadopen
+      scale: 0.8, 0.8
+      color: "#14fc00"
+      shader: unshaded
+
+- type: entity
+  id: PinkRainLizard
+  parent: HL_LizardHead
+  name: Pink Rain Lizard
+  components:
+  - type: NpcFactionMember
+    factions:
+    - Lizard
+  - type: Sprite
+    drawdepth: Mobs
+    sprite: _HL/Lizard/lizard.rsi
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: lizardheadclosed
+      scale: 0.8, 0.8
+      color: "#fc14a8"
+      shader: unshaded
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      130: Critical
+      150: Dead
+  - type: SlowOnDamage
+    speedModifierThresholds:
+      100: 0.5
+  - type: Stamina
+    critThreshold: 100
+  - type: MeleeWeapon
+    altDisarm: false
+    angle: 0
+    soundHit:
+     collection: AlienClaw
+    animation: WeaponArcBite
+    damage:
+      types:
+        Blunt: 7
+        Slash: 7
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 3
+    baseSprintSpeed: 3.8
+  - type: SegmentedEntity
+    numberOfSegments: 3
+    initialRadius: 0.5
+    staticOffset: 0.5
+    staticScale: 0.5
+    initialSegmentId: greenRainLizardInitialSegment
+    segmentId: greenRainLizardSegment
+    useTaperSystem: true
+    taperOffset: 3
+    texturePath: /Textures/_HL/Lizard/pinksegment.png
+    shaderId: unshaded
+
+- type: entity
+  id: HostilePinkRainLizard
+  parent: PinkRainLizard
+  name: hostile Pink Rain Lizard
+  components:
+  - type: HTN
+    rootTask:
+      task: LizardPullAttackCompound
+  - type: NpcFactionMember
+    factions:
+    - AgressiveLizard
+  - type: Sprite
+    drawdepth: Mobs
+    sprite: _HL/Lizard/lizard.rsi
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: lizardheadopen
+      scale: 0.8, 0.8
+      color: "#fc14a8"
+      shader: unshaded
+
+- type: entity
+  id: WhiteRainLizard
+  parent: HL_LizardHead
+  name: White Rain Lizard
+  components:
+  - type: NpcFactionMember
+    factions:
+    - Lizard
+  - type: Sprite
+    drawdepth: Mobs
+    sprite: _HL/Lizard/lizard.rsi
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: lizardheadclosed
+      scale: 0.9, 0.9
+      color: "#fcfcfc"
+      shader: unshaded
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      150: Critical
+      200: Dead
+  - type: SlowOnDamage
+    speedModifierThresholds:
+      130: 0.5
+  - type: Stamina
+    critThreshold: 110
+  - type: MeleeWeapon
+    altDisarm: false
+    angle: 0
+    soundHit:
+     collection: AlienClaw
+    animation: WeaponArcBite
+    damage:
+      types:
+        Blunt: 8
+        Slash: 8
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 3
+    baseSprintSpeed: 4
+  - type: SegmentedEntity
+    numberOfSegments: 3
+    initialRadius: 0.6
+    staticOffset: 0.7
+    staticScale: 0.6
+    initialSegmentId: greenRainLizardInitialSegment
+    segmentId: greenRainLizardSegment
+    useTaperSystem: true
+    taperOffset: 3
+    texturePath: /Textures/_HL/Lizard/segment.png
+    shaderId: unshaded
+  - type: Stealth
+    enabledOnDeath: false
+    maxVisibility: 1.2
+  - type: StealthOnMove
+    passiveVisibilityRate: -0.25
+    movementVisibilityRate: 0.25
+
+- type: entity
+  id: HostileWhiteRainLizard
+  parent: WhiteRainLizard
+  name: hostile White Rain Lizard
+  components:
+  - type: HTN
+    rootTask:
+      task: LizardPullAttackCompound
+  - type: NpcFactionMember
+    factions:
+    - AgressiveLizard
+  - type: Sprite
+    drawdepth: Mobs
+    sprite: _HL/Lizard/lizard.rsi
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: lizardheadopen
+      scale: 0.9, 0.9
+      color: "#fcfcfc"
+      shader: unshaded
+
+- type: entity
+  id: CyanRainLizard
+  parent: HL_LizardHead
+  name: Cyan Rain Lizard
+  components:
+  - type: NpcFactionMember
+    factions:
+    - Lizard
+  - type: Sprite
+    drawdepth: Mobs
+    sprite: _HL/Lizard/lizard.rsi
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: lizardheadclosed
+      scale: 0.8, 0.8
+      color: "#16a59c"
+      shader: unshaded
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      150: Critical
+      180: Dead
+  - type: SlowOnDamage
+    speedModifierThresholds:
+      120: 0.5
+  - type: BluespaceShunt
+    cooldownTime: 1
+  - type: Stamina
+    critThreshold: 100
+  - type: MeleeWeapon
+    altDisarm: false
+    angle: 0
+    soundHit:
+     collection: AlienClaw
+    animation: WeaponArcBite
+    damage:
+      types:
+        Blunt: 8
+        Slash: 8
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 3
+    baseSprintSpeed: 4.5
+  - type: SegmentedEntity
+    numberOfSegments: 3
+    initialRadius: 0.5
+    staticOffset: 0.6
+    staticScale: 0.5
+    initialSegmentId: greenRainLizardInitialSegment
+    segmentId: greenRainLizardSegment
+    useTaperSystem: true
+    taperOffset: 3
+    texturePath: /Textures/_HL/Lizard/backcyansegment.png
+    shaderId: unshaded
+
+- type: entity
+  id: HostileCyanRainLizard
+  parent: CyanRainLizard
+  name: hostile Cyan Rain Lizard
+  components:
+  - type: HTN
+    rootTask:
+      task: LizardPullAttackCompound
+  - type: NpcFactionMember
+    factions:
+    - AgressiveLizard
+  - type: Sprite
+    drawdepth: Mobs
+    sprite: _HL/Lizard/lizard.rsi
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: lizardheadopen
+      scale: 0.9, 0.9
+      color: "#16a59c"
+      shader: unshaded
+
+- type: entity
+  id: RedRainLizard
+  parent: HL_LizardHead
+  name: Red Rain Lizard
+  components:
+  - type: NpcFactionMember
+    factions:
+    - Lizard
+  - type: Sprite
+    drawdepth: Mobs
+    sprite: _HL/Lizard/lizard.rsi
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: lizardheadclosed
+      scale: 1.2, 1.2
+      color: "#d30f0f"
+      shader: unshaded
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      200: Critical
+      250: Dead
+  - type: SlowOnDamage
+    speedModifierThresholds:
+      190: 0.5
+  - type: Stamina
+    critThreshold: 100
+  - type: MeleeWeapon
+    altDisarm: false
+    angle: 0
+    soundHit:
+     collection: AlienClaw
+    animation: WeaponArcBite
+    damage:
+      types:
+        Blunt: 10
+        Slash: 12
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 3
+    baseSprintSpeed: 4
+  - type: SegmentedEntity
+    numberOfSegments: 3
+    initialRadius: 0.7
+    staticOffset: 1
+    staticScale: 0.8
+    initialSegmentId: RedRainLizardInitialSegment
+    segmentId: RedRainLizardSegment
+    useTaperSystem: true
+    taperOffset: 3
+    texturePath: /Textures/_HL/Lizard/redsegment.png
+    shaderId: unshaded
+
+- type: entity
+  id: HostileRedRainLizard
+  parent: RedRainLizard
+  name: hostile Red Rain Lizard
+  components:
+  - type: HTN
+    rootTask:
+      task: LizardPullAttackCompound
+  - type: NpcFactionMember
+    factions:
+    - AgressiveLizard
+  - type: Sprite
+    drawdepth: Mobs
+    sprite: _HL/Lizard/lizard.rsi
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: lizardheadopen
+      scale: 1.2, 1.2
+      color: "#d30f0f"
+      shader: unshaded
+
+- type: entity
+  id: TrainRainLizard
+  parent: HL_LizardHead
+  name: Train Lizard
+  components:
+  - type: NpcFactionMember
+    factions:
+    - Lizard
+  - type: Sprite
+    drawdepth: Mobs
+    sprite: _HL/Lizard/lizard.rsi
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: lizardheadclosed
+      scale: 1.5, 1.5
+      color: "#5432a8"
+      shader: unshaded
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      300: Critical
+      450: Dead
+  - type: SlowOnDamage
+    speedModifierThresholds:
+      290: 0.5
+  - type: Stamina
+    critThreshold: 100
+  - type: MeleeWeapon
+    altDisarm: false
+    angle: 0
+    soundHit:
+     collection: AlienClaw
+    animation: WeaponArcBite
+    damage:
+      types:
+        Blunt: 13
+        Slash: 15
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 4
+    baseSprintSpeed: 7
+  - type: SegmentedEntity
+    numberOfSegments: 3
+    initialRadius: 0.8
+    staticOffset: 1.8
+    staticScale: 0.9
+    initialSegmentId: RedRainLizardInitialSegment
+    segmentId: RedRainLizardSegment
+    useTaperSystem: true
+    taperOffset: 3
+    texturePath: /Textures/_HL/Lizard/trainsegment.png
+    shaderId: unshaded
+
+- type: entity
+  id: HostileTrainRainLizard
+  parent: TrainRainLizard
+  name: hostile Train Lizard
+  components:
+  - type: HTN
+    rootTask:
+      task: LizardPullAttackCompound
+  - type: NpcFactionMember
+    factions:
+    - AgressiveLizard
+  - type: Sprite
+    drawdepth: Mobs
+    sprite: _HL/Lizard/lizard.rsi
+    layers:
+    - map: [ "enum.DamageStateVisualLayers.Base" ]
+      state: lizardheadopen
+      scale: 1.5, 1.5
+      color: "#5432a8"
+      shader: unshaded
+
+# - type: entity
+  # id: RedRainLizardBody
+  # parent: HL_LizardBody
+  # name: Red Rain Lizard Body
+  # categories: [ HideSpawnMenu ]
+  # components:
+  # - type: Sprite
+    # sprite: _HL/Lizard/lizard.rsi
+    # scale: 1.2, 1.2
+    # layers:
+    # - map: [ "enum.DamageStateVisualLayers.Base" ]
+      # state: segment
+    # - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+      # state: fronttassle
+      # color: "#d30f0f"
+      # shader: unshaded
+  # - type: TrailFollower
+    # delay: 2
+    # smoothFactor: 0.30
+    # rotationOffsetDeg: -90
+
+# - type: entity
+  # id: RedRainLizardBody2
+  # parent: HL_LizardBody2
+  # name: Red Rain Lizard Ass
+  # categories: [ HideSpawnMenu ]
+  # components:
+  # - type: Sprite
+    # sprite: _HL/Lizard/lizard.rsi
+    # scale: 1.2, 1.2
+    # layers:
+    # - map: [ "enum.DamageStateVisualLayers.Base" ]
+      # state: segment
+    # - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+      # state: backtassle
+      # color: "#d30f0f"
+      # shader: unshaded
+  # - type: TrailFollower
+    # delay: 8
+    # smoothFactor: 0.70
+    # rotationOffsetDeg: -90
+
+# - type: entity
+  # id: RedRainLizardTail
+  # parent: HL_LizardTailTip
+  # name: Red Rain Lizard Tail
+  # categories: [ HideSpawnMenu ]
+  # components:
+  # - type: Sprite
+    # sprite: _HL/Lizard/lizard.rsi
+    # scale: 1.2, 1.2
+    # layers:
+    # - map: [ "enum.DamageStateVisualLayers.Base" ]
+      # state: tip
+    # - map: [ "enum.DamageStateVisualLayers.BaseUnshaded" ]
+      # state: tailtassle
+      # color: "#d30f0f"
+      # shader: unshaded
+  # - type: TrailFollower
+    # delay: 8
+    # smoothFactor: 0.70
+    # rotationOffsetDeg: -90

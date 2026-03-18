@@ -57,7 +57,7 @@
 - type: entity
   parent: ClothingUniformSkirtBase
   id: ClothingUniformJumpskirtNfsd
-  name: TSFMC jumpskirt
+  name: ColSec jumpskirt
   description: A long sleeved jumpskirt produced for deputy colonels. Designed to reduce chaffing between the legs for the comfort of skin, slime, scales, fluff, and wood.
   components:
   - type: Sprite
@@ -68,7 +68,7 @@
 - type: entity
   parent: ClothingUniformSkirtBase
   id: ClothingUniformJumpskirtNfsdShort
-  name: TSFMC jumpskirt
+  name: ColSec jumpskirt
   description: A short sleeved jumpskirt produced for deputy colonels. Designed to reduce chaffing between the legs for the comfort of skin, slime, scales, fluff, and wood.
   components:
   - type: Sprite
@@ -97,12 +97,12 @@
     sprite: _NF/Clothing/Uniforms/Jumpskirt/private_security.rsi
   - type: Clothing
     sprite: _NF/Clothing/Uniforms/Jumpskirt/private_security.rsi
-    
+
 - type: entity
   parent: ClothingUniformJumpskirtHoP
   id: ClothingUniformJumpskirtSr
-  name: station representative's uniform
-  description: A top of the line outfit for Frontier Outpost's station representative. No expense was spared in the tailoring, every stitch is a masterpiece. The fact this suit was even issued shows the trust Colonial Command is placing in their representative on this outpost.
+  name: Harbor Master's uniform
+  description: A top of the line outfit for the Harbor Master. No expense was spared in the tailoring, every stitch is a masterpiece. The fact this suit was even issued shows the trust Colonial Command is placing in the Harbor Master on this outpost.
   components:
   - type: Sprite
     sprite: _NF/Clothing/Uniforms/Jumpskirt/sr.rsi

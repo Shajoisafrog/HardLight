@@ -76,9 +76,10 @@ namespace Content.Server.Database
         {
             await using var db = await GetDb();
 
-            await SetSelectedCharacterSlotAsync(userId, index, db.DbContext);
-
-            await db.DbContext.SaveChangesAsync();
+            await db.DbContext.Preference
+                .Where(p => p.UserId == userId.UserId)
+                .ExecuteUpdateAsync(setters => setters
+                    .SetProperty(p => p.SelectedCharacterSlot, index));
         }
 
         public async Task SaveCharacterSlotAsync(NetUserId userId, ICharacterProfile? profile, int slot)
@@ -260,6 +261,7 @@ namespace Content.Server.Database
                 profile.CharacterName,
                 profile.FlavorText,
                 profile.Species,
+                profile.CustomSpecies,
                 profile.Age,
                 sex,
                 gender,
@@ -302,6 +304,7 @@ namespace Content.Server.Database
             profile.CharacterName = humanoid.Name;
             profile.FlavorText = humanoid.FlavorText;
             profile.Species = humanoid.Species;
+            profile.CustomSpecies = humanoid.CustomSpecies;
             profile.Age = humanoid.Age;
             profile.Sex = humanoid.Sex.ToString();
             profile.Gender = humanoid.Gender.ToString();
@@ -583,20 +586,28 @@ namespace Content.Server.Database
         {
             await using var db = await GetDb();
 
+            var consolidatedUpdates = updates
+                .GroupBy(u => (u.User.UserId, u.Tracker))
+                .Select(g => g.Last())
+                .ToArray();
+
+            if (consolidatedUpdates.Length == 0)
+                return;
+
             // Ideally I would just be able to send a bunch of UPSERT commands, but EFCore is a pile of garbage.
             // So... In the interest of not making this take forever at high update counts...
             // Bulk-load play time objects for all players involved.
             // This allows us to semi-efficiently load all entities we need in a single DB query.
             // Then we can update & insert without further round-trips to the DB.
 
-            var players = updates.Select(u => u.User.UserId).Distinct().ToArray();
+            var players = consolidatedUpdates.Select(u => u.User.UserId).Distinct().ToArray();
             var dbTimes = (await db.DbContext.PlayTime
                     .Where(p => players.Contains(p.PlayerId))
                     .ToArrayAsync())
                 .GroupBy(p => p.PlayerId)
                 .ToDictionary(g => g.Key, g => g.ToDictionary(p => p.Tracker, p => p));
 
-            foreach (var (user, tracker, time) in updates)
+            foreach (var (user, tracker, time) in consolidatedUpdates)
             {
                 if (dbTimes.TryGetValue(user.UserId, out var userTimes)
                     && userTimes.TryGetValue(tracker, out var ent))
@@ -861,10 +872,16 @@ namespace Content.Server.Database
                 .Where(player => playerIds.Contains(player.UserId))
                 .ToDictionaryAsync(player => player.UserId, player => player.Id);
 
-            foreach (var player in playerIds)
+            foreach (var player in playerIds.Distinct())
             {
+                if (!players.TryGetValue(player, out var playerDbId))
+                {
+                    _opsLog.Warning($"Skipping AddRoundPlayers link for unknown player {player} in round {id}");
+                    continue;
+                }
+
                 await db.DbContext.Database.ExecuteSqlAsync($"""
-INSERT INTO player_round (players_id, rounds_id) VALUES ({players[player]}, {id}) ON CONFLICT DO NOTHING
+INSERT INTO player_round (players_id, rounds_id) VALUES ({playerDbId}, {id}) ON CONFLICT DO NOTHING
 """);
             }
 
@@ -946,6 +963,28 @@ INSERT INTO player_round (players_id, rounds_id) VALUES ({players[player]}, {id}
                 try
                 {
                     await using var db = await GetDb();
+                    
+                    // Get all unique player IDs referenced in these logs
+                    var playerIds = logs
+                        .SelectMany(log => log.Players)
+                        .Select(p => p.PlayerUserId)
+                        .Distinct()
+                        .ToList();
+
+                    // Get existing players from database
+                    var existingPlayerIds = await db.DbContext.Player
+                        .Where(p => playerIds.Contains(p.UserId))
+                        .Select(p => p.UserId)
+                        .ToListAsync();
+
+                    var existingSet = new HashSet<Guid>(existingPlayerIds);
+
+                    // Remove admin log player entries for players that don't exist in the database
+                    foreach (var log in logs)
+                    {
+                        log.Players.RemoveAll(p => !existingSet.Contains(p.PlayerUserId));
+                    }
+
                     db.DbContext.AdminLog.AddRange(logs);
                     await db.DbContext.SaveChangesAsync();
                     _opsLog.Debug($"Successfully saved {logs.Count} admin logs.");

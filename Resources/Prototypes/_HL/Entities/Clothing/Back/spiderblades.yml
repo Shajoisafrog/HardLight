@@ -2,7 +2,7 @@
   parent: Clothing
   id: ArachneSpiderBlades
   name: Arachne's Spider Blades
-  suffix: admin spawn only
+  suffix: Arachne
   description: A set of retractable spider-leg-like blades that extend from a mechanism on the user's back. They look deadly sharp.
   components:
   - type: Sprite

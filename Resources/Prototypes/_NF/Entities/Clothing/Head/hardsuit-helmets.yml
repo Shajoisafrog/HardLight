@@ -100,8 +100,8 @@
   parent: NFClothingHeadHardsuitWithLightBaseNfsd
   id: ClothingHeadHelmetHardsuitNfsdBronze
   categories: [ HideSpawnMenu ]
-  name: TSFMC M73 tacsuit helmet
-  description: An armored tacsuit helmet used by the TSFMC.
+  name: ColSec M73 tacsuit helmet
+  description: An armored tacsuit helmet used by the ColSec.
   components:
   - type: Sprite
     sprite: _NF/Clothing/Head/Hardsuits/nfsd.rsi
@@ -140,8 +140,8 @@
 - type: entity
   parent: ClothingHeadHelmetHardsuitNfsdBronze
   id: ClothingHeadHelmetHardsuitNfsdBrigmedic
-  name: TSFMC M73-C tacsuit helmet
-  description: An armored tacsuit helmet used by the TSFMC.
+  name: ColSec M73-C tacsuit helmet
+  description: An armored tacsuit helmet used by the ColSec.
   categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
@@ -152,8 +152,8 @@
 - type: entity
   parent: ClothingHeadHelmetHardsuitNfsdBronze
   id: ClothingHeadHelmetHardsuitNfsdSheriff
-  name: TSFMC M92 tacsuit helmet
-  description: An armored tacsuit helmet used by the TSFMC.
+  name: ColSec M92 tacsuit helmet
+  description: An armored tacsuit helmet used by the ColSec.
   categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
@@ -165,8 +165,8 @@
   parent: NFClothingHeadHardsuitWithLightBaseNfsd
   id: ClothingHeadHelmetHardsuitNfsdExperimental
   categories: [ HideSpawnMenu ]
-  name: TSFMC M92-X tacsuit helmet
-  description: Heavily armored hardsuit helmet for TSFMC raids.
+  name: ColSec M92-X tacsuit helmet
+  description: Heavily armored hardsuit helmet for ColSec raids.
   components:
   - type: Sprite
     sprite: _NF/Clothing/Head/Hardsuits/nfsd_experimental.rsi
@@ -188,8 +188,8 @@
   parent: NFClothingHeadHardsuitWithLightBaseNfsd
   id: ClothingHeadHelmetHardsuitNfsdCombat
   categories: [ HideSpawnMenu ]
-  name: TSFMC M93 tacsuit helmet
-  description: Medium armored hardsuit helmet for TSFMC raids.
+  name: ColSec M93 tacsuit helmet
+  description: Medium armored hardsuit helmet for ColSec raids.
   components:
   - type: Sprite
     sprite: _NF/Clothing/Head/Hardsuits/nfsd_combat.rsi
@@ -213,8 +213,8 @@
   parent: NFClothingHeadHardsuitWithLightBaseNfsd
   id: ClothingHeadHelmetHardsuitNfsdCommand
   categories: [ HideSpawnMenu ]
-  name: TSFMC M93-C tacsuit helmet
-  description: Medium armored hardsuit helmet for TSFMC raids.
+  name: ColSec M93-C tacsuit helmet
+  description: Medium armored hardsuit helmet for ColSec raids.
   components:
   - type: Sprite
     sprite: _NF/Clothing/Head/Hardsuits/nfsd_command.rsi

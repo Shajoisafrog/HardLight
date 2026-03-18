@@ -1,63 +1,13 @@
-// SPDX-FileCopyrightText: 2019 Injazz
-// SPDX-FileCopyrightText: 2020 Víctor Aguilera Puerto
-// SPDX-FileCopyrightText: 2020 chairbender
-// SPDX-FileCopyrightText: 2021 Acruid
-// SPDX-FileCopyrightText: 2021 DrSmugleaf
-// SPDX-FileCopyrightText: 2021 Javier Guardia Fernández
-// SPDX-FileCopyrightText: 2021 Paul
-// SPDX-FileCopyrightText: 2021 Vera Aguilera Puerto
-// SPDX-FileCopyrightText: 2021 metalgearsloth
-// SPDX-FileCopyrightText: 2021 mirrorcult
-// SPDX-FileCopyrightText: 2022 Alex Evgrashin
-// SPDX-FileCopyrightText: 2022 Chris V
-// SPDX-FileCopyrightText: 2022 EmoGarbage404
-// SPDX-FileCopyrightText: 2022 Jack Fox
-// SPDX-FileCopyrightText: 2022 Júlio César Ueti
-// SPDX-FileCopyrightText: 2022 Moony
-// SPDX-FileCopyrightText: 2022 Paul Ritter
-// SPDX-FileCopyrightText: 2022 ScalyChimp
-// SPDX-FileCopyrightText: 2022 Snowni
-// SPDX-FileCopyrightText: 2022 keronshb
-// SPDX-FileCopyrightText: 2022 themias
-// SPDX-FileCopyrightText: 2022 wrexbe
-// SPDX-FileCopyrightText: 2023 AJCM
-// SPDX-FileCopyrightText: 2023 AlexMorgan3817
-// SPDX-FileCopyrightText: 2023 Arendian
-// SPDX-FileCopyrightText: 2023 Doru991
-// SPDX-FileCopyrightText: 2023 Emisse
-// SPDX-FileCopyrightText: 2023 Kara
-// SPDX-FileCopyrightText: 2023 Pieter-Jan Briers
-// SPDX-FileCopyrightText: 2023 Slava0135
-// SPDX-FileCopyrightText: 2023 Visne
-// SPDX-FileCopyrightText: 2023 Vordenburg
-// SPDX-FileCopyrightText: 2023 checkraze
-// SPDX-FileCopyrightText: 2023 eclips_e
-// SPDX-FileCopyrightText: 2024 Aexxie
-// SPDX-FileCopyrightText: 2024 Cojoke
-// SPDX-FileCopyrightText: 2024 Dvir
-// SPDX-FileCopyrightText: 2024 Ed
-// SPDX-FileCopyrightText: 2024 Jezithyr
-// SPDX-FileCopyrightText: 2024 KISS
-// SPDX-FileCopyrightText: 2024 Leon Friedrich
-// SPDX-FileCopyrightText: 2024 Nemanja
-// SPDX-FileCopyrightText: 2024 Plykiya
-// SPDX-FileCopyrightText: 2024 Whatstone
-// SPDX-FileCopyrightText: 2024 Winkarst
-// SPDX-FileCopyrightText: 2024 deltanedas
-// SPDX-FileCopyrightText: 2024 to4no_fix
-// SPDX-FileCopyrightText: 2025 Ark
-// SPDX-FileCopyrightText: 2025 Redrover1760
-// SPDX-FileCopyrightText: 2025 TemporalOroboros
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
 using Content.Server.Administration.Logs;
+using Content.Server.Body.Components;
 using Content.Server.Body.Systems;
+using Content.Server.Chemistry.EntitySystems;
 using Content.Server.Explosion.Components;
 using Content.Server.Flash;
 using Content.Server.Electrocution;
 using Content.Server.Pinpointer;
 using Content.Shared.Chemistry.EntitySystems;
+using Content.Shared.FixedPoint;
 using Content.Shared.Flash.Components;
 using Content.Server.Radio.EntitySystems;
 using Content.Shared.Chemistry.Components;
@@ -70,6 +20,7 @@ using Content.Shared.Interaction;
 using Content.Shared.Interaction.Events;
 using Content.Shared.Inventory;
 using Content.Shared.Mobs;
+using Robust.Shared.Timing;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Payload.Components;
 using Content.Shared.Radio;
@@ -141,6 +92,7 @@ namespace Content.Server.Explosion.EntitySystems
         [Dependency] private readonly ElectrocutionSystem _electrocution = default!;
         [Dependency] private readonly EntityWhitelistSystem _whitelist = default!;
         [Dependency] private readonly StationSystem _station = default!; // Frontier: medical insurance
+        [Dependency] private readonly BloodstreamSystem _bloodstream = default!; // used by InjectOnTrigger
 
         public override void Initialize()
         {
@@ -173,6 +125,7 @@ namespace Content.Server.Explosion.EntitySystems
             SubscribeLocalEvent<AnchorOnTriggerComponent, TriggerEvent>(OnAnchorTrigger);
             SubscribeLocalEvent<SoundOnTriggerComponent, TriggerEvent>(OnSoundTrigger);
             SubscribeLocalEvent<ShockOnTriggerComponent, TriggerEvent>(HandleShockTrigger);
+            SubscribeLocalEvent<InjectOnTriggerComponent, TriggerEvent>(HandleInjectTrigger);
             SubscribeLocalEvent<RattleComponent, TriggerEvent>(HandleRattleTrigger);
 
             SubscribeLocalEvent<TriggerWhitelistComponent, BeforeTriggerEvent>(HandleWhitelist);
@@ -212,6 +165,40 @@ namespace Content.Server.Explosion.EntitySystems
 
             _electrocution.TryDoElectrocution(containerEnt, null, shockOnTrigger.Comp.Damage, shockOnTrigger.Comp.Duration, true);
             shockOnTrigger.Comp.NextTrigger = curTime + shockOnTrigger.Comp.Cooldown;
+        }
+
+        private void HandleInjectTrigger(Entity<InjectOnTriggerComponent> inject, ref TriggerEvent args)
+        {
+            // identical container lookup used by ShockOnTrigger: the container owning the
+            // clothing/responder component will be the mob wearing the item.
+            if (!_container.TryGetContainingContainer(inject.Owner, out var container))
+                return;
+
+            var wearer = container.Owner;
+            var now = _timing.CurTime;
+
+            if (now < inject.Comp.NextTrigger)
+                return;
+
+            // wearer needs a bloodstream in order to receive reagents
+            if (!TryComp<BloodstreamComponent>(wearer, out var bloodstream))
+                return;
+
+            // the source solution must exist on the clothing item; we need both the
+            // entity reference (for SplitSolution) and the actual Solution struct.
+            if (!_solutionContainerSystem.TryGetSolution(inject.Owner, inject.Comp.Solution, out var solEntityEnt, out var solEntity))
+                return;
+
+            // split off the requested volume.  If the solution was empty nothing happens.
+            var split = _solutionContainerSystem.SplitSolution(solEntityEnt.Value, inject.Comp.Amount);
+            if (split.Volume <= 0)
+            {
+                inject.Comp.NextTrigger = now + inject.Comp.Cooldown; // still go on cooldown
+                return;
+            }
+
+            _bloodstream.TryAddToChemicals(wearer, split, bloodstream);
+            inject.Comp.NextTrigger = now + inject.Comp.Cooldown;
         }
 
         private void OnAnchorTrigger(EntityUid uid, AnchorOnTriggerComponent component, TriggerEvent args)

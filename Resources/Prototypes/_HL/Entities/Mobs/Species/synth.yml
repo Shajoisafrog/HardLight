@@ -1,0 +1,191 @@
+- type: entity
+  parent: [ BaseMobSpecies, MobBloodstream, MobAtmosExposed, MobFlammable ]
+  id: BaseMobSynth
+  name: Urist McSynth
+  save: false
+  abstract: true
+  components:
+  - type: Sprite
+  - type: Icon # It will not have an icon in the adminspawn menu without this. Body parts seem fine for whatever reason.
+    sprite: _HL/Mobs/Species/Synth/parts.rsi
+    state: full
+  - type: Damageable
+    damageModifierSet: Synth
+    damageContainer: Synth
+  - type: HLSynth
+  - type: Thirst
+  - type: DamageVisuals
+    damageOverlayGroups:
+      Brute:
+        sprite: Mobs/Effects/brute_damage.rsi
+        color: "#8afffd"
+  - type: ZombieImmune
+  - type: Sanitized
+  - type: Uncloneable
+  - type: Puller
+    needsHands: false
+  - type: HumanoidAppearance
+    species: Synth
+  - type: Body
+    prototype: Synth
+  - type: MeleeWeapon
+    soundHit:
+      collection: Punch
+    angle: 30
+    animation: WeaponArcFist
+    damage:
+      types:
+        Blunt: 8 # Synths hit hard.
+  - type: Inventory
+    speciesId: synth
+    displacements:
+      head:
+        sizeMaps:
+          32:
+            sprite: _HL/Mobs/Species/Synth/displacement.rsi
+            state: head
+      mask:
+        sizeMaps:
+          32:
+            sprite: _HL/Mobs/Species/Synth/displacement.rsi
+            state: mask
+      back:
+        sizeMaps:
+          32:
+            sprite: _HL/Mobs/Species/Synth/displacement.rsi
+            state: back
+      outerClothing:
+        sizeMaps:
+          32:
+            sprite: _HL/Mobs/Species/Synth/displacement.rsi
+            state: outerclothing
+      jumpsuit:
+        sizeMaps:
+          32:
+            sprite: _HL/Mobs/Species/Synth/displacement.rsi
+            state: jumpsuit
+      hand:
+        sizeMaps:
+          32:
+            sprite: _HL/Mobs/Species/Synth/displacement.rsi
+            state: hand
+      shoes:
+        sizeMaps:
+          32:
+            sprite: _HL/Mobs/Species/Synth/displacement.rsi
+            state: shoes
+  - type: Carriable # Frontier: Carrying system from nyanotrasen.
+  - type: TypingIndicator # Mono
+    proto: robot
+  - type: Speech # Frontier
+    speechVerb: Robotic
+    speechSounds: Borg
+    allowedEmotes: [ 'Thump', 'Purr', 'Beep', 'Ping', 'Buzz' ] # Frontier + Protogen & Reptilian stuff
+  - type: Vocal # Mono
+    sounds:
+      Male: UnisexSilicon
+      Female: UnisexSilicon
+      Unsexed: UnisexSilicon
+  - type: BodyEmotes
+    soundsId: ReptilianBodyEmotes
+  - type: WiresPanel
+    openingTool: Operating
+  - type: ContainerContainer
+    containers:
+      key_slots: !type:Container
+  - type: EncryptionKeyHolder
+    keySlots: 10
+    examineWhileLocked: false
+    preserveExistingChannels: true
+    intrinsicChannels:
+    - Binary
+  - type: IntrinsicRadioReceiver
+  - type: IntrinsicRadioTransmitter
+    intrinsicChannels:
+    - Binary
+  - type: ActiveRadio
+    intrinsicChannels:
+    - Binary
+  - type: Bloodstream
+    bloodReagent: InertNanites
+    bloodRefreshAmount: 0.0
+  - type: HLBloodLevelPassiveDamage
+    allowedStates:
+    - Alive
+    - Critical
+    allowedDamageGroups:
+    - Brute
+    - Burn
+    bloodLevelDecrease: 1.1
+    damage:
+      groups:
+        Brute: -7
+        Burn: -7
+  - type: BlockInjection
+    blockHypospray: true
+    blockInjectOnProjectile: true
+  - type: Temperature
+    heatDamageThreshold: 475
+    coldDamageThreshold: 55
+    coldDamage:
+      types:
+        Cold: 0.1 #per second, scales with temperature & other constants
+    heatDamage:
+      types:
+        Heat: 1.5 #per second, scales with temperature & other constants
+  - type: Barotrauma
+    damage:
+      types:
+        Blunt: 0.3 #per second, scales with pressure and other constants.
+  - type: TemperatureSpeed
+    thresholds:
+      100: 0.7
+      75: 0.4
+      55: 0.2
+  - type: LayingDown
+  - type: OfferItem # HL
+
+- type: entity
+  parent: BaseSpeciesDummy
+  id: MobSynthDummy
+  name: Synth Dummy
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Inventory
+    speciesId: synth
+    displacements:
+      head:
+        sizeMaps:
+          32:
+            sprite: _HL/Mobs/Species/Synth/displacement.rsi
+            state: head
+      mask:
+        sizeMaps:
+          32:
+            sprite: _HL/Mobs/Species/Synth/displacement.rsi
+            state: mask
+      back:
+        sizeMaps:
+          32:
+            sprite: _HL/Mobs/Species/Synth/displacement.rsi
+            state: back
+      outerClothing:
+        sizeMaps:
+          32:
+            sprite: _HL/Mobs/Species/Synth/displacement.rsi
+            state: outerclothing
+      jumpsuit:
+        sizeMaps:
+          32:
+            sprite: _HL/Mobs/Species/Synth/displacement.rsi
+            state: jumpsuit
+      hand:
+        sizeMaps:
+          32:
+            sprite: _HL/Mobs/Species/Synth/displacement.rsi
+            state: hand
+      shoes:
+        sizeMaps:
+          32:
+            sprite: _HL/Mobs/Species/Synth/displacement.rsi
+            state: shoes

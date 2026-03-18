@@ -292,6 +292,9 @@ public sealed partial class ShuttleMapControl : BaseShuttleControl
 
         var exclusionColor = Color.Red;
 
+        // Draw safe zone ring at station origin
+        DrawSafeZoneRing(handle, matty);
+
         // Exclusions need a bumped range so we check all the ones on the map.
         foreach (var mapObj in mapObjects)
         {
@@ -778,5 +781,24 @@ public sealed partial class ShuttleMapControl : BaseShuttleControl
         var dimensions = handle.GetDimensions(font, text, 1f);
         var position = new Vector2(15f, Height - dimensions.Y - 15f);
         handle.DrawString(font, position, text, color);
+    }
+
+    private void DrawSafeZoneRing(DrawingHandleScreen handle, Matrix3x2 matty)
+    {
+        const float SafeZoneRadius = 5000f;
+        var safeZoneColor = Color.LimeGreen.WithAlpha(0.8f);
+        
+        // Assume station is at origin (0,0) in map coordinates
+        var stationPos = Vector2.Zero;
+        
+        // Transform station position to local view coordinates
+        var adjustedPos = Vector2.Transform(stationPos, matty);
+        var localPos = ScalePosition(adjustedPos with { Y = -adjustedPos.Y });
+        
+        // Scale the radius according to the minimap scale
+        var scaledRadius = SafeZoneRadius * MinimapScale;
+        
+        // Draw the ring
+        handle.DrawCircle(localPos, scaledRadius, safeZoneColor, filled: false);
     }
 }

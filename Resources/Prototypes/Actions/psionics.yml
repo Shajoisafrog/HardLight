@@ -43,6 +43,11 @@
     checkCanAccess: false
     range: 8
     itemIconStyle: BigAction
+    canTargetSelf: false
+    whitelist:
+      components:
+        - Damageable
+        - MobState
     blacklist:
       components:
         - PsionicInsulation

@@ -1,0 +1,17 @@
+- type: entity
+  id: BorgModuleStorage
+  parent: [ BaseBorgModule, BaseProviderBorgModule ]
+  name: storage cyborg module
+  components:
+  - type: Item
+    size: Ginormous
+  - type: Sprite
+    layers:
+    - { sprite: Objects/Specific/Robotics/borgmodule.rsi, state: generic }
+    - { sprite: _HL/Objects/Specific/Robotics/borgmodule.rsi, state: icon-storage }
+  - type: ItemBorgModule
+    moduleId: Storage
+    items:
+    - ClothingBackpackHolding
+  - type: BorgModuleIcon
+    icon: { sprite: _HL/Interface/Actions/actions_borg.rsi, state: storage-module }

@@ -1,0 +1,8 @@
+- type: damageContainer
+  id: Synth
+  supportedGroups:
+  - Brute
+  - Burn
+  - Toxin
+  supportedTypes:
+  - Bloodloss

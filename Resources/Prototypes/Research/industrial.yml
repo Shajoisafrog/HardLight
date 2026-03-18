@@ -17,6 +17,7 @@
   - BorgModuleGrapplingGun
   - OreProcessorIndustrialMachineCircuitboard
   - ClothingMaskWeldingGas
+  - ClothingShoesBootsJump
   - MechEquipmentDrill # Goobstation
 
 - type: technology
@@ -274,6 +275,7 @@
   - NFBlueprintClothingBackpackSatchelHolding # Frontier
   - NFBlueprintClothingBackpackDuffelHolding # Frontier
   - NFBlueprintClothingBackpackMessengerHolding # Frontier
+  - BorgModuleStorage # HardLight
 
 - type: technology
   id: PortableFission

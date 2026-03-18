@@ -609,3 +609,13 @@ InflatableWallStack: NFInflatableWallStack
 InflatableDoor: NFInflatableDoor
 InflatableDoorStack1: NFInflatableDoorStack1
 InflatableDoorStack: NFInflatableDoorStack
+
+# Removes logo from maps cuz frontier is different from standard
+# 2025-02-11 SS14 logo
+SpaceStationSign1: null
+SpaceStationSign2: null
+SpaceStationSign3: null
+SpaceStationSign4: null
+SpaceStationSign5: null
+SpaceStationSign6: null
+SpaceStationSign7: null

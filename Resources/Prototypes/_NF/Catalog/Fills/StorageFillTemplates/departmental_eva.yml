@@ -10,7 +10,7 @@
     - id: NitrogenTankFilled
     - id: ClothingOuterEVASuitContractor
     - id: ClothingMaskBreath
-    - id: JetpackMiniFilled
+
 
 - type: entity
   abstract: true
@@ -23,7 +23,7 @@
     - id: NitrogenTankFilled
     - id: ClothingOuterEVASuitPilot
     - id: ClothingMaskPilot
-    - id: JetpackMiniFilled
+
 
 - type: entity
   abstract: true
@@ -36,7 +36,7 @@
     - id: NitrogenTankFilled
     - id: ClothingOuterEVASuitSr
     - id: ClothingMaskBreath
-    - id: JetpackMiniFilled
+
 
 - type: entity
   abstract: true
@@ -49,7 +49,7 @@
     - id: NitrogenTankFilled
     - id: ClothingOuterEVASuitCaptain
     - id: ClothingMaskGasCaptain
-    - id: JetpackMiniFilled
+
 
 - type: entity
   abstract: true
@@ -62,7 +62,7 @@
     - id: NitrogenTankFilled
     - id: ClothingOuterEVASuitEngineer
     - id: ClothingMaskGas
-    - id: JetpackMiniFilled
+
 
 - type: entity
   abstract: true
@@ -75,7 +75,7 @@
     - id: NitrogenTankFilled
     - id: ClothingOuterEVASuitAtmosTech
     - id: ClothingMaskGasAtmos
-    - id: JetpackMiniFilled
+
 
 - type: entity
   abstract: true
@@ -88,7 +88,7 @@
     - id: NitrogenTankFilled
     - id: ClothingOuterEVASuitCargo
     - id: ClothingMaskBreath
-    - id: JetpackMiniFilled
+
 
 - type: entity
   abstract: true
@@ -101,7 +101,7 @@
     - id: NitrogenTankFilled
     - id: ClothingOuterEVASuitSalvage
     - id: ClothingMaskGasExplorer
-    - id: JetpackMiniFilled
+
     - id: ClothingShoesBootsMag
 
 - type: entity
@@ -115,7 +115,7 @@
     - id: NitrogenTankFilled
     - id: ClothingOuterEVASuitMedic
     - id: ClothingMaskBreathMedical
-    - id: JetpackMiniFilled
+
 
 - type: entity
   abstract: true
@@ -128,7 +128,7 @@
     - id: NitrogenTankFilled
     - id: ClothingOuterHardsuitVoidParamed
     - id: ClothingMaskBreathMedical
-    - id: JetpackMiniFilled
+
     - id: FlashlightLantern
 
 - type: entity
@@ -142,7 +142,7 @@
     - id: NitrogenTankFilled
     - id: ClothingOuterEVASuitScientist
     - id: ClothingMaskBreath
-    - id: JetpackMiniFilled
+
 
 - type: entity
   abstract: true
@@ -155,7 +155,7 @@
     - id: NitrogenTankFilled
     - id: ClothingOuterEVASuitJanitor
     - id: ClothingMaskBreath
-    - id: JetpackMiniFilled
+
 
 - type: entity
   abstract: true
@@ -168,7 +168,7 @@
     - id: NitrogenTankFilled
     - id: ClothingOuterEVASuitServiceWorker
     - id: ClothingMaskBreath
-    - id: JetpackMiniFilled
+
 
 - type: entity
   abstract: true
@@ -181,7 +181,7 @@
     - id: NitrogenTankFilled
     - id: ClothingOuterEVASuitChaplain
     - id: ClothingMaskBreath
-    - id: JetpackMiniFilled
+
     - id: Lantern
 
 - type: entity
@@ -195,7 +195,6 @@
     - id: NitrogenTankFilled
     - id: ClothingOuterEVASuitBoxerRed
     - id: ClothingMaskBreath
-    - id: JetpackMiniFilled
     - id: ClothingHandsGlovesBoxingRed
     - id: ShardCrystalRed
 
@@ -210,7 +209,6 @@
     - id: NitrogenTankFilled
     - id: ClothingOuterEVASuitBoxerGreen
     - id: ClothingMaskBreath
-    - id: JetpackMiniFilled
     - id: ClothingHandsGlovesBoxingGreen
     - id: ShardCrystalGreen
 
@@ -225,7 +223,6 @@
     - id: NitrogenTankFilled
     - id: ClothingOuterEVASuitBoxerBlue
     - id: ClothingMaskBreath
-    - id: JetpackMiniFilled
     - id: ClothingHandsGlovesBoxingBlue
     - id: ShardCrystalBlue
 
@@ -240,7 +237,6 @@
     - id: NitrogenTankFilled
     - id: ClothingOuterEVASuitBoxerYellow
     - id: ClothingMaskBreath
-    - id: JetpackMiniFilled
     - id: ClothingHandsGlovesBoxingYellow
     - id: ShardCrystalOrange
 
@@ -255,7 +251,6 @@
     - id: NitrogenTankFilled
     - id: ClothingOuterEVASuitBoxerRandom
     - id: ClothingMaskBreath
-    - id: JetpackMiniFilled
     - id: ClothingHandsGlovesBoxingBlue
     - id: ShardCrystalBlue
 
@@ -270,7 +265,7 @@
     - id: NitrogenTankFilled
     - id: ClothingOuterEVASuitHydro
     - id: ClothingMaskBreath
-    - id: JetpackMiniFilled
+
 
 - type: entity
   abstract: true
@@ -283,7 +278,7 @@
     - id: NitrogenTankFilled
     - id: ClothingOuterEVASuitMailman
     - id: ClothingMaskBreath
-    - id: JetpackMiniFilled
+
 
 - type: entity
   abstract: true
@@ -295,7 +290,7 @@
     - id: DoubleEmergencyAirTankFilled
     - id: ClothingOuterEVASuitMercenary
     - id: ClothingMaskGasMercenary
-    - id: JetpackMiniFilled
+
     - id: FlashlightSeclite
 
 - type: entity
@@ -308,13 +303,13 @@
     - id: DoubleEmergencyAirTankFilled
     - id: ClothingOuterEVASuitPrivateSec
     - id: ClothingMaskGasSecurity
-    - id: JetpackMiniFilled
+
     - id: FlashlightSeclite
 
 - type: entity
   abstract: true
   id: StorageFillEVASuitNfsd
-  description: Contains a standard issue TSFMC EVA kit.
+  description: Contains a standard issue ColSec EVA kit.
   components:
   - type: StorageFill
     contents:
@@ -336,7 +331,7 @@
     - id: NitrogenTankFilled
     - id: ClothingOuterEVASuitGoblin
     - id: ClothingMaskBreath
-    - id: JetpackMiniFilled
+
     - id: Lantern
 
 # Emergency
@@ -351,7 +346,7 @@
     - id: NitrogenTankFilled
     - id: ClothingOuterSuitEmergency
     - id: ClothingMaskBreath
-    - id: JetpackMiniFilled
+
     - id: FlashlightLantern
 
 # Player factions
@@ -366,7 +361,7 @@
     - id: NitrogenTankFilled
     - id: ClothingOuterEVASuitLvhi
     - id: ClothingMaskBreath
-    - id: JetpackMiniFilled
+
 
 - type: entity
   abstract: true
@@ -379,7 +374,7 @@
     - id: NitrogenTankFilled
     - id: ClothingOuterEVASuitFsb
     - id: ClothingMaskBreath
-    - id: JetpackMiniFilled
+
     - id: ClothingShoesBootsMag
 
 - type: entity
@@ -393,5 +388,5 @@
     - id: NitrogenTankFilled
     - id: ClothingOuterEVASuitFsc
     - id: ClothingMaskBreath
-    - id: JetpackMiniFilled
+
     - id: ClothingShoesBootsMag
