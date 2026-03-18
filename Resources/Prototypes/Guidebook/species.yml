@@ -114,7 +114,6 @@
   name: species-name-harpy
   text: "/ServerInfo/Guidebook/Mobs/_DV/Harpy.xml" # DeltaV
 
-- type: guideEntry
 - type: guideEntry # Floof - Tajaran Update b7660b9
   id: Tajaran
   name: species-name-tajaran
