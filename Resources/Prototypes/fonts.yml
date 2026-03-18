@@ -46,10 +46,6 @@
   id: OnlyYou
   path: /Fonts/Only_You.otf
 
-- type: font # Floofstation + Goobstation LRP
-  id: Chinese
-  path: /Fonts/NotoSans/NotoSansSC-Regular.ttf
-
 - type: font # Floof - Tajaran Update b7660b9
   id: Sriracha
   path: /Fonts/Sriracha/Sriracha.ttf
