@@ -39,13 +39,6 @@ chat-emote-name-wetplorp = Wet Plorp
 chat-emote-name-pullout = Pull Out
 chat-emote-name-cumin = Cum Inside
 chat-emote-name-cumout = Cum Inside
-# Felinid / Tajaran
-chat-emote-name-meow = Meow
-chat-emote-name-mew = Mew
-chat-emote-name-purr = Purr
-chat-emote-name-hisses = Hiss
-chat-emote-name-growl = Growl
-
 # Message
 chat-emote-msg-scream = screams!
 chat-emote-msg-laugh = laughs.
