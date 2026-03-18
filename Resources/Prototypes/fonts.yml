@@ -1,4 +1,8 @@
 - type: font
+  id: DefaultItalic
+  path: /Fonts/NotoSans/NotoSans-Italic.ttf
+
+- type: font
   id: DefaultBold
   path: /Fonts/NotoSans/NotoSans-Bold.ttf
 
