@@ -1,7 +1,7 @@
 - type: entity
   save: false
   name: Urist McTajaran
-  parent: [MobTajaranBase, BaseMob]
+  parent: MobTajaranBase
   id: MobTajaran
   components:
   - type: Speech
