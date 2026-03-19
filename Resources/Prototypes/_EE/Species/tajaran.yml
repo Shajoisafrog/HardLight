@@ -40,20 +40,14 @@
     UndergarmentTop:
       points: 1
       required: false
-    Genital:
-      points: 2
-      required: false
 
 - type: speciesBaseSprites
   id: MobTajaranSprites
   sprites:
-    TailBehind: MobHumanoidAnyMarking
-    TailOversuit: MobHumanoidAnyMarking
-    Special: MobHumanoidAnyMarking
     Head: MobTajaranHead
-    Hair: MobHumanoidAnyMarking
     HeadTop: MobHumanoidAnyMarking
     HeadSide: MobHumanoidAnyMarking
+    Hair: MobHumanoidAnyMarking
     FacialHair: MobHumanoidAnyMarking
     Snout: MobHumanoidAnyMarking
     UndergarmentTop: MobHumanoidAnyMarking
@@ -62,7 +56,6 @@
     Penis: MobHumanoidAnyMarking
     Breasts: MobHumanoidAnyMarking
     Chest: MobTajaranTorso
-    Tail: MobHumanoidAnyMarking
     Eyes: MobTajaranEyes
     LArm: MobTajaranLArm
     RArm: MobTajaranRArm
@@ -70,6 +63,7 @@
     RHand: MobTajaranRHand
     LLeg: MobTajaranLLeg
     RLeg: MobTajaranRLeg
+    Tail: MobHumanoidAnyMarking
     LFoot: MobTajaranLFoot
     RFoot: MobTajaranRFoot
 
