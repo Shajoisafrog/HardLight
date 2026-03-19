@@ -72,19 +72,20 @@
     - sprite: Mobs/Customization/tattoos.rsi
       state: tattoo_campbell_l_arm
 
-   - type: marking
-   id: TattooCampbellRightArm
-   bodyPart: RArm
-   markingCategory: Arms
-   speciesRestriction: [Skrell,Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Shadekin] # Frontier: added Goblin and afterwards
-   coloring:
+
+- type: marking
+  id: TattooCampbellRightArm
+  bodyPart: RArm
+  markingCategory: Arms
+  speciesRestriction: [Skrell,Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Shadekin] # Frontier: added Goblin and afterwards
+  coloring:
     default:
       type:
         !type:TattooColoring
       fallbackColor: "#666666"
-   sprites:
-   - sprite: Mobs/Customization/tattoos.rsi
-     state: tattoo_campbell_r_arm
+  sprites:
+    - sprite: Mobs/Customization/tattoos.rsi
+      state: tattoo_campbell_r_arm
 
 
 - type: marking
