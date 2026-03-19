@@ -42,19 +42,20 @@
     - sprite: Mobs/Customization/tattoos.rsi
       state: tattoo_silverburgh_l_leg
 
-   - type: marking
-   id: TattooSilverburghRightLeg
-   bodyPart: RLeg
-   markingCategory: Legs
-   speciesRestriction: [Skrell,Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Shadekin] # Frontier: added Goblin and afterwards
-   coloring:
+
+- type: marking
+  id: TattooSilverburghRightLeg
+  bodyPart: RLeg
+  markingCategory: Legs
+  speciesRestriction: [Skrell,Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Shadekin] # Frontier: added Goblin and afterwards
+  coloring:
     default:
       type:
         !type:TattooColoring
       fallbackColor: "#666666"
-   sprites:
-   - sprite: Mobs/Customization/tattoos.rsi
-     state: tattoo_silverburgh_r_leg
+  sprites:
+    - sprite: Mobs/Customization/tattoos.rsi
+      state: tattoo_silverburgh_r_leg
 
    - type: marking
    id: TattooCampbellLeftArm
