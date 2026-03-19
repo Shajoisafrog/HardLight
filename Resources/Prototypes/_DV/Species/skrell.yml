@@ -80,9 +80,6 @@
     Legs:
       points: 4
       required: false
-    Tail:
-      points: 1
-      required: false
     UndergarmentTop:
       points: 1
       required: false
