@@ -4,7 +4,7 @@
   parent: MobTajaranBase
   id: MobTajaran
   components:
--  - type: Input
-     context: "human"
--  - type: Speech
-     speechVerb: Felinid
+- type: Input
+  context: "human"
+- type: Speech
+  speechVerb: Felinid
