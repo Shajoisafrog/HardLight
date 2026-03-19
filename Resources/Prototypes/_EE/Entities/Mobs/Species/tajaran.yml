@@ -53,7 +53,8 @@
         Slash: 4
         Piercing: 1
   - type: Speech
-    speechSounds: Alto
+    speechVerb: Felinid
+    allowedEmotes: ['Mew', 'Hiss', 'Meow', 'Growl', 'Purr', 'Trill']
   - type: DamageOnHighSpeedImpact # Landing on all fours!
     damage:
       types:
