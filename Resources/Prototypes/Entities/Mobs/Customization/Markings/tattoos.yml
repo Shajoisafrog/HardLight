@@ -124,7 +124,6 @@
   coloring:
     default:
       type: !type:EyeColoring
-      negative: true
   sprites:
     - sprite: Mobs/Customization/tattoos.rsi
       state: tattoo_eye_r
@@ -137,7 +136,6 @@
   coloring:
     default:
       type: !type:EyeColoring
-      negative: true
   sprites:
     - sprite: Mobs/Customization/tattoos.rsi
       state: tattoo_eye_l
@@ -150,7 +148,6 @@
   coloring:
     default:
       type: !type:EyeColoring
-      negative: true
   sprites:
     - sprite: Mobs/Customization/tattoos.rsi
       state: tattoo_eye_moth_r
@@ -163,7 +160,6 @@
   coloring:
     default:
       type: !type:EyeColoring
-      negative: true
   sprites:
     - sprite: Mobs/Customization/tattoos.rsi
       state: tattoo_eye_moth_l
