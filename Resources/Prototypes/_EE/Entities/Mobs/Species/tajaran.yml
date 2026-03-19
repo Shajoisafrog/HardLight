@@ -87,10 +87,10 @@
     currentTemperature: 311.76  # Body temperature of cat
     heatDamage:
       types:
-        Cold: 0.65 # in line with cold resist
+        Heat: 0.65 # in line with cold resist
     coldDamage:
       types:
-        Heat: 2 # poor kitty
+        Cold: 2 # poor kitty
   - type: ThermalRegulator
     normalBodyTemperature: 311.76
 
