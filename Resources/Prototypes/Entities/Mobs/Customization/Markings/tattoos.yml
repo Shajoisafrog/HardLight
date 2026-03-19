@@ -10,7 +10,7 @@
       fallbackColor: "#666666"
    sprites:
    - sprite: Mobs/Customization/tattoos.rsi
-   state: tattoo_hive_chest
+     state: tattoo_hive_chest
 
    - type: marking
    id: TattooNightlingChest
