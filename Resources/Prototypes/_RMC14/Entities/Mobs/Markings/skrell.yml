@@ -195,7 +195,7 @@
   bodyPart: Tail # Cursed
   markingCategory: Special
   speciesRestriction: [Skrell]
-  forcedColoring: true
+  forcedColoring: false
   RMCFollowSkinColor: false
   followSkinColor: false
 
@@ -209,7 +209,7 @@
   bodyPart: Tail # Cursed
   markingCategory: Special
   speciesRestriction: [Skrell]
-  forcedColoring: true
+  forcedColoring: false
   RMCFollowSkinColor: false
   followSkinColor: false
   sprites:
@@ -223,7 +223,7 @@
   bodyPart: Tail # Cursed
   markingCategory: Special
   speciesRestriction: [Skrell]
-  forcedColoring: true
+  forcedColoring: false
   RMCFollowSkinColor: false
   followSkinColor: false
   sprites:
@@ -248,7 +248,7 @@
   bodyPart: Tail # Cursed
   markingCategory: Special
   speciesRestriction: [Skrell]
-  forcedColoring: true
+  forcedColoring: false
   RMCFollowSkinColor: false
   followSkinColor: false
   sprites:
@@ -262,7 +262,7 @@
   bodyPart: Tail # Cursed
   markingCategory: Special
   speciesRestriction: [Skrell]
-  forcedColoring: true
+  forcedColoring: false
   RMCFollowSkinColor: false
   followSkinColor: false
   sprites:
@@ -276,7 +276,7 @@
   bodyPart: Tail # Cursed
   markingCategory: Special
   speciesRestriction: [Skrell]
-  forcedColoring: true
+  forcedColoring: false
   RMCFollowSkinColor: false
   followSkinColor: false
   sprites:
