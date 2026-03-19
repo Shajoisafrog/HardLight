@@ -1,5 +1,4 @@
-  speciesRestriction: [Skrell, Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Tajaran] # Frontier: added Felinid, Oni, Goblin, Rodentia
-- type: marking
+ - type: marking
   id: TattooHiveChest
   bodyPart: Chest
   markingCategory: Chest
@@ -13,7 +12,7 @@
   - sprite: Mobs/Customization/tattoos.rsi
     state: tattoo_hive_chest
 
-- type: marking
+  - type: marking
   id: TattooNightlingChest
   bodyPart: Chest
   markingCategory: Chest
@@ -27,7 +26,7 @@
   - sprite: Mobs/Customization/tattoos.rsi
     state: tattoo_nightling
 
-- type: marking
+  - type: marking
   id: TattooSilverburghLeftLeg
   bodyPart: LLeg
   markingCategory: Legs
@@ -41,7 +40,7 @@
   - sprite: Mobs/Customization/tattoos.rsi
     state: tattoo_silverburgh_l_leg
 
-- type: marking
+  - type: marking
   id: TattooSilverburghRightLeg
   bodyPart: RLeg
   markingCategory: Legs
@@ -55,7 +54,7 @@
   - sprite: Mobs/Customization/tattoos.rsi
     state: tattoo_silverburgh_r_leg
 
-- type: marking
+  - type: marking
   id: TattooCampbellLeftArm
   bodyPart: LArm
   markingCategory: Arms
@@ -69,7 +68,7 @@
   - sprite: Mobs/Customization/tattoos.rsi
     state: tattoo_campbell_l_arm
 
-- type: marking
+  - type: marking
   id: TattooCampbellRightArm
   bodyPart: RArm
   markingCategory: Arms
@@ -83,7 +82,7 @@
   - sprite: Mobs/Customization/tattoos.rsi
     state: tattoo_campbell_r_arm
 
-- type: marking
+  - type: marking
   id: TattooCampbellLeftLeg
   bodyPart: LLeg
   markingCategory: Legs
@@ -97,7 +96,7 @@
   - sprite: Mobs/Customization/tattoos.rsi
     state: tattoo_campbell_l_leg
 
-- type: marking
+  - type: marking
   id: TattooCampbellRightLeg
   bodyPart: RLeg
   markingCategory: Legs
@@ -111,58 +110,54 @@
   - sprite: Mobs/Customization/tattoos.rsi
     state: tattoo_campbell_r_leg
 
-- type: marking
+  - type: marking
   id: TattooEyeRight
   bodyPart: Eyes
   markingCategory: Head
   speciesRestriction: [Skrell,Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Shadekin] # Frontier: added Goblin and afterwards
   coloring:
     default:
-      type:
-        !type:EyeColoring
-          negative: true
+      type: !type:EyeColoring
+      negative: true
   sprites:
   - sprite: Mobs/Customization/tattoos.rsi
     state: tattoo_eye_r
 
-- type: marking
+  - type: marking
   id: TattooEyeLeft
   bodyPart: Eyes
   markingCategory: Head
   speciesRestriction: [Skrell,Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Shadekin] # Frontier: added Goblin and afterwards
   coloring:
     default:
-      type:
-        !type:EyeColoring
-          negative: true
+      type: !type:EyeColoring
+      negative: true
   sprites:
   - sprite: Mobs/Customization/tattoos.rsi
     state: tattoo_eye_l
 
-- type: marking
+  - type: marking
   id: TattooEyeMothRight
   bodyPart: Eyes
   markingCategory: Overlay
   speciesRestriction: [Skrell,Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Shadekin] # Frontier: added Goblin and afterwards
   coloring:
     default:
-      type:
-        !type:EyeColoring
-          negative: true
+      type: !type:EyeColoring
+      negative: true
   sprites:
   - sprite: Mobs/Customization/tattoos.rsi
     state: tattoo_eye_moth_r
 
-- type: marking
+  - type: marking
   id: TattooEyeMothLeft
   bodyPart: Eyes
   markingCategory: Overlay
   speciesRestriction: [Skrell,Thaven, Dwarf, Diona, Human, SlimePerson, Felinid, Oni, Harpy, Reptilian, Vulpkanin, Rodentia, Goblin, Sheleg, IPC, Feroxi, Moth, Arachnid, Kitsune, Chitinid, Shadekin] # Frontier: added Goblin and afterwards
   coloring:
     default:
-      type:
-        !type:EyeColoring
-          negative: true
+      type: !type:EyeColoring
+      negative: true
   sprites:
   - sprite: Mobs/Customization/tattoos.rsi
     state: tattoo_eye_moth_l
