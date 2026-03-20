@@ -8,7 +8,7 @@
     speciesId: quadborg
     templateId: borgquad #Hardlight - Changes Quadborgs over to use our armor slots
   - type: Sprite
-    sprite: Floof/Mobs/Silicon/quad.rsi
+    sprite: _HL/Mobs/Player/borgs/quads.rsi
     scale: 0.7, 0.7
     layers:
     - state: quadsprite
@@ -77,7 +77,7 @@
     noMindState: quadspriter
   - type: BorgTransponder
     sprite:
-      sprite: Floof/Mobs/Silicon/quad.rsi
+      sprite: _HL/Mobs/Player/borgs/quads.rsi
       state: quadsprite
     name: cyborg
   - type: Construction
@@ -111,7 +111,7 @@
   parent: [BorgChassisQuad, ShowSecurityIcons]
   components:
   - type: Sprite
-    sprite: Floof/Mobs/Silicon/quad.rsi
+    sprite: _HL/Mobs/Player/borgs/quads.rsi
     scale: 0.7, 0.7
     layers:
     - state: quadsprite
@@ -184,7 +184,7 @@
   parent: [BorgChassisQuad, BaseBorgChassisSyndicate]
   components:
   - type: Sprite
-    sprite: Floof/Mobs/Silicon/quad.rsi
+    sprite: _HL/Mobs/Player/borgs/quads.rsi
     scale: 0.7, 0.7
     layers:
     - state: SyndQuad
@@ -246,7 +246,7 @@
     access: [["NuclearOperative"], ["SyndicateAgent"]]
   - type: BorgTransponder
     sprite:
-      sprite: Floof/Mobs/Silicon/quad.rsi
+      sprite: _HL/Mobs/Player/borgs/quads.rsi
       state: SyndQuad
     name: cyborg
   - type: SpriteStateToggle
@@ -262,7 +262,7 @@
   parent: BorgChassisQuad
   components:
   - type: Sprite
-    sprite: Floof/Mobs/Silicon/quad.rsi
+    sprite: _HL/Mobs/Player/borgs/quads.rsi
     scale: 0.7, 0.7
     layers:
     - state: quadspriteCC
@@ -359,7 +359,7 @@
   parent: BorgChassisQuad
   components:
   - type: Sprite
-    sprite: Floof/Mobs/Silicon/quad.rsi
+    sprite: _HL/Mobs/Player/borgs/quads.rsi
     scale: 0.7, 0.7
     layers:
     - state: quadspritesalv
@@ -428,7 +428,7 @@
   parent: BorgChassisQuad
   components:
   - type: Sprite
-    sprite: Floof/Mobs/Silicon/quad.rsi
+    sprite: _HL/Mobs/Player/borgs/quads.rsi
     scale: 0.7, 0.7
     layers:
     - state: quadspriteserv
@@ -498,7 +498,7 @@
   parent: BorgChassisQuad
   components:
   - type: Sprite
-    sprite: Floof/Mobs/Silicon/quad.rsi
+    sprite: _HL/Mobs/Player/borgs/quads.rsi
     scale: 0.7, 0.7
     layers:
     - state: engieborg
@@ -572,7 +572,7 @@
   parent: [BorgChassisQuad, ShowMedicalIcons]
   components:
   - type: Sprite
-    sprite: Floof/Mobs/Silicon/quad.rsi
+    sprite: _HL/Mobs/Player/borgs/quads.rsi
     scale: 0.7, 0.7
     layers:
     - state: quadspritemed
@@ -665,7 +665,7 @@
   parent: BorgChassisQuadCC
   components:
   - type: Sprite
-    sprite: Floof/Mobs/Silicon/quad.rsi
+    sprite: _HL/Mobs/Player/borgs/quads.rsi
     scale: 0.7, 0.7
     layers:
     - state: Apex
@@ -681,7 +681,7 @@
   - type: SpriteMovement
     movementLayers:
       movement:
-        state: apex_moving
+        state: Apex_moving
     noMovementLayers:
       movement:
         state: Apex
@@ -708,7 +708,7 @@
     spriteLayer: movement
     stateOff: Apex
     stateOn: Apexballz
-    movementStateOff: apex_moving
+    movementStateOff: Apex_moving
     movementStateOn: Apex_movingballz
 
 - type: entity
@@ -716,12 +716,12 @@
   parent: BorgChassisQuadCC
   components:
   - type: Sprite
-    sprite: Floof/Mobs/Silicon/quad.rsi
+    sprite: _HL/Mobs/Player/borgs/quads.rsi
     scale: 0.7, 0.7
     layers:
-    - state: Chip
+    - state: chip_quadsprite
       map: ["movement"]
-    - state: quadspritechip
+    - state: quadspritel
       map: ["enum.BorgVisualLayers.Light"]
       shader: unshaded
       visible: false
@@ -732,10 +732,10 @@
   - type: SpriteMovement
     movementLayers:
       movement:
-        state: chip_moving
+        state: chip_quadsprite_moving
     noMovementLayers:
       movement:
-        state: Chip
+        state: chip_quadsprite
   - type: BorgChassis
     maxModules: 10
     moduleWhitelist:
@@ -755,6 +755,13 @@
     access: [["CentralCommand"]]
   - type: SiliconLawProvider
     laws: Qborg
+  - type: SpriteStateToggle
+    spriteLayer: movement
+    stateOff: chip_quadsprite
+    stateOn: chip_quadspriteballz
+    movementStateOff: chip_quadsprite
+    movementStateOn: chip_quadsprite_movingballz
+
   # Note: No toggle added here; no provided Chip ballz states.
 
 - type: entity
@@ -769,7 +776,7 @@
   - type: BorgTransponder
     name: Quad xenoborg
     sprite:
-      sprite: Floof/Mobs/Silicon/quad.rsi
+      sprite: _HL/Mobs/Player/borgs/quads.rsi
       state: XenoQuad
   - type: BorgChassis
     maxModules: 10
@@ -808,7 +815,7 @@
         name: power-cell-slot-component-slot-name-default
         startingItem: PowerCellHigh
   - type: Sprite
-    sprite: Floof/Mobs/Silicon/quad.rsi
+    sprite: _HL/Mobs/Player/borgs/quads.rsi
     scale: 0.7, 0.7
     layers:
     - state: XenoQuad

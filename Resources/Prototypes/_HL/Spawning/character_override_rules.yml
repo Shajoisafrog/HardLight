@@ -18,3 +18,48 @@
   logins:
   - Livyathan
   entity: MobDragonLivyathan
+  
+- type: spawnCharacterOverrideRule
+  id: Bananatalononspawn
+  match: RaTheAmpwave
+  checkProfileName: true
+  checkEntityName: true
+  logins:
+  - RaTheAmpwave
+  entity: BananaTalon
+  
+- type: spawnCharacterOverrideRule
+  id: Featheredonspawn
+  match: FeatheredMenace
+  checkProfileName: true
+  checkEntityName: true
+  logins:
+  - FeatheredMenace
+  entity: XenoQuadfeathered
+
+- type: spawnCharacterOverrideRule
+  id: Glitzonspawn
+  match: RUINtheDRAGON
+  checkProfileName: true
+  checkEntityName: true
+  logins:
+  - RUINtheDRAGON
+  entity: BorgChassisGl1tz
+  
+- type: spawnCharacterOverrideRule
+  id: Dogborgonspawn
+  match: Rhealis 
+  checkProfileName: true
+  checkEntityName: true
+  logins:
+  - MyNameIsRune 
+  entity: BorgChassisDog
+  
+- type: spawnCharacterOverrideRule
+  id: Petalborgonspawn
+  match: Petalpool
+  checkProfileName: true
+  checkEntityName: true
+  logins:
+  - Petalpool
+  entity: BorgChassisPetal

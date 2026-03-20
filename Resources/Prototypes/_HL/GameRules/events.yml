@@ -20,17 +20,17 @@
     - id: BluespaceArtifact
     - id: BluespaceLocker
     - id: BreakerFlip
-    - id: BureaucraticError
-    - id: ClericalError
+    #- id: BureaucraticError
+    #- id: ClericalError
     - id: CockroachMigration # Sever phobia present in staff # can resprite/rename them later, for now, let's not remove content.
     - id: GasLeak
     - id: GreytideVirus
     - id: IonStorm # its calm like 90% of the time smh
     - id: KudzuGrowth
     - id: MassHallucinations
-    - id: MimicVendorRule
+   # - id: MimicVendorRule
     - id: PowerGridCheck
-    - id: RandomSentience
+   # - id: RandomSentience
     - id: SlimesSpawn
     - id: SolarFlare
     - id: SnakeSpawn
@@ -41,7 +41,7 @@
     - id: NFGasLeak
     - id: NFIonStorm
     - id: NFPowerGridCheck
-    - id: NFRandomSentience
+    #- id: NFRandomSentience
     - id: NFSolarFlare
     - id: NFVentClog
     - id: NFBluespaceCargoCrate
@@ -50,17 +50,17 @@
     - id: NFBluespaceBrokenMcDelivery
     - id: NFSmugglingFax
     - id: BluespaceCacheError
-    - id: BluespaceCave
+    #- id: BluespaceCave
     - id: BluespaceVaultError
     - id: BluespaceVaultSmallError
     - id: BluespaceSyndicateFTLInterception
     #- id: BluespaceWizardFederationScout
     - id: BluespaceBloodMoon
-    - id: BluespaceDungeonBasalt
-    - id: BluespaceDungeonChromite
-    - id: BluespaceDungeonSnow
-    - id: BluespaceDungeonCave
-    - id: BluespaceSalvage
+    #- id: BluespaceDungeonBasalt
+    #- id: BluespaceDungeonChromite
+    #- id: BluespaceDungeonSnow
+    #- id: BluespaceDungeonCave
+    #- id: BluespaceSalvage
     - id: NFSmugglingFaxBig
     - id: UnknownShuttleCargoLost
     - id: UnknownShuttleTravelingCuisine
@@ -88,6 +88,16 @@
     - id: AiVents
     - id: LizardVents
     - id: WawaVents
+    - id: GiftsEngineering
+    - id: GiftsFireProtection
+    - id: GiftsJanitor
+    - id: GiftsMedical
+    - id: GiftsPizzaPartyLarge
+    - id: GiftsPizzaPartySmall
+    - id: GiftsSecurityGuns
+    - id: GiftsSecurityRiot
+    - id: GiftsSpacingSupplies
+    - id: GiftsVendingRestock
 
 - type: entityTable
   id: BasicAntagEventsTable
@@ -2213,4 +2223,4 @@
   - type: DynamicJobAllocationRule
     checkInterval: 600  # Check every 10 minutes (600 seconds)
     mercenaryJob: Mercenary
-    mercenaryCap: 50  # Maximum slots
+    mercenaryCap: 40  # Maximum slots

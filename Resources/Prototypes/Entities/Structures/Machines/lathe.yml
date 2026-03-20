@@ -569,8 +569,6 @@
     - GygaxMechParts
     - MechWeapons
     - RipleyUpgrade
-    # Crescent - Cyberware
-    - CombatCybernetics
     # Starlight - Implants
     - SLCybernetics
   - type: EmagLatheRecipes
@@ -818,6 +816,9 @@
     # Shitmed Change
     - SMSurgery
     - SMCybernetics
+  - type: EmagLatheRecipes
+    emagDynamicPacks:
+    - CombatCybernetics
   - type: Machine
     board: MedicalTechFabCircuitboard
   - type: StealTarget
