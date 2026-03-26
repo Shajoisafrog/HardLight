@@ -142,6 +142,8 @@
       The Emitter's require a MV Connection to function to charge the Containment fields. Be careful to not be hit by one of their energy beams, as they can cause painful burns.
 
       The Particle Accelerator should be at maximum set to a power output of 2, as most Singularity Engine's lack the space for a larger Singularity. As-well as the beams of energy the PA produces are harmless by themselves, and can pass through objects.
+
+      For viewing how to setup the Particle Accelerator, use the terminal it comes with. If its failing to properly connect, ensure the terminal's red wires are facing to the PA, and its parts are in the correct orientation. 
       [color=#f39f27]──────────────────────────────────────────[/color]
       [head=2]• Singuloose Event[/head]
       A "Singuloose" is whenever the Singularity inside a Singularity Engine breaks out, or is released from its containment and begins to consume the station.
@@ -189,6 +191,8 @@
       The Emitter's require a MV Connection to function to charge the Containment fields. Be careful to not be hit by one of their energy beams, as they can cause painful burns.
 
       The Particle Accelerator should only be active up until the Tesla Ball is produced by its generator, otherwise it could potentially break containment.
+
+      For viewing how to setup the Particle Accelerator, use the terminal it comes with. If its failing to properly connect, ensure the terminal's red wires are facing to the PA, and its parts are in the correct orientation. 
       [color=#f39f27]──────────────────────────────────────────[/color]
       [head=2]• Teslaloose Event[/head]
       A "Teslaloose" is whenever the Tesla Ball inside a Tesla Engine breaks out, or is released from its containment and begins to roam the station, striking electrical arcs at anything able to hold a electrical charge.

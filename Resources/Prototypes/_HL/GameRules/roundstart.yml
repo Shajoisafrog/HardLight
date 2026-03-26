@@ -390,7 +390,9 @@
       - !type:NestedSelector
         tableId: BasicAntagEventsTable
       - !type:NestedSelector
-        tableId: CargoGiftsTable
+        tableId: GlimmerEventsTable
+      #- !type:NestedSelector
+       # tableId: CargoGiftsTable
       # - !type:NestedSelector
         # tableId: CalmPestEventsTable
       # - !type:NestedSelector
