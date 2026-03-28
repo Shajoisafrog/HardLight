@@ -16,6 +16,8 @@ Colonial Property (Branded)
 <Box>
   <GuideEntityEmbed Entity="synthicon" Caption="Synths"/>
   <GuideEntityEmbed Entity="ipcicon" Caption="IPC"/>
+</Box>
+<Box>
   <GuideEntityEmbed Entity="protoicon" Caption="Protos"/>
   <GuideEntityEmbed Entity="quadicon" Caption="Unbranded Borgs"/>
 </Box>
@@ -27,6 +29,8 @@ Colonial Property (Branded)
 <Box>
   <GuideEntityEmbed Entity="synthicon" Caption="Station AI"/>
   <GuideEntityEmbed Entity="brandquad" Caption="Specialized Role borgs/prefabs"/>
+</Box>
+<Box>
   <GuideEntityEmbed Entity="BorgChassisGeneric" Caption="Company owned models"/>
   <GuideEntityEmbed Entity="quadborgicon" Caption="the boi"/>
 </Box>
