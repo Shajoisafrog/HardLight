@@ -1,4 +1,4 @@
-<GuideEntry>
+<Document>
   <!-- AI and me: an infodoc about the standard rules and regulations/expectations of employees and visitors in regards to artificial life -->
   <h2>Generally Positronic patterns fit one of 2 categories</h2>
   <ul>
@@ -35,4 +35,4 @@
   <Box>"but what about Xenoborgs, do those count as people or not"</Box>
   <Box>Xenoborgs used to BE people, they're brains and patterns built from sophonts whom were integrated into the collective. if you're having to ask if being a victim makes them a person or not I think perhaps we may have some other issues we need to be addressing instead.</Box>
   <GuideEntityEmbed Entity="MMIFilled" Caption="Are you people?"/>
-</GuideEntry>
+</Document>
