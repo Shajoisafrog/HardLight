@@ -31,7 +31,7 @@ Colonial Property (Branded)
 
 ## Examples of Owned (Branded) borgs:
 <Box>
-  <GuideEntityEmbed Entity="synthguideicon" Caption="Station AI"/>
+  <GuideEntityEmbed Entity="synthicon" Caption="Station AI"/>
   <GuideEntityEmbed Entity="brandquadguideicon" Caption="Specialized Role borgs/prefabs"/>
    <GuideEntityEmbed Entity="quadguideicon" Caption="the boi"/>
 </Box>
@@ -51,7 +51,7 @@ Colonial Property (Branded)
 
 ## FAQ
 <Box>
-  "but what about Xenoborgs, do those count as people or not"
+  "But what about Xenoborgs, do those count as people or not"
 </Box>
 <Box>
   Xenoborgs used to BE people, they're brains and patterns built 
