@@ -27,7 +27,7 @@ Colonial Property (Branded)
 
 ## Examples of Owned (Branded) borgs:
 <Box>
-  <GuideEntityEmbed Entity="synthicon" Caption="Station AI"/>
+  <GuideEntityEmbed Entity="aiguide" Caption="Station AI"/>
   <GuideEntityEmbed Entity="brandquadguideicon" Caption="Specialized Role borgs/prefabs"/>
    <GuideEntityEmbed Entity="quadguideicon" Caption="the boi"/>
 </Box>
