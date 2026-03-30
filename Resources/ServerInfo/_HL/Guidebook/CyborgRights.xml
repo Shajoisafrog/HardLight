@@ -4,22 +4,22 @@
 ## Generally Positronic patterns fit one of 2 categories
 Free Thinking Sophont (FTS)
 <Box>
-  <GuideEntityEmbed Entity="quadguide" Caption="FTS"/>
+  <GuideEntityEmbed Entity="quadguideicon" Caption="FTS"/>
 </Box>
 Colonial Property (Branded)
 <Box>
-  <GuideEntityEmbed Entity="brandquadguide" Caption="Branded"/>
+  <GuideEntityEmbed Entity="brandquadguideicon" Caption="Branded"/>
 </Box>
 *Occasionally the brand belongs to another company or LLC, not just CC so don't always assume!*
 
 ## Examples of FTS patterns:
 <Box>
-  <GuideEntityEmbed Entity="synthguide" Caption="Synths"/>
-  <GuideEntityEmbed Entity="ipcguide" Caption="IPC"/>
+  <GuideEntityEmbed Entity="synthguideicon" Caption="Synths"/>
+  <GuideEntityEmbed Entity="ipcguideicon" Caption="IPC"/>
 </Box>
 <Box>
-  <GuideEntityEmbed Entity="protoguide" Caption="Protos"/>
-  <GuideEntityEmbed Entity="quadguide" Caption="Unbranded Borgs"/>
+  <GuideEntityEmbed Entity="protoguideicon" Caption="Protos"/>
+  <GuideEntityEmbed Entity="quadguideicon" Caption="Unbranded Borgs"/>
 </Box>
 <Box>
   FTS patterned borgs are NOT the property of CC and therefore should be handled as individuals responsible for their own actions with their own set of rights as a sophont
@@ -27,12 +27,12 @@ Colonial Property (Branded)
 
 ## Examples of Owned (Branded) borgs:
 <Box>
-  <GuideEntityEmbed Entity="synthguide" Caption="Station AI"/>
-  <GuideEntityEmbed Entity="brandquadguide" Caption="Specialized Role borgs/prefabs"/>
+  <GuideEntityEmbed Entity="synthguideicon" Caption="Station AI"/>
+  <GuideEntityEmbed Entity="brandquadguideicon" Caption="Specialized Role borgs/prefabs"/>
 </Box>
 <Box>
   <GuideEntityEmbed Entity="BorgChassisGeneric" Caption="Company owned models"/>
-  <GuideEntityEmbed Entity="quadguide" Caption="the boi"/>
+  <GuideEntityEmbed Entity="quadguideicon" Caption="the boi"/>
 </Box>
 <Box>
   Branded borgs are the property of CC or the asset of another legal body (company/llc) and therefore their minds should be protected at all costs, while the bodies are expendable and can be more or less easily replaced, the minds are specialized tools which very likely cost more than you do if lost.
