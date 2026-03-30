@@ -154,7 +154,7 @@
     sprite: _HL/Logo/symbols.rsi
     state: synthguide
 
-    - type: entity
+- type: entity
   parent: BaseItem
   id: aiguide
   name: ai
