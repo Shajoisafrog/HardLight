@@ -33,10 +33,10 @@ Colonial Property (Branded)
 <Box>
   <GuideEntityEmbed Entity="synthguideicon" Caption="Station AI"/>
   <GuideEntityEmbed Entity="brandquadguideicon" Caption="Specialized Role borgs/prefabs"/>
+   <GuideEntityEmbed Entity="quadguideicon" Caption="the boi"/>
 </Box>
 <Box>
   <GuideEntityEmbed Entity="BorgChassisGeneric" Caption="Company owned models"/>
-  <GuideEntityEmbed Entity="quadguideicon" Caption="the boi"/>
 </Box>
 <Box>
   Branded borgs are the property of CC or the asset of another 
