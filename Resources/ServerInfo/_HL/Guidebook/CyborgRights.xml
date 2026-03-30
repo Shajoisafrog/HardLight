@@ -31,7 +31,7 @@ Colonial Property (Branded)
 <Box>
   <GuideEntityEmbed Entity="aiguide" Caption="Station AI"/>
   <GuideEntityEmbed Entity="brandquadguideicon" Caption="Specialized Role borgs/prefabs"/>
-   <GuideEntityEmbed Entity="quadborguideicon" Caption="the boi"/>
+   <GuideEntityEmbed Entity="quadborgguidicon" Caption="the boi"/>
 </Box>
 <Box>
   <GuideEntityEmbed Entity="BorgChassisGeneric" Caption="Company owned models"/>
