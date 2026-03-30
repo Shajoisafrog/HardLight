@@ -165,3 +165,15 @@
     drawdepth: Effects #it needs to draw over stuff.
     sprite: _HL/Logo/symbols.rsi
     state: aiguide
+
+- type: entity
+  parent: BaseItem
+  id: mmiguide
+  name: mmi
+  description: an mmi
+  components:
+  - type: Sprite
+    noRot: true
+    drawdepth: Effects #it needs to draw over stuff.
+    sprite: _HL/Logo/symbols.rsi
+    state: mmiguide
