@@ -2,7 +2,7 @@
 ##AI and me: an infodoc about the standard rules and 
 ##regulations/expectations of employees and visitors in 
 ##regards to artificial life.
-
+#
 ## Generally Positronic patterns fit one of 2 categories
 Free Thinking Sophont (FTS)
 <Box>
@@ -31,7 +31,7 @@ Colonial Property (Branded)
 <Box>
   <GuideEntityEmbed Entity="aiguide" Caption="Station AI"/>
   <GuideEntityEmbed Entity="brandquadguideicon" Caption="Specialized Role borgs/prefabs"/>
-   <GuideEntityEmbed Entity="quadguideicon" Caption="the boi"/>
+   <GuideEntityEmbed Entity="quadborguideicon" Caption="the boi"/>
 </Box>
 <Box>
   <GuideEntityEmbed Entity="BorgChassisGeneric" Caption="Company owned models"/>
