@@ -168,7 +168,7 @@
 
 - type: entity
   parent: BaseItem
-  id: mmiguide
+  id: mmiguideicon
   name: mmi
   description: an mmi
   components:

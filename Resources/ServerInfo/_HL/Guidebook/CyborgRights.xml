@@ -49,6 +49,6 @@ Colonial Property (Branded)
   Xenoborgs used to BE people, they're brains and patterns built from sophonts whom were integrated into the collective. if you're having to ask if being a victim makes them a person or not I think perhaps we may have some other issues we need to be addressing instead.
 </Box>
 <Box>
-  <GuideEntityEmbed Entity="mmi_icon" Caption="Are you people?"/>
+  <GuideEntityEmbed Entity="mmiguideicon" Caption="Are you people?"/>
 </Box>
 </Document>
