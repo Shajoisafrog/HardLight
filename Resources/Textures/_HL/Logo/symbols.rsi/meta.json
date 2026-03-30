@@ -28,5 +28,26 @@
     {
      "name": "synth"
     }
+  {
+     "name": "synthguide"
+    },
+  {
+     "name": "brandquadguide"
+    },
+    {
+     "name": "ipcguide"
+    },
+  {
+     "name": "protoguide"
+    },
+  {
+     "name": "quadborguide"
+    },
+  {
+     "name": "quadguide"
+    },
+  {
+     "name": "brandquadguide"
+    },
   ]
 }
