@@ -4,7 +4,7 @@
 ## Generally Positronic patterns fit one of 2 categories
 Free Thinking Sophont (FTS)
 <Box>
-  <GuideEntityEmbed Entity="quadiconguide" Caption="FTS"/>
+  <GuideEntityEmbed Entity="quadguide" Caption="FTS"/>
 </Box>
 Colonial Property (Branded)
 <Box>
