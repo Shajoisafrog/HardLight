@@ -407,8 +407,9 @@
     Blunt: 0.8
     Slash: 0.8
     Piercing: 0.8
-    # can't punch the endoskeleton to death
-    Blunt: 5
+  flatReductions:
+    Blunt: 5 # Can't punch the endoskeleton to death
+
 
 - type: damageModifierSet
   id: HalfSpirit

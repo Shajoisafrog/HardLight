@@ -1,10 +1,4 @@
-# PUT YOUR TAGS IN ALPHABETICAL ORDER
 
-- type: Tag
-  id: AccessBreakerImmune
-
-- type: Tag
-  id: AirAlarm
 
 - type: Tag
   id: AirAlarmElectronics
@@ -29,6 +23,8 @@
 
 - type: Tag
   id: AppraisalTool
+
+- type: Tag
   id: ArachneWeb
 
 - type: Tag
@@ -36,12 +32,6 @@
 
 - type: Tag
   id: Arrow
-
-- type: Tag
-  id: ArtifactFragment
-
-- type: Tag
-  id: ATVKeys
 
 - type: Tag
   id: Backpack
@@ -1035,13 +1025,12 @@
 
 - type: Tag
   id: OperatingTable
+
+- type: Tag
   id: Oneirophage
 
 - type: Tag
   id: Ore
-
-- type: Tag
-  id: Ore # Storage whitelist: OreBag, OreBox. MaterialStorage whitelist: OreProcessor
 
 - type: Tag
   id: OreBananium # CargoBounty: BountySalvageOreBananium

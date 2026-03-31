@@ -154,8 +154,8 @@
   - type: StaticPrice # Frontier
     price: 20 # Frontier
     vendPrice: 1500 # Frontier
-    - HidesHarpyWings #DeltaV: Used by harpies to help render their hardsuit sprites
-    - FullBodyOuter
+    # - HidesHarpyWings #DeltaV: Used by harpies to help render their hardsuit sprites
+    # - FullBodyOuter
   - type: Clothing
     equipDelay: 2.5 # Hardsuits are heavy and take a while to put on/off.
     unequipDelay: 2.5

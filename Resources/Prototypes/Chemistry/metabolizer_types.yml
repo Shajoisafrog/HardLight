@@ -60,7 +60,6 @@
 - type: metabolizerType # HardLight
   id: Dreadtalon
   name: metabolizer-type-dreadtalon
-  name: arachnid
 
 - type: metabolizerType
   id: Vampiric

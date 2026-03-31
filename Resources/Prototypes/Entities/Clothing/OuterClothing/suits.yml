@@ -26,9 +26,10 @@
     - Hardsuit
     - WhitelistChameleon
   - type: ProtectedFromStepTriggers
-    slots: WITHOUT_POCKET
-    - FullBodyOuter
-    - HidesHarpyWings
+    slots:
+      - WITHOUT_POCKET
+      - FullBodyOuter
+      - HidesHarpyWings
 
 - type: entity
   parent: ClothingOuterSuitBomb

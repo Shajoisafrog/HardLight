@@ -11,7 +11,8 @@ using Content.Server.Body.Components;
 using Content.Server.Body.Systems;
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Server.Popups;
-using Content.Server.HealthExaminable;
+using Content.Shared.Body.Components;
+using Content.Shared.HealthExaminable;
 using Content.Server.DoAfter;
 using Content.Server.Nutrition.Components;
 using Robust.Shared.Prototypes;
@@ -137,13 +138,13 @@ namespace Content.Server.Vampiric
             _popups.PopupEntity(Loc.GetString("bloodsucker-doafter-start", ("target", victim)), victim, bloodsucker, Shared.Popups.PopupType.Medium);
 
             var ev = new BloodSuckDoAfterEvent();
-            var args = new DoAfterArgs(EntityManager, bloodsucker, bloodSuckerComponent.Delay, ev, bloodsucker, target: victim)
-            {
-                BreakOnTargetMove = true,
-                BreakOnUserMove = false,
-                DistanceThreshold = 2f,
-                NeedHand = false
-            };
+
+                var args = new DoAfterArgs(EntityManager, bloodsucker, bloodSuckerComponent.Delay, ev, bloodsucker, target: victim)
+                {
+                    BreakOnMove = true,
+                    DistanceThreshold = 2f,
+                    NeedHand = false
+                };
 
             _doAfter.TryStartDoAfter(args);
         }
@@ -163,14 +164,29 @@ namespace Content.Server.Vampiric
                 return false;
 
             // Does bloodsucker have a stomach?
-            var stomachList = _bodySystem.GetBodyOrganComponents<StomachComponent>(bloodsucker);
-            if (stomachList.Count == 0)
+
+            if (!TryComp<BodyComponent>(bloodsucker, out var body))
                 return false;
 
-            if (!_solutionSystem.TryGetSolution(stomachList[0].Comp.Owner, StomachSystem.DefaultSolutionName, out var stomachSolution))
+            StomachComponent? stomachComp = null;
+            EntityUid? stomachUid = null;
+            foreach (var organ in _bodySystem.GetBodyOrgans(bloodsucker, body))
+            {
+                if (TryComp<StomachComponent>(organ.Id, out var foundStomach))
+                {
+                    stomachUid = organ.Id;
+                    stomachComp = foundStomach;
+                    break;
+                }
+            }
+            if (stomachUid == null || stomachComp == null)
+                return false;
+
+            if (!_solutionSystem.TryGetSolution(stomachUid.Value, StomachSystem.DefaultSolutionName, out var stomachSolution))
                 return false;
 
             // Are we too full?
+
 
             if (_solutionSystem.PercentFull(bloodsucker) >= 1)
             {
@@ -186,12 +202,13 @@ namespace Content.Server.Vampiric
             _popups.PopupEntity(Loc.GetString("bloodsucker-blood-sucked", ("target", victim)), bloodsucker, bloodsucker, Shared.Popups.PopupType.Medium);
             EnsureComp<BloodSuckedComponent>(victim);
 
+
             // Make everything actually ingest.
             if (bloodstream.BloodSolution == null)
                 return false;
 
             var temp = _solutionSystem.SplitSolution(bloodstream.BloodSolution.Value, bloodsuckerComp.UnitsToSucc);
-            _stomachSystem.TryTransferSolution(stomachList[0].Comp.Owner, temp, stomachList[0].Comp);
+            _stomachSystem.TryTransferSolution(stomachUid.Value, temp, stomachComp);
 
             // Add a little pierce
             DamageSpecifier damage = new();
