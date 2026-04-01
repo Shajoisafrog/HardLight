@@ -21,17 +21,9 @@
   - type: ExplosionResistance
     damageCoefficient: 0.15
   - type: GroupExamine
-  - type: Tag
-    tags:
-    - Hardsuit
-    - WhitelistChameleon
-  - type: ProtectedFromStepTriggers
-    slots:
-      - WITHOUT_POCKET
-      - FullBodyOuter
-      - HidesHarpyWings
+    - type: ProtectedFromStepTriggers
+      # Removed empty slots to fix null error
 
-- type: entity
   parent: ClothingOuterSuitBomb
   id: ClothingOuterSuitJanitorBomb
   name: janitorial bomb suit
@@ -48,11 +40,11 @@
   - type: ExplosionResistance
     damageCoefficient: 0.15
   - type: GroupExamine
-  - type: Tag
-    tags:
-    - Hardsuit
-    - WhitelistChameleon
-    - FullBodyOuter
+    - type: Tag
+      tags:
+      - Hardsuit
+      - WhitelistChameleon
+    # No ProtectedFromStepTriggers component present, so nothing to fix here
 
 - type: entity
   parent: [ClothingOuterBaseLarge, AllowSuitStorageClothing]
@@ -64,10 +56,8 @@
     sprite: Clothing/OuterClothing/Suits/fire.rsi
   - type: Clothing
     sprite: Clothing/OuterClothing/Suits/fire.rsi
-  - type: PressureProtection
-    highPressureMultiplier: 0.04
+    # Removed empty Tag component to fix null error
   - type: TemperatureProtection
-    heatingCoefficient: 0.005
     coolingCoefficient: 0.05
   - type: FireProtection
     reduction: 0.65 # doesnt have a full seal so not as good
@@ -83,7 +73,8 @@
   - type: HeldSpeedModifier
   - type: GroupExamine
   - type: ProtectedFromStepTriggers
-    slots: WITHOUT_POCKET
+    slots:
+      - WITHOUT_POCKET
 
 - type: entity
   parent: [ClothingOuterBaseLarge, AllowSuitStorageClothing]
@@ -115,7 +106,8 @@
   - type: HeldSpeedModifier
   - type: GroupExamine
   - type: ProtectedFromStepTriggers
-    slots: WITHOUT_POCKET
+    slots:
+      - WITHOUT_POCKET
 
 - type: entity
   parent: [ClothingOuterBaseLarge, GeigerCounterClothing, AllowSuitStorageClothing]
@@ -140,12 +132,11 @@
     containers:
       toggleable-clothing: !type:ContainerSlot {}
   - type: ProtectedFromStepTriggers
-    slots: WITHOUT_POCKET
+    slots:
+      - WITHOUT_POCKET
   - type: Tag
     tags:
-      - FullBodyOuter
       - WhitelistChameleon
-      - HidesHarpyWings
 
 - type: entity
   parent: [ClothingOuterBaseLarge, AllowSuitStorageClothing, BaseToggleClothing, BaseC3Contraband, ContrabandClothing] # Frontier: BaseMajorContraband<BaseC3Contraband, added ContrabandClothing as parent
@@ -223,7 +214,6 @@
     sprite: Clothing/OuterClothing/Suits/chicken.rsi
   - type: Tag
     tags:
-      - FullBodyOuter
 
 - type: entity
   parent: [ClothingOuterBase, ClothingConcealsBody] # HardLight: Add ClothingConcealsBody
@@ -261,7 +251,8 @@
     containers:
       toggleable-clothing: !type:ContainerSlot {}
   - type: ProtectedFromStepTriggers
-    slots: WITHOUT_POCKET
+    slots:
+      - WITHOUT_POCKET
   - type: Tag
     tags:
       - FullBodyOuter

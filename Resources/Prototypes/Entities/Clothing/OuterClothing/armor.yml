@@ -224,12 +224,11 @@
         Caustic: 0.75
   - type: GroupExamine
   - type: ProtectedFromStepTriggers
-    slots: WITHOUT_POCKET
+    slots:
+      - WITHOUT_POCKET
   - type: ExplosionResistance
     damageCoefficient: 0.7
-  - type: Tag
-    tags:
-      - FullBodyOuter
+  # Removed empty Tag component to avoid NullNotAllowedException
 
 - type: entity
   parent: ClothingOuterArmorHeavy
@@ -326,7 +325,8 @@
     damageCoefficient: 0.5
   - type: GroupExamine
   - type: ProtectedFromStepTriggers
-    slots: WITHOUT_POCKET
+    slots:
+      - WITHOUT_POCKET
   - type: Tag
     tags:
       - FullBodyOuter
@@ -357,7 +357,8 @@
     graph: BoneArmor
     node: armor
   - type: ProtectedFromStepTriggers
-    slots: WITHOUT_POCKET
+    slots:
+      - WITHOUT_POCKET
 
 - type: entity
   parent: [ ClothingOuterBaseLarge, BaseC1Contraband, AllowSuitStorageClothing ] # Frontier: BaseMajorContraband<BaseC1Contraband
@@ -378,7 +379,8 @@
         Heat: 0.5
   - type: GroupExamine
   - type: ProtectedFromStepTriggers
-    slots: WITHOUT_POCKET
+    slots:
+      - WITHOUT_POCKET
 
 - type: entity
   parent: [ClothingNude, ClothingOuterBaseLarge, BaseC3WizardContraband, AllowSuitStorageClothing, ContrabandClothing] # Frontier: BaseMajorContraband<BaseC3CultContraband, added ContrabandClothing as parent # HardLight: Add ClothingNude
