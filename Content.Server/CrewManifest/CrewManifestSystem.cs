@@ -1,6 +1,9 @@
 using System.Linq;
+using Content.Server.Access.Components; // Coyote
+using Content.Server.Access.Systems; // Coyote
 using Content.Server.Administration;
 using Content.Server.EUI;
+using Content.Server.Medical.SuitSensors; // Coyote
 using Content.Server.Station.Components;
 using Content.Server.Station.Systems;
 using Content.Server.StationRecords;
@@ -12,6 +15,7 @@ using Content.Shared.CrewManifest;
 using Content.Shared.GameTicking;
 using Content.Shared.Mind.Components; // HardLight
 using Content.Shared.Roles;
+using Content.Shared.SSDIndicator;
 using Content.Shared.StationRecords;
 using Robust.Shared.Configuration;
 using Robust.Shared.Console;
@@ -28,6 +32,7 @@ public sealed class CrewManifestSystem : EntitySystem
     [Dependency] private readonly EuiManager _euiManager = default!;
     [Dependency] private readonly IConfigurationManager _configManager = default!;
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+    [Dependency] private readonly IdCardSystem _idCardSystem = default!; // Coyote
 
     /// <summary>
     ///     Cached crew manifest entries. The alternative is to outright
@@ -43,8 +48,6 @@ public sealed class CrewManifestSystem : EntitySystem
         SubscribeLocalEvent<AfterGeneralRecordCreatedEvent>(AfterGeneralRecordCreated);
         SubscribeLocalEvent<RecordModifiedEvent>(OnRecordModified);
         SubscribeLocalEvent<RecordRemovedEvent>(OnRecordRemoved);
-        SubscribeLocalEvent<MindAddedMessage>(OnMindAddedGlobal); // HardLight
-        SubscribeLocalEvent<MindRemovedMessage>(OnMindRemovedGlobal); // HardLight
         SubscribeNetworkEvent<RequestCrewManifestMessage>(OnRequestCrewManifest);
 
         SubscribeLocalEvent<CrewManifestViewerComponent, BoundUIClosedEvent>(OnBoundUiClose);
@@ -81,47 +84,20 @@ public sealed class CrewManifestSystem : EntitySystem
     // wrt the amount of players readied up.
     private void AfterGeneralRecordCreated(AfterGeneralRecordCreatedEvent ev)
     {
-        BuildCrewManifest(ev.Key.OriginStation);
-        UpdateEuis(ev.Key.OriginStation);
+        // BuildCrewManifest(); // coyote: NOP, we build on open
+        // UpdateEuis(ev.Key.OriginStation);
     }
 
     private void OnRecordModified(RecordModifiedEvent ev)
     {
-        BuildCrewManifest(ev.Key.OriginStation);
-        UpdateEuis(ev.Key.OriginStation);
+        // BuildCrewManifest(); // coyote: NOP, we build on open
+        // UpdateEuis(ev.Key.OriginStation);
     }
 
     private void OnRecordRemoved(RecordRemovedEvent ev)
     {
-        BuildCrewManifest(ev.Key.OriginStation);
-        UpdateEuis(ev.Key.OriginStation);
-    }
-
-    // HardLight: Refresh manifest rows when an entity regains a mind.
-    private void OnMindAddedGlobal(MindAddedMessage args)
-    {
-        RefreshStationManifestForTrackedEntity(args.Container.Owner);
-    }
-
-    // HardLight: Refresh manifest rows when an entity loses a mind so stale entries are removed immediately.
-    private void OnMindRemovedGlobal(MindRemovedMessage args)
-    {
-        RefreshStationManifestForTrackedEntity(args.Container.Owner);
-    }
-
-    // HardLight: Rebuild/update only the owning station manifest for job-tracked entities affected by mind changes.
-    private void RefreshStationManifestForTrackedEntity(EntityUid entity)
-    {
-        if (!TryComp<JobTrackingComponent>(entity, out var jobTracking))
-            return;
-
-        var station = _stationSystem.GetOwningStation(entity) ?? jobTracking.SpawnStation;
-
-        if (!HasComp<StationRecordsComponent>(station))
-            return;
-
-        BuildCrewManifest(station);
-        UpdateEuis(station);
+        // BuildCrewManifest(); // coyote: NOP, we build on open
+        // UpdateEuis(ev.Key.OriginStation);
     }
 
     private void OnBoundUiClose(EntityUid uid, CrewManifestViewerComponent component, BoundUIClosedEvent ev)
@@ -143,11 +119,9 @@ public sealed class CrewManifestSystem : EntitySystem
     /// </summary>
     /// <param name="station">Entity uid of the station.</param>
     /// <returns>The name and crew manifest entries (unordered) of the station.</returns>
-    public (string name, CrewManifestEntries? entries) GetCrewManifest(EntityUid station)
+    public CrewManifestEntries GetCrewManifest() // coyote: remove args, remove name
     {
-        BuildCrewManifest(station); // HardLight
-        var valid = _cachedEntries.TryGetValue(station, out var manifest);
-        return (valid ? MetaData(station).EntityName : string.Empty, valid ? manifest : null);
+        return BuildCrewManifest(); // coyote
     }
 
     private void UpdateEuis(EntityUid station)
@@ -250,56 +224,37 @@ public sealed class CrewManifestSystem : EntitySystem
     /// <summary>
     ///     Builds the crew manifest for a station. Stores it in the cache afterwards.
     /// </summary>
-    /// <param name="station"></param>
-    private void BuildCrewManifest(EntityUid station)
+    private CrewManifestEntries BuildCrewManifest()
     {
+        var sensors = EntityQueryEnumerator<SuitSensorComponent>(); // Coyote
         var entries = new CrewManifestEntries();
+        var entriesSort = new List<(JobPrototype? job, CrewManifestEntry entry)>();
 
-        // HardLight: Build authoritative live crew rows from actively-minded, in-round job-tracked entities.
-        // Station records are used later only to decorate these rows (e.g. custom job titles).
-        var liveCrew = new Dictionary<(string Name, string JobPrototype), (JobPrototype? Job, string JobTitle, string JobIcon)>();
-        var query = EntityQueryEnumerator<JobTrackingComponent, TransformComponent, MetaDataComponent, MindContainerComponent>();
-        while (query.MoveNext(out var uid, out var jobTracking, out var xform, out var metaData, out var mindContainer))
+        while (sensors.MoveNext(out var uid, out var sensor)) // Coyote start
         {
-            if (!jobTracking.Active
-                || !mindContainer.HasMind
-                || jobTracking.Job is not { } jobId)
-                continue;
-
-            if (_stationSystem.GetOwningStation(uid, xform) != station)
-                continue;
-
-            JobPrototype? jobPrototype = null;
-            var jobTitle = Loc.GetString("generic-unknown-title");
-            var jobIcon = string.Empty;
-            var jobIdString = jobId.ToString();
-
-            if (_prototypeManager.TryIndex(jobId, out var indexedJob))
+            if (sensor.User == null || TryComp<SSDIndicatorComponent>(sensor.User, out var indicator) && indicator.IsSSD)
             {
-                jobPrototype = indexedJob;
-                jobTitle = indexedJob.LocalizedName;
-                jobIcon = indexedJob.Icon;
+                continue;
             }
+            var name = Loc.GetString("suit-sensor-component-unknown-name");
+            var jobTitle = Loc.GetString("suit-sensor-component-unknown-job");
 
-            liveCrew[(metaData.EntityName, jobIdString)] = (jobPrototype, jobTitle, jobIcon);
-        }
-
-        // HardLight: If a station record exists for an active crew member, prefer record-provided title/icon.
-        // This preserves custom job title edits while preventing stale record-only entries.
-        foreach (var (_, record) in _recordsSystem.GetRecordsOfType<GeneralStationRecord>(station))
-        {
-            var key = (record.Name, record.JobPrototype);
-            if (!liveCrew.TryGetValue(key, out var live))
+            if (!_idCardSystem.TryFindIdCard(sensor.User.Value, out var card))
                 continue;
 
-            liveCrew[key] = (live.Job, record.JobTitle, record.JobIcon);
-        }
+            if (card.Comp.FullName != null)
+                name = card.Comp.FullName;
 
-        var entriesSort = new List<(JobPrototype? job, CrewManifestEntry entry)>(); // HardLight
-        foreach (var ((name, jobPrototypeId), (job, jobTitle, jobIcon)) in liveCrew) // HardLight
-        {
-            entriesSort.Add((job, new CrewManifestEntry(name, jobTitle, jobIcon, jobPrototypeId)));
-        }
+            if (card.Comp.LocalizedJobTitle != null)
+                jobTitle = card.Comp.LocalizedJobTitle;
+
+            if (!TryComp<PresetIdCardComponent>(card, out var preset))
+                continue;
+
+            var entry = new CrewManifestEntry(name, jobTitle, card.Comp.JobIcon, preset.JobName!.Value);
+
+            entriesSort.Add((null, entry));
+        } // Coyote end
 
         entriesSort.Sort((a, b) =>
         {
@@ -311,7 +266,8 @@ public sealed class CrewManifestSystem : EntitySystem
         });
 
         entries.Entries = entriesSort.Select(x => x.entry).ToArray();
-        _cachedEntries[station] = entries;
+        // _cachedEntries[station] = entries; // coyote: causes problems
+        return entries; // coyote
     }
 }
 
