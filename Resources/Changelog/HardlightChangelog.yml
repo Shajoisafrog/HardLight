@@ -2206,3 +2206,45 @@ Entries:
       message: Bogan Accent
   id: 238
   time: '2026-04-02T03:52:17.0000000+00:00'
+- author: Generic_Eagle
+  changes:
+    - type: Add
+      message: Added the ESAR-550, a replacement for the HoS's energy shotgun and WT
+  id: 239
+  time: '2026-04-02T19:14:48.0000000+00:00'
+- author: Iisazel
+  changes:
+    - type: Add
+      message: Wizards now use their magic to enchant blades! Go rob them!
+  id: 240
+  time: '2026-04-02T19:19:35.0000000+00:00'
+- author: R3v3l4t1on
+  changes:
+    - type: Fix
+      message: >-
+        Fixed a BUNCH of invalid entity references which should mean the
+        integration tests are actually usable again.
+  id: 241
+  time: '2026-04-02T19:45:53.0000000+00:00'
+- author: R3v3l4t1on
+  changes:
+    - type: Add
+      message: >-
+        Added Wizden's switchable borg types to both cyborgs (not quadborgs
+        yet). No longer are borgs bound to the whims of organics to do the job
+        they want!
+    - type: Add
+      message: >-
+        Borg subtypes (Originally from Cosmatic Drift)! No more 1 million
+        default engiborgs (though it is still the best chassis and anyone who
+        disagrees can bite me). Quadborgs will get this in a later PR.
+    - type: Add
+      message: Bubberstation's tallborgs.
+    - type: Tweak
+      message: All cyborgs get tool modules. Because we love borgs.
+    - type: Remove
+      message: >-
+        Removed a bunch of modules from being craftable as these are now
+        available to cyborgs on roundstart.
+  id: 242
+  time: '2026-04-02T20:09:09.0000000+00:00'
