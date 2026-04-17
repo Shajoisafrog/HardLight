@@ -24,6 +24,7 @@
   - MopItem
   - Holoprojector
   - WetFloorSign
+  - WireBrush
 
 - type: latheRecipePack
   id: ServiceBoardsStatic
@@ -51,6 +52,12 @@
   id: Instruments
   recipes:
   - SynthesizerInstrument
+
+- type: latheRecipePack
+  id: Hydroponics
+  recipes:
+  - SyntheticSwab
+  - SwabApplicator
 
 - type: latheRecipePack
   id: ServiceBoards

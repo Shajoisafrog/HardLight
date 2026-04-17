@@ -151,6 +151,8 @@ nano-chat-new-message-title = Message from {$sender}
 nano-chat-new-message-body = {$message}
 nano-chat-toggle-mute = Mute notifications
 nano-chat-delivery-failed = Failed to deliver
+nano-chat-lookup = Look up numbers
+nano-chat-toggle-list-number = List number
 
 # Create chat popup
 nano-chat-new-title = Add a new chat

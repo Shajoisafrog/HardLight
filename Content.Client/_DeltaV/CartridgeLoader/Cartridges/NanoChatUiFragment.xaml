@@ -120,7 +120,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
                         Margin="0 0 4 0"
                         ToolTip="{Loc nano-chat-lookup}">
                     <TextureRect StyleClasses="ButtonSquare"
-                                 TexturePath="/Textures/Interface/Icons/search.png"
+                                 TexturePath="/Textures/Interface/VerbIcons/examine.svg.192dpi.png"
                                  Stretch="KeepAspectCentered"
                                  MinSize="18 18" />
                 </Button>

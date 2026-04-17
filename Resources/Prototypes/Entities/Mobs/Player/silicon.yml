@@ -44,7 +44,6 @@
   - type: ActionGrant
     actions:
     - ActionJumpToCore
-    - ActionSurvCameraLights
     - ActionAIViewLaws
     - ActionOpenRemoteDevicesMenu # Corvax-Next-AiRemoteControl
   - type: UserInterface
@@ -445,6 +444,7 @@
     visible: false
   - type: SiliconLawProvider
     laws: Crewsimov
+  - type: BypassInteractionChecks
   - type: SiliconLawBound
   - type: ActionGrant
     actions:
@@ -504,6 +504,16 @@
   description: The AI's viewer.
   categories: [ HideSpawnMenu, DoNotMap ]
   components:
+  - type: Fixtures
+    fixtures:
+      lightTrigger:
+        shape:
+          !type:PhysShapeCircle
+          radius: 8
+        density: 80
+        hard: false
+        layer:
+        - GhostImpassable
   - type: NoFTL
   - type: Tag
     tags:
@@ -523,6 +533,7 @@
     - state: ai_camera
       shader: unshaded
       map: ["base"]
+  - type: CameraActiveOnCollideCollider
 
 # The holographic representation of the AI that is projected from a holopad.
 - type: entity
@@ -663,8 +674,7 @@
         - PositronicBrain
       borg_module:
         - BorgModuleTool
-        # - BorgModuleFireExtinguisher # Frontier: jetpack is superior
-        # - BorgModuleGPS # Frontier: useless
+        # - BorgModuleFireExtinguisher # Frontier: Jetpack is superior
         - BorgModuleJetpack # Frontier
   - type: ItemSlots
     slots:

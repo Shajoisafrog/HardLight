@@ -2,15 +2,14 @@ using System.Linq;
 using Content.Server.Chat.Systems;
 using Content.Server.Interaction;
 using Content.Server.Popups;
-using Content.Server.Power.Components;
 using Content.Server.Power.EntitySystems;
 using Content.Server.Radio.Components;
-using Content.Server.Speech;
-using Content.Server.Speech.Components;
 using Content.Shared.Examine;
 using Content.Shared.Interaction;
 using Content.Shared.Power;
 using Content.Shared.Radio;
+using Content.Shared.Speech;
+using Content.Shared.Speech.Components;
 using Content.Shared.Chat;
 using Content.Shared.Power.EntitySystems;
 using Content.Shared.Radio.Components;
@@ -249,7 +248,7 @@ public sealed class RadioDeviceSystem : EntitySystem
         _chat.TrySendInGameICMessage(uid,
             args.Message,
             component.SpeakNormally ? InGameICChatType.Speak : InGameICChatType.Whisper, // Goobstation - radio host
-            ChatTransmitRange.GhostRangeLimit,
+            ChatTransmitRange.GhostRangeLimitNoAdminCheck,
             nameOverride: name,
             checkRadioPrefix: component.SpeakNormally);
     }

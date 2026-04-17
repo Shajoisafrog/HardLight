@@ -5,6 +5,7 @@ using Content.Shared.Examine;
 using Content.Shared.Rejuvenate;
 using Content.Shared.Timing;
 using JetBrains.Annotations;
+using Robust.Shared.Collections;
 using Robust.Shared.Utility;
 using Robust.Shared.Timing;
 
@@ -78,15 +79,24 @@ namespace Content.Server.Power.EntitySystems
         {
             // Ignoring entity pausing. If the entity was paused, neither component's data should have been changed.
             var enumerator = AllEntityQuery<PowerNetworkBatteryComponent, BatteryComponent>();
+            var updates = new ValueList<(EntityUid Uid, float Charge)>(Count<PowerNetworkBatteryComponent>());
+
             while (enumerator.MoveNext(out var uid, out var netBat, out var bat))
             {
-                SetCharge(uid, netBat.NetworkBattery.CurrentStorage, bat);
+                updates.Add((uid, netBat.NetworkBattery.CurrentStorage));
+            }
+
+            foreach (var update in updates)
+            {
+                SetCharge(update.Uid, update.Charge);
             }
         }
 
         public override void Update(float frameTime)
         {
             var query = EntityQueryEnumerator<BatterySelfRechargerComponent, BatteryComponent>();
+            var updates = new ValueList<(EntityUid Uid, float Charge)>(Count<BatterySelfRechargerComponent>());
+
             while (query.MoveNext(out var uid, out var comp, out var batt))
             {
 
@@ -99,7 +109,12 @@ namespace Content.Server.Power.EntitySystems
                         continue;
                 }
 
-                SetCharge(uid, batt.CurrentCharge + comp.AutoRechargeRate * frameTime, batt);
+                updates.Add((uid, batt.CurrentCharge + comp.AutoRechargeRate * frameTime));
+            }
+
+            foreach (var update in updates)
+            {
+                SetCharge(update.Uid, update.Charge);
             }
         }
 

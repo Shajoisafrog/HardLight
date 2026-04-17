@@ -10,12 +10,12 @@
   tier: 1
   cost: 7500 # Delta Price. 5000 is pre-adjustment.
   recipeUnlocks:
-  - BorgModuleGardening
-  - BorgModuleHarvesting
-  - PlantBagOfHolding #DeltaV
+  - PlantBagOfHolding #Delta V
   - SeedExtractorMachineCircuitboard
   - HydroponicsTrayMachineCircuitboard
   - ReagentGrinderIndustrialMachineCircuitboard
+  - SyntheticSwab
+  - SwabApplicator
   - PlantAnalyzer # Frontier
   - NFBlueprintPlantAnalyzerEmpty # Frontier
   - NFBlueprintPlantBagOfHolding # Frontier
@@ -76,19 +76,6 @@
     - JukeboxCircuitBoard
 
 - type: technology
-  id: RoboticCleanliness
-  name: research-technology-robotic-cleanliness
-  icon:
-    sprite: Mobs/Silicon/Chassis/janitor/default.rsi # Hardlight
-    state: borg
-  discipline: CivilianServices
-  tier: 1
-  cost: 5000
-  recipeUnlocks:
-  - BorgModuleAdvancedCleaning
-  - PortablePumpMachineCircuitBoard # Frontier
-
-- type: technology
   id: MeatManipulation
   name: research-technology-meat-manipulation
   icon:
@@ -138,7 +125,7 @@
   - SyringeCryostasis
 
 # Shitmed Change Start
-- type: technology
+- type: technology # Upstream: Merge with other T2 medical research if possible!
   id: AdvancedTreatment
   name: research-technology-advanced-treatment
   icon:
@@ -148,14 +135,14 @@
   tier: 2
   cost: 5000
   recipeUnlocks:
-  # - BorgModuleAdvancedTreatment # Frontier
-  # - BorgModuleDefibrillator # Frontier
+  - BorgModuleAdvancedChemical
   - BorgModuleAdvancedParamedic # Frontier
   - MedicalTechFabCircuitboard
   - EnergyScalpel
   - EnergyCautery
   - AdvancedRetractor
   - BorgModuleAdvancedSurgery
+  - AdvancedJetInjector # HardLight: Not sure where else to put it.
 
 - type: technology
   id: CyberneticEnhancements
@@ -204,6 +191,7 @@
   - AdvMopItem
   - MegaSprayBottle
   - NFBlueprintAdvMopItem # Frontier
+  - PortablePumpMachineCircuitBoard # Frontier
   - ReinforcedJug # Frontier
 
 - type: technology

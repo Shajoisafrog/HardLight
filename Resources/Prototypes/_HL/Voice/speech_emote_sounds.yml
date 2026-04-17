@@ -80,6 +80,8 @@
       collection: FelionoidGrowls
     Trill:
       collection: FelionoidTrills
+    Wurble:
+      collection: ResomiWurble
     Scree:
       collection: ResomiScrees
     Call:

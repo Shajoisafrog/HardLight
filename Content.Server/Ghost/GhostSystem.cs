@@ -210,7 +210,7 @@ namespace Content.Server.Ghost
             }
 
             _eye.RefreshVisibilityMask(uid);
-            var time = _gameTiming.CurTime;
+            var time = _gameTiming.RealTime;
             component.TimeOfDeath = time;
             Dirty(uid, component); // Frontier
         }
@@ -274,6 +274,15 @@ namespace Content.Server.Ghost
         {
             if (Deleted(uid) || Terminating(uid))
                 return;
+
+            // HardLight: Pre-delete physics cleanup
+            // A ghost can still be present in the current physics island tick after mind detach.
+            // Make it inert before QueueDel so stale body entries cannot trigger transform-missing exceptions.
+            if (_physicsQuery.TryComp(uid, out var physics))
+            {
+                _physics.SetLinearVelocity(uid, Vector2.Zero, body: physics);
+                _physics.SetCanCollide(uid, false, dirty: false, body: physics);
+            }
 
             QueueDel(uid);
         }

@@ -139,9 +139,9 @@
       sprite: Objects/Weapons/Melee/flash.rsi
       layers:
       - state: flash
-        map: [ "enum.FlashVisuals.BaseLayer" ]
+        map: [ "enum.FlashVisualLayers.BaseLayer" ]
       - state: flashing
-        map: [ "enum.FlashVisuals.LightLayer" ]
+        map: [ "enum.FlashVisualLayers.LightLayer" ]
         visible: false
         shader: unshaded
     - type: Flash
@@ -157,16 +157,18 @@
       size: Small
       sprite: Objects/Weapons/Melee/flash.rsi
     - type: UseDelay
+      delay: 4 # has to be the same as the FlashingTime datafield in FlashComponent
+    - type: UseDelayOnMeleeHit
     - type: StaticPrice
       price: 40
     - type: Appearance
     - type: GenericVisualizer
       visuals:
         enum.FlashVisuals.Burnt:
-          enum.FlashVisuals.BaseLayer:
+          enum.FlashVisualLayers.BaseLayer:
             True: {state: burnt}
         enum.FlashVisuals.Flashing:
-          enum.FlashVisuals.LightLayer:
+          enum.FlashVisualLayers.LightLayer:
             True: {visible: true}
             False: {visible: false}
     - type: GuideHelp
@@ -190,6 +192,7 @@
   description: An ultrabright flashbulb with a proximity trigger, useful for making an area security-only.
   components:
     - type: EmitSoundOnTrigger
+      predicted: true
       sound:
         path: /Audio/Weapons/flash.ogg
     - type: FlashOnTrigger
@@ -228,17 +231,17 @@
       guides:
       - Security
     # - Antagonists # Frontier: guidebook entry removed
-    
+
 - type: entity
   name: bluespace flasher
   parent: [BaseMachine, BaseC2ContrabandUnredeemable] # Frontier: BaseSecurityContraband<BaseC2ContrabandUnredeemable
   id: BluespaceFlasher
-  description: A bluespace crystal set to a proximity trigger, useful for making an area as off limits to Shadekin. 
+  description: A bluespace crystal set to a proximity trigger, useful for making an area as off limits to Shadekin.
   components:
     - type: EmitSoundOnTrigger
       sound:
         path: /Audio/Effects/Lightning/lightningbolt.ogg
-    - type: SpawnOnTrigger 
+    - type: SpawnOnTrigger
       proto: EffectFlashBluespace
     - type: BluespacePulseOnTrigger
       radius: 10
@@ -250,7 +253,8 @@
         !type:PhysShapeCircle
           radius: 10
       triggerSpeed: 0.1
-      whitelist:
+    - type: WhitelistTriggerCondition # HardLight
+      userWhitelist:
         components:
         - NullSpace
     - type: Sprite

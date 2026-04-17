@@ -57,3 +57,19 @@
   targetNode: shell
   category: construction-category-weapons
   objectType: Item
+
+- type: construction
+  id: WeaponRamblerShotgun
+  graph: ForgedRamblerGraph
+  startNode: start
+  targetNode: shotgun
+  category: construction-category-weapons
+  objectType: Item
+
+- type: construction
+  id: ClothingForgedHardsuit
+  graph: ForgedHardsuitGraph
+  startNode: start
+  targetNode: vest
+  category: construction-category-weapons
+  objectType: Item

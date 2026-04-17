@@ -40,12 +40,12 @@ namespace Content.Client.Input
             common.AddFunction(ContentKeyFunctions.InspectEntity);
             common.AddFunction(ContentKeyFunctions.ToggleRoundEndSummaryWindow);
 
-            // DeltaV - Begin NanoChat keybinds
+            // Delta V start: Begin NanoChat keybinds
             common.AddFunction(ContentKeyFunctions.NanoChatNavigateUp);
             common.AddFunction(ContentKeyFunctions.NanoChatNavigateDown);
             common.AddFunction(ContentKeyFunctions.NanoChatNavigateUpUnread);
             common.AddFunction(ContentKeyFunctions.NanoChatNavigateDownUnread);
-            // DeltaV - End NanoChat keybinds
+            // Delta V end
 
             // Not in engine, because engine cannot check for sanbox/admin status before starting placement.
             common.AddFunction(ContentKeyFunctions.EditorCopyObject);
@@ -62,8 +62,9 @@ namespace Content.Client.Input
             human.AddFunction(EngineKeyFunctions.MoveLeft);
             human.AddFunction(EngineKeyFunctions.MoveRight);
             human.AddFunction(EngineKeyFunctions.Walk);
+            human.AddFunction(ContentKeyFunctions.ToggleKnockdown);
             human.AddFunction(ContentKeyFunctions.SwapHands);
-            human.AddFunction(ContentKeyFunctions.SwapHandsPrevious); // Frontier
+            human.AddFunction(ContentKeyFunctions.SwapHandsReverse);
             human.AddFunction(ContentKeyFunctions.Drop);
             human.AddFunction(ContentKeyFunctions.UseItemInHand);
             human.AddFunction(ContentKeyFunctions.AltUseItemInHand);
@@ -82,7 +83,6 @@ namespace Content.Client.Input
             human.AddFunction(ContentKeyFunctions.SmartEquipWallet); // Frontier
             human.AddFunction(ContentKeyFunctions.OpenBackpack);
             human.AddFunction(ContentKeyFunctions.OpenBelt);
-            human.AddFunction(ContentKeyFunctions.ToggleStanding); // EE
             human.AddFunction(ContentKeyFunctions.ToggleCrawlingUnder); // EE
             human.AddFunction(ContentKeyFunctions.OpenWallet); // Frontier
             human.AddFunction(ContentKeyFunctions.MouseMiddle);
@@ -97,7 +97,7 @@ namespace Content.Client.Input
             human.AddFunction(ContentKeyFunctions.Arcade2);
             human.AddFunction(ContentKeyFunctions.Arcade3);
             human.AddFunction(ContentKeyFunctions.LookUp); // EE
-            // Shitmed Change Start - TODO: Add hands, feet and groin targeting.
+            // Shitmedstart - TODO: Add hands, feet and groin targeting.
             human.AddFunction(ContentKeyFunctions.TargetHead);
             human.AddFunction(ContentKeyFunctions.TargetTorso);
             human.AddFunction(ContentKeyFunctions.TargetLeftArm);
@@ -108,10 +108,8 @@ namespace Content.Client.Input
             human.AddFunction(ContentKeyFunctions.TargetLeftFoot);
             human.AddFunction(ContentKeyFunctions.TargetRightLeg);
             human.AddFunction(ContentKeyFunctions.TargetRightFoot);
-            // Shitmed Change End
-            // Hardlight change start
-            human.AddFunction(ContentKeyFunctions.OfferItem);
-            // Hardlight change end
+            // Shitmed end
+            human.AddFunction(ContentKeyFunctions.OfferItem); // HardLight
 
             // actions should be common (for ghosts, mobs, etc)
             common.AddFunction(ContentKeyFunctions.OpenActionsMenu);
@@ -128,7 +126,7 @@ namespace Content.Client.Input
             aghost.AddFunction(EngineKeyFunctions.MoveRight);
             aghost.AddFunction(EngineKeyFunctions.Walk);
             aghost.AddFunction(ContentKeyFunctions.SwapHands);
-            aghost.AddFunction(ContentKeyFunctions.SwapHandsPrevious); // Frontier
+            aghost.AddFunction(ContentKeyFunctions.SwapHandsReverse);
             aghost.AddFunction(ContentKeyFunctions.Drop);
             aghost.AddFunction(ContentKeyFunctions.UseItemInHand);
             aghost.AddFunction(ContentKeyFunctions.AltUseItemInHand);

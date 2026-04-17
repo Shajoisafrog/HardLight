@@ -162,6 +162,10 @@ binds:
 - function: SwapHands
   type: State
   key: X
+- function: SwapHandsReverse
+  type: State
+  key: X
+  mod1: Shift
 - function: MoveStoredItem
   type: State
   key: MouseLeft
@@ -170,7 +174,7 @@ binds:
 - function: RotateStoredItem
   type: State
   key: MouseRight
-# DeltaV - Start custom keybinds
+# Delta V start
 - function: NanoChatNavigateUp
   type: State
   key: Up
@@ -189,7 +193,7 @@ binds:
   key: Down
   mod1: Alt
   mod2: Shift
-  # DeltaV - End custom keybinds
+  # Delta V end
 - function: SaveItemLocation
   type: State
   key: MouseMiddle
@@ -205,7 +209,7 @@ binds:
   mod1: Alt
 - function: OpenCharacterMenu
   type: State
-  key: C
+  key: U
 - function: OpenEmotesMenu
   type: State
   key: Y
@@ -277,9 +281,6 @@ binds:
   type: State
   key: V
   mod1: Shift
-- function: ToggleStanding # EE
-  type: State
-  key: R
 - function: ToggleCrawlingUnder # EE
   type: State
   mod1: Shift
@@ -547,6 +548,9 @@ binds:
 - function: Arcade3
   type: State
   key: Z
+- function: ToggleKnockdown
+  type: State
+  key: C
 - function: OpenAbilitiesMenu
   type: State
   key: K
@@ -650,12 +654,6 @@ binds:
   type: State
   key: MouseRight
   canFocus: true
-# region Frontier
-- function: SwapHandsPrevious
-  type: State
-  key: X
-  mod1: Shift
-# endregion Frontier
 # region EE
 - function: LookUp
   type: State

@@ -192,7 +192,7 @@
   name: pooltoy-name
   description: pooltoy-text
   category: Physical
-  cost: 8
+  cost: 2
   mutuallyExclusiveTraits:
   - Heatresistant
   - Insulated
@@ -238,7 +238,6 @@
     cosmeticOnly: false
   - type: CritThresholdModifier
     critThresholdDelta: 25
-  - type: BigWeaponHandling
   - type: MeleeDamageModifier
     flatBonus: 2
     damageType: Blunt
@@ -277,7 +276,6 @@
     pseudoItem: true
   - type: CritThresholdModifier
     critThresholdDelta: -15
-  - type: SmallWeaponHandling
   - type: MeleeDamageModifier
     flatBonus: -2
     damageType: Blunt
@@ -317,7 +315,6 @@
     - 3,0,4,3
   - type: CritThresholdModifier
     critThresholdDelta: -30
-  - type: TinyWeaponHandling
   - type: MeleeDamageModifier
     flatBonus: -3.5
     damageType: Blunt
@@ -330,3 +327,19 @@
     sprintMultiplier: 0.55
   - type: TraitCyborgPowerDrawModifier
     multiplier: 0.5
+
+
+- type: trait
+  id: Pettable
+  name: pettable-name
+  description: pettable-text
+  category: Physical
+  cost: 0
+  components:
+  - type: InteractionPopup
+    successChance: 1
+    interactSuccessString: petting-success-soft-floofy
+    interactFailureString: petting-failure-generic
+    interactSuccessSpawn: EffectHearts
+    interactSuccessSound:
+      path: /Audio/Animals/fox_squeak.ogg

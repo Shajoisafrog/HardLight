@@ -7,44 +7,42 @@
   - PositronicBrain
   - SciFlash
   - CyborgEndoskeleton
-  - Quadborgendoskeleton
+  - Quadborgendoskeleton # Floof
 
 - type: latheRecipePack
-  id: BorgModulesStatic #
+  id: BorgModulesStatic
   recipes:
-  - BorgModuleCable
-  - BorgModuleFireExtinguisher
-  - BorgModuleRadiationDetection
   - BorgModuleTool
-  - BorgModuleStun
-  - BorgModuleKill
+  # - BorgModuleFireExtinguisher # Hardlight
+  - BorgModuleStun # Floof
+  - BorgModuleKill # Floof
   - BorgModuleInvestigation
-  - BorgModuleSurgery # Shitmed Change
-  # Hardlight change start
-  - BorgModuleGrapplingGun
+  - BorgModuleSurgery # Shitmed
+  # HardLight start
   - BorgModuleCleaning
-  - BorgModuleLightReplacer
-  - BorgModuleTreatment
+  - BorgModuleCustodial
+  - BorgModuleTopicals
   - BorgModuleBureaucracy
   - BorgModuleJetpack
   - BorgModuleConstruction
-  - BorgModuleDefibrillator
+  - BorgModuleRescue
   - BorgModuleDiagnosis
-  - BorgModuleNFService
   - BorgModuleClowning
   - BorgModuleMusique
-  - BorgModuleRCDShipyard
   - BorgModuleMining
+  # HardLight end
 
-- type: latheRecipePack
+- type: latheRecipePack # HardLight: Why is this up here and not merged with the dynamic BorgModules?
   id: BorgModulesDynamic
   recipes:
   - BorgModuleAdvancedSurgery
-  # Hardlight change start
-  - BorgModuleTreatment
-  - BorgModuleadvancedmeasures
-  - BorgModuleAdvancedTreatment
+  # HardLight start
+  - BorgModuleTopicals
+  # - BorgModuleHoS
+  # - BorgModuleWarden
+  - BorgModuleChemical
   - BorgModuleAdvancedParamedic
+  # HardLight end
 
 - type: latheRecipePack
   id: SMCybernetics
@@ -127,15 +125,10 @@
   recipes:
   - BorgModuleAdvancedCleaning
   - BorgModuleAdvancedTool
-  # - BorgModuleGPS # Frontier: useless
-  - BorgModuleArtifact
-  - BorgModuleAnomaly
-  - BorgModuleGardening
-  - BorgModuleHarvesting
-  #- BorgModuleDefibrillator # Frontier: base module
-  #- BorgModuleAdvancedTreatment # Frontier: base module
+  # - BorgModuleAdvancedClowning # HardLight: We don't have most of the items in this module, so I'm commenting it out for now until we do.
+  - BorgModuleAdvancedChemical
+  - BorgModuleAdvancedMining
   - BorgModuleAdvancedParamedic # Frontier
-  - BorgModuleAdvancedMining # Frontier
   - BorgModuleChef # Frontier
   - BorgModuleRCD # Frontier
   - BorgModuleStorage # HardLight

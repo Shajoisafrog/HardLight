@@ -82,13 +82,11 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
         ev.Repeat = false;
         ev.DoAfter = doAfter;
 
-        if (doAfter.CancelledTime == null) // Not sure why in hell we've just been calling canceled doAfters... Fuck anyone who cancels a doAfter I guess???
-        {
-            if (Exists(doAfter.Args.EventTarget))
-                RaiseLocalEvent(doAfter.Args.EventTarget.Value, (object)ev, doAfter.Args.Broadcast);
-            else if (doAfter.Args.Broadcast)
-                RaiseLocalEvent((object)ev);
-        }
+        // Always raise the event, even if cancelled, so handlers can clean up properly
+        if (Exists(doAfter.Args.EventTarget))
+            RaiseLocalEvent(doAfter.Args.EventTarget.Value, (object)ev, doAfter.Args.Broadcast);
+        else if (doAfter.Args.Broadcast)
+            RaiseLocalEvent((object)ev);
 
         // <Goobstation>
         if (component.RaiseEndedEvent
@@ -244,8 +242,8 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
             if (!TryComp(args.User, out HandsComponent? handsComponent))
                 return false;
 
-            doAfter.InitialHand = handsComponent.ActiveHand?.Name;
-            doAfter.InitialItem = handsComponent.ActiveHandEntity;
+            doAfter.InitialHand = handsComponent.ActiveHandId;
+            doAfter.InitialItem = _hands.GetActiveItem((args.User, handsComponent));
         }
 
         doAfter.NetInitialItem = GetNetEntity(doAfter.InitialItem);

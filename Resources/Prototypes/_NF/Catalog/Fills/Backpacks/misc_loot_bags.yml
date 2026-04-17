@@ -88,6 +88,8 @@
       - id: ClothingEyesGlassesChameleon
       - id: ClothingHeadHelmetChameleon
       - id: ClothingHandsGlovesChameleon
+      - id: ClothingShoesBootsChameleonZoom
+        prob: 0.1
       
 - type: entity
   parent: WizardMiscGiftBox

@@ -311,16 +311,11 @@ public abstract class SharedActionsSystem : EntitySystem
 
         var name = Name(actionEnt, metaData);
         var protoId = metaData.EntityPrototype?.ID ?? "<no-proto>";
-        var isWeeds = protoId == "ActionXenoPlantWeeds";
         var isXenoChoose = protoId == "ActionXenoChooseStructure";
         var isXenoSecrete = protoId == "ActionXenoSecreteStructure";
         if (isXenoChoose || isXenoSecrete)
         {
             Log.Info($"[XenoAction][srv?] OnActionRequest start user={ToPrettyString(user)} actionEnt={ToPrettyString(actionEnt)} proto={protoId}");
-        }
-        if (isWeeds)
-        {
-            Log.Info($"[XenoWeeds][srv?] OnActionRequest start user={ToPrettyString(user)} actionEnt={ToPrettyString(actionEnt)} proto={protoId}");
         }
 
         // Does the user actually have the requested action?
@@ -328,8 +323,6 @@ public abstract class SharedActionsSystem : EntitySystem
         {
             if (isXenoChoose || isXenoSecrete)
                 Log.Info($"[XenoAction][srv?] User lacks action entity {ToPrettyString(actionEnt)} for {protoId}");
-            if (isWeeds)
-                Log.Info($"[XenoWeeds][srv?] User lacks action entity {ToPrettyString(actionEnt)}");
             _adminLogger.Add(LogType.Action,
                 $"{ToPrettyString(user):user} attempted to perform an action that they do not have: {name}.");
             return;
@@ -339,8 +332,6 @@ public abstract class SharedActionsSystem : EntitySystem
         {
             if (isXenoChoose || isXenoSecrete)
                 Log.Info($"[XenoAction][srv?] TryGetActionData failed for {ToPrettyString(actionEnt)} {protoId}");
-            if (isWeeds)
-                Log.Info($"[XenoWeeds][srv?] TryGetActionData failed for {ToPrettyString(actionEnt)}");
             return;
         }
 
@@ -349,8 +340,6 @@ public abstract class SharedActionsSystem : EntitySystem
         {
             if (isXenoChoose || isXenoSecrete)
                 Log.Info($"[XenoAction][srv?] Action disabled {ToPrettyString(actionEnt)} {protoId}");
-            if (isWeeds)
-                Log.Info($"[XenoWeeds][srv?] Action disabled {ToPrettyString(actionEnt)}");
             return;
         }
 
@@ -359,8 +348,6 @@ public abstract class SharedActionsSystem : EntitySystem
         {
             if (isXenoChoose || isXenoSecrete)
                 Log.Info($"[XenoAction][srv?] Action cooldown active {ToPrettyString(actionEnt)} {protoId}");
-            if (isWeeds)
-                Log.Info($"[XenoWeeds][srv?] Action cooldown active {ToPrettyString(actionEnt)}");
             return;
         }
 
@@ -479,43 +466,7 @@ public abstract class SharedActionsSystem : EntitySystem
                     $"{ToPrettyString(user):user} is performing the {name:action} action provided by {ToPrettyString(action.Container ?? user):provider}.");
 
                 performEvent = instantAction.Event;
-                if (isWeeds)
-                {
-                    Log.Info($"[XenoWeeds][srv?] Instant action resolved; Event is {(performEvent == null ? "null" : performEvent.GetType().Name)}");
-                }
                 break;
-        }
-
-        // Server-authoritative short-circuit for weeds: spawn + cooldown here and skip event pipeline.
-        if (isWeeds && _net.IsServer)
-        {
-            if (TryComp(user, out XenoComponent? xeno))
-            {
-                var coords = _transformSystem.GetMoverCoordinates(user).SnapToGrid(EntityManager, _map);
-                // If on a grid, skip if weeds already present on this tile
-                if (coords.GetGridUid(EntityManager) is { } gridUid && TryComp(gridUid, out MapGridComponent? grid))
-                {
-                    var tile = _mapSystem.CoordinatesToTile(gridUid, grid, coords);
-                    var anchored = new List<EntityUid>();
-                    _mapSystem.GetAnchoredEntities((gridUid, grid), tile, anchored);
-                    foreach (var a in anchored)
-                    {
-                        if (HasComp<Content.Shared.CM14.Xenos.Construction.XenoWeedsComponent>(a))
-                        {
-                            // Already weeds here: just start cooldown and exit
-                            StartUseDelay(actionEnt);
-                            Log.Info($"[XenoWeeds][server] Short-circuit skip duplicate at {coords}");
-                            return;
-                        }
-                    }
-                }
-
-                // No duplicate found: spawn and cooldown
-                Spawn(xeno.Weedprototype, coords);
-                StartUseDelay(actionEnt);
-                Log.Info($"[XenoWeeds][server] Short-circuit spawn by SharedActions for {ToPrettyString(user)} at {coords} using {xeno.Weedprototype}");
-                return;
-            }
         }
 
         // All checks passed. Perform the action!
@@ -534,18 +485,6 @@ public abstract class SharedActionsSystem : EntitySystem
             RaiseLocalEvent(user, (object) seEv, broadcast: true);
         }
 
-        // Server-side fallback: if this is the xeno weeds action and no handler marked it handled,
-        // spawn weeds at the performer�s snapped coordinates and start the use delay.
-        if (isWeeds && performEvent != null && !performEvent.Handled)
-        {
-            if (TryComp(user, out XenoComponent? xeno))
-            {
-                var coords = _transformSystem.GetMoverCoordinates(user).SnapToGrid(EntityManager, _map);
-                Spawn(xeno.Weedprototype, coords);
-                StartUseDelay(actionEnt);
-                Log.Info($"[XenoWeeds][srv?] Fallback spawn by SharedActions for {ToPrettyString(user)} at {coords} using {xeno.Weedprototype}");
-            }
-        }
     }
 
     public bool ValidateEntityTarget(EntityUid user, EntityUid target, Entity<EntityTargetActionComponent> actionEnt)

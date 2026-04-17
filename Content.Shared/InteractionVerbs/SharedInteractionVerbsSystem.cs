@@ -154,7 +154,7 @@ public abstract class SharedInteractionVerbsSystem : EntitySystem
             Broadcast = true,
             BreakOnHandChange = proto.RequiresHands,
             NeedHand = proto.RequiresHands,
-            RequireCanInteract = proto.RequiresCanAccess,
+            RequireCanInteract = proto.RequiresUnblocked && proto.RequiresCanAccess && !proto.ExemptFromInteractionBlocker,
             Delay = delay,
             Event = new InteractionVerbDoAfterEvent(proto.ID, args)
         };
@@ -250,8 +250,15 @@ public abstract class SharedInteractionVerbsSystem : EntitySystem
 
         if (proto.Requirement?.IsMet(args, proto, _verbDependencies) == false)
         {
-            skipAdding = proto.HideByRequirement;
-            errorLocale = "interaction-verb-invalid";
+            if (args.Blackboard.TryGetValue("interaction-verb-failure-locale", out var locale) && locale is string localeStr)
+            {
+                errorLocale = localeStr;
+            }
+            else
+            {
+                errorLocale = "interaction-verb-invalid";
+            }
+            skipAdding = proto.HideByRequirement && errorLocale != "interaction-verb-mask-blocked";
             return false;
         }
 
@@ -270,7 +277,9 @@ public abstract class SharedInteractionVerbsSystem : EntitySystem
             return false;
         }
 
-        if (!args.CanInteract || proto.RequiresCanAccess && !args.CanAccess || !proto.Range.IsInRange(distance))
+        if ((!proto.ExemptFromInteractionBlocker && proto.RequiresUnblocked && !args.CanInteract)
+            || (!proto.ExemptFromInteractionBlocker && proto.RequiresCanAccess && !args.CanAccess)
+            || !proto.Range.IsInRange(distance))
         {
             errorLocale = "interaction-verb-cannot-reach";
             return false;

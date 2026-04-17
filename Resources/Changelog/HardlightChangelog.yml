@@ -2248,3 +2248,529 @@ Entries:
         available to cyborgs on roundstart.
   id: 242
   time: '2026-04-02T20:09:09.0000000+00:00'
+- author: Illumos
+  changes:
+    - type: Add
+      message: Aphrodesiac Bite Trait~!
+  id: 243
+  time: '2026-04-03T21:10:50.0000000+00:00'
+- author: Sully669
+  changes:
+    - type: Fix
+      message: Fixed a bug where succumbing to your fate deleted your character
+  id: 244
+  time: '2026-04-03T21:12:13.0000000+00:00'
+- author: rtasva
+  changes:
+    - type: Add
+      message: New Epsilon alert sound
+  id: 245
+  time: '2026-04-03T21:12:55.0000000+00:00'
+- author: re-silvered
+  changes:
+    - type: Tweak
+      message: >-
+        Changed some interaction verbs to function/not function depending on if
+        you are restrained or if you're wearing a mask.
+  id: 246
+  time: '2026-04-03T21:15:13.0000000+00:00'
+- author: Illumos
+  changes:
+    - type: Add
+      message: Condiment dispenser restock box to Cargo.
+    - type: Add
+      message: Condiments now restore some small hunger.
+  id: 247
+  time: '2026-04-04T01:39:48.0000000+00:00'
+- author: Nikode16
+  changes:
+    - type: Add
+      message: >-
+        New Trico Pill and Pill Bottle that's 10, 20u pills and not those icky
+        5, 10u pills.
+    - type: Tweak
+      message: CYNs Outfit to reflect the new changes and also hyper-organizes her bag.
+  id: 248
+  time: '2026-04-04T01:40:25.0000000+00:00'
+- author: Sully669
+  changes:
+    - type: Fix
+      message: Fixed a bug that failed to populate the character fields in lobby
+  id: 249
+  time: '2026-04-04T01:41:52.0000000+00:00'
+- author: ishkab
+  changes:
+    - type: Add
+      message: Microwaves can now be used as bludgeoning weapons
+  id: 250
+  time: '2026-04-04T19:51:55.0000000+00:00'
+- author: Iisazel
+  changes:
+    - type: Fix
+      message: Shadekin now have correct amount of starting genes
+  id: 251
+  time: '2026-04-04T19:52:28.0000000+00:00'
+- author: Illumos
+  changes:
+    - type: Fix
+      message: Aphrodesiac bite now has a cooldown.
+  id: 252
+  time: '2026-04-04T19:55:06.0000000+00:00'
+- author: Magniras
+  changes:
+    - type: Add
+      message: Restored cool sexy thieving gloves
+    - type: Remove
+      message: Removed boring smelly thieving gloves
+  id: 253
+  time: '2026-04-08T21:36:19.0000000+00:00'
+- author: Generic_Eagle
+  changes:
+    - type: Tweak
+      message: ESAR now fully replaces the WT and Energy shotgun for HoS.
+  id: 254
+  time: '2026-04-08T22:49:24.0000000+00:00'
+- author: TrylobyteWasTaken
+  changes:
+    - type: Fix
+      message: Plating and Lattice can now be traversed at normal speed again.
+  id: 255
+  time: '2026-04-08T22:49:44.0000000+00:00'
+- author: Iisazel
+  changes:
+    - type: Add
+      message: >-
+        Flesh expeditions now have improved loot! Time to break some
+        assimilation sacks!
+  id: 256
+  time: '2026-04-08T22:50:36.0000000+00:00'
+- author: Nikode16
+  changes:
+    - type: Add
+      message: >-
+        Freezer Pouch so now you can live out your space warlord organ trading
+        simulator fantasy.
+  id: 257
+  time: '2026-04-08T22:56:36.0000000+00:00'
+- author: Iisazel
+  changes:
+    - type: Fix
+      message: Avalis can now use cryopods correctly
+  id: 258
+  time: '2026-04-08T22:59:33.0000000+00:00'
+- author: Illumos
+  changes:
+    - type: Add
+      message: UHP Gunnery server is now researchable.
+    - type: Tweak
+      message: Gunnery servers now require increasingly expensive amounts of materials.
+  id: 259
+  time: '2026-04-08T23:01:16.0000000+00:00'
+- author: VoidedDevNull
+  changes:
+    - type: Tweak
+      message: Newly bought ships do not include a latejoin spot anymore.
+  id: 260
+  time: '2026-04-08T23:11:01.0000000+00:00'
+- author: IngvarJackal
+  changes:
+    - type: Add
+      message: More aphro descriptions
+  id: 261
+  time: '2026-04-08T23:35:11.0000000+00:00'
+- author: fenndragon
+  changes:
+    - type: Add
+      message: Added more patron borgs
+    - type: Add
+      message: Added other tweaks and fixes
+  id: 262
+  time: '2026-04-09T01:14:42.0000000+00:00'
+- author: IngvarJackal
+  changes:
+    - type: Add
+      message: More aphrodesiac bites
+  id: 263
+  time: '2026-04-09T01:17:51.0000000+00:00'
+- author: Jerulean
+  changes:
+    - type: Add
+      message: Two recipes for Tiramisu.
+  id: 264
+  time: '2026-04-09T01:18:43.0000000+00:00'
+- author: NotLivyathan
+  changes:
+    - type: Tweak
+      message: >-
+        Round-end logic no longer forces shuttles not on the station map to FTL
+        to ColComm.
+    - type: Tweak
+      message: >-
+        FTL once again causes a 5.5 second startup delay, instead of occurring
+        instantly.
+    - type: Fix
+      message: >-
+        Round-end logic should no longer cause the server to hang and ultimately
+        crash.
+    - type: Fix
+      message: >-
+        Ending an expedition early from the shuttle console once again announces
+        that the expedition is ending.
+  id: 265
+  time: '2026-04-09T19:46:36.0000000+00:00'
+- author: Iisazel
+  changes:
+    - type: Add
+      message: Added new craftable bone items and some interesting drops from dinosaurs
+  id: 266
+  time: '2026-04-09T20:47:48.0000000+00:00'
+- author: Illumos
+  changes:
+    - type: Tweak
+      message: Wagging has been improved!
+  id: 267
+  time: '2026-04-09T21:19:47.0000000+00:00'
+- author: rtasva
+  changes:
+    - type: Add
+      message: '"Teach a Lesson" traitor objective!'
+    - type: Tweak
+      message: Reduced frequency of RR kill objective
+  id: 268
+  time: '2026-04-09T21:20:03.0000000+00:00'
+- author: re-silvered
+  changes:
+    - type: Tweak
+      message: Aphro fadeout message works again, and with a little bit more flare
+    - type: Fix
+      message: Peregrine mags being general use batteries
+  id: 269
+  time: '2026-04-09T21:27:02.0000000+00:00'
+- author: Illumos
+  changes:
+    - type: Add
+      message: Pettable trait!
+  id: 270
+  time: '2026-04-13T01:01:47.0000000+00:00'
+- author: VoidedDevNull
+  changes:
+    - type: Tweak
+      message: Rev sponsorship change
+  id: 271
+  time: '2026-04-13T01:02:44.0000000+00:00'
+- author: SeaborneProto
+  changes:
+    - type: Add
+      message: Adds the ability for ties to restrain humanoids
+  id: 272
+  time: '2026-04-13T01:03:08.0000000+00:00'
+- author: SquishyEmmaaaa
+  changes:
+    - type: Fix
+      message: >-
+        Items inside Freezer Pouches no longer rot if the pouch is stored inside
+        another container.
+    - type: Fix
+      message: >-
+        Freezers and Medical Pods can now be carried and stored in mechs without
+        rotting.
+  id: 273
+  time: '2026-04-13T01:04:51.0000000+00:00'
+- author: fenndragon
+  changes:
+    - type: Add
+      message: Added beam prisms to combine and redirect lasers
+    - type: Add
+      message: >-
+        Added Positronic jumps so borgs aren't stuck in one body and neither is
+        the AI 
+  id: 274
+  time: '2026-04-13T01:11:08.0000000+00:00'
+- author: R3v3l4t1on
+  changes:
+    - type: Add
+      message: Mediborgs now start with a defibrilator module.
+    - type: Add
+      message: >-
+        Mercenaries can now unlock all normal quadborgs and cyborgs, making it
+        easier for them to configure their synthetic companion between expeds.
+    - type: Add
+      message: Cyborgs can now unlock themselves.
+    - type: Remove
+      message: >-
+        Removed Matter-Energy conversion from the tech tree as the only item it
+        unlocked is no longer needed to be researched (both borgs that can use
+        it start with it) and the module was already being unlocked in a
+        different research.
+    - type: Remove
+      message: >-
+        Advanced tools no longer unlocks the RCD module for the same reason as
+        above
+    - type: Tweak
+      message: >-
+        Engineering borgs get an RCD module instead of a Shipyard RCD module
+        (because they literally could not use that one)
+  id: 275
+  time: '2026-04-13T01:11:35.0000000+00:00'
+- author: NotLivyathan
+  changes:
+    - type: Add
+      message: >-
+        Jet injectors are now available to medical staff and may be crafted at a
+        medical techfab.
+    - type: Add
+      message: >-
+        Parrots are now better at remembering things said around them, but only
+        slightly.
+    - type: Add
+      message: Stamina damage now has a visual effect both before and during stam crit.
+    - type: Add
+      message: >-
+        Certain items may now be caught when thrown should the receiving
+        entity's skill be sufficient.
+    - type: Add
+      message: >-
+        Tennis balls now exist conceptually and may be found where other toys
+        could be.
+    - type: Add
+      message: >-
+        Cameras will now react to the AI-eye and change states to show they are
+        being used.
+    - type: Add
+      message: Added status-effect relay events.
+    - type: Add
+      message: Miniguns now have in-hand visuals.
+    - type: Add
+      message: New modules and tools are now available to Cyborgs.
+    - type: Add
+      message: >-
+        Janitors now have access to wirebrushes, allowing for the derusting of
+        metal walls.
+    - type: Add
+      message: >-
+        Sloths now have a dedicated accent that makes them... talk... real...
+        slow...
+    - type: Remove
+      message: Removed height trait hand restrictions.
+    - type: Remove
+      message: >-
+        Vestine-based chems may no longer be randomly mutated from plants, and
+        instead require vestine to mutate.
+    - type: Tweak
+      message: Refactored the way triggers work.
+    - type: Tweak
+      message: >-
+        Refactored the way injectors work and merged the injector/hypospray
+        systems into one system.
+    - type: Tweak
+      message: Refactored the way research works, specifically around artifacts.
+    - type: Tweak
+      message: Refactored the way hands work, especially Borg hands.
+    - type: Tweak
+      message: Refactored the way flashes work.
+    - type: Tweak
+      message: Many entity effects have been refactored to be status effects instead.
+    - type: Tweak
+      message: >-
+        Replaced crawling and knockdown with a newer, smoother system that
+        should feel better.
+    - type: Tweak
+      message: >-
+        Replaced FoodComponent with EdibleComponent and merged food/drink
+        systems into one system.
+    - type: Tweak
+      message: Entity effect definitions have been moved to shared handling.
+    - type: Tweak
+      message: Identity handling has been moved to support a predicted structure.
+    - type: Tweak
+      message: >-
+        Bloodstream and certain healing handling has been moved to support a
+        predicted structure.
+    - type: Tweak
+      message: >-
+        Accent and certain speech-effect handling has been moved to support a
+        predicted structure.
+    - type: Tweak
+      message: Mob collision has been slightly tweaked, but left disabled.
+    - type: Tweak
+      message: Ephedrine, desoxyephedrine and hyperzine have been tweaked.
+    - type: Tweak
+      message: >-
+        Lathe menus now populate with the name of the lathe, instead of simply
+        "lathe menu".
+    - type: Tweak
+      message: Quotation marks in the chat panel should now appear italicized.
+    - type: Tweak
+      message: >-
+        Attempting to open the crew manifest when not on an appropriate grid now
+        returns a fail message, instead of loading indefinitely.
+    - type: Tweak
+      message: Hypopens now have a short doafter when attempting to refill them.
+    - type: Fix
+      message: Ghosts should now correctly state time since death.
+  id: 276
+  time: '2026-04-13T03:25:01.0000000+00:00'
+- author: VoidedDevNull
+  changes:
+    - type: Add
+      message: More crafting recipes!
+    - type: Add
+      message: More spray painter functions!
+    - type: Fix
+      message: Tabletop computers are now craftable
+  id: 277
+  time: '2026-04-13T03:25:39.0000000+00:00'
+- author: TrylobyteWasTaken
+  changes:
+    - type: Fix
+      message: >-
+        The holopickaxe is no longer worth FUCs due to it being craftable.  No
+        more using a lathe as a FUC printer.
+  id: 278
+  time: '2026-04-13T03:26:05.0000000+00:00'
+- author: R3v3l4t1on
+  changes:
+    - type: Add
+      message: Added an ore hand to the (advanced) mining module
+    - type: Add
+      message: Added a station map and handicomms to the frontier module
+    - type: Add
+      message: >-
+        Added a slot for fuel canisters, AME jars and reactor fuel rods to the
+        engineering borg's construction module
+    - type: Remove
+      message: Thruster module.
+    - type: Remove
+      message: Handicomms from the appraisal/(advanced) mining modules
+    - type: Tweak
+      message: >-
+        The Traversal module now has a jetpack instead of a big fire
+        extinguisher, and additionally comes with a station map, clock and
+        Handicomms
+    - type: Fix
+      message: >-
+        Fixed secborg missing locales and appropriate sprites for the default
+        borg
+  id: 279
+  time: '2026-04-13T17:55:24.0000000+00:00'
+- author: TrylobyteWasTaken
+  changes:
+    - type: Tweak
+      message: >-
+        Biogenerator now requires and contains a Manipulator so you can speed it
+        up by upgrading it.
+  id: 280
+  time: '2026-04-13T17:56:16.0000000+00:00'
+- author: IngvarJackal
+  changes:
+    - type: Add
+      message: More marrkings for shadekin
+  id: 281
+  time: '2026-04-13T18:27:20.0000000+00:00'
+- author: R3v3l4t1on
+  changes:
+    - type: Remove
+      message: >-
+        Removed duplicated files meaning the content should be quicker to
+        download.
+  id: 282
+  time: '2026-04-14T18:51:56.0000000+00:00'
+- author: Magniras
+  changes:
+    - type: Add
+      message: Added name and description to the syndicate uplink for chameleon gloves.
+  id: 283
+  time: '2026-04-14T18:52:18.0000000+00:00'
+- author: Magniras
+  changes:
+    - type: Tweak
+      message: changed shadekin damagemodifierset coefficients
+  id: 284
+  time: '2026-04-14T18:52:51.0000000+00:00'
+- author: R3v3l4t1on
+  changes:
+    - type: Add
+      message: >-
+        Moths get their own displacements cause I am tired of the linter
+        bricking on them sometimes.
+  id: 285
+  time: '2026-04-14T18:56:14.0000000+00:00'
+- author: Illumos
+  changes:
+    - type: Add
+      message: >-
+        Added Starlight power & gas transfer while docked. Gas transfer is
+        disabled by default; HV power transfer is enabled.
+  id: 286
+  time: '2026-04-14T18:58:08.0000000+00:00'
+- author: TrylobyteWasTaken
+  changes:
+    - type: Fix
+      message: Slimepeople can now eat food again.
+    - type: Tweak
+      message: Slimepeople can now also eat trash.  Bon appetit or something.
+  id: 287
+  time: '2026-04-14T19:05:23.0000000+00:00'
+- author: Illumos
+  changes:
+    - type: Tweak
+      message: The AME now generates 180kW per core, instead of 8MW.
+  id: 288
+  time: '2026-04-16T09:21:19.0000000+00:00'
+- author: IngvarJackal
+  changes:
+    - type: Tweak
+      message: Reduce ship gun HP 5 times
+  id: 289
+  time: '2026-04-16T09:21:57.0000000+00:00'
+- author: NotLivyathan
+  changes:
+    - type: Tweak
+      message: Refactored job slot allocation logic.
+    - type: Fix
+      message: >-
+        Station jobs should now dynamically allocate additional slots when no
+        longer filled.
+    - type: Fix
+      message: >-
+        Freelancer slot allocation should no longer exceed the number of filled
+        crew positions, nor should it exceed the cap of 40 that was originally
+        placed on it.
+  id: 290
+  time: '2026-04-16T09:23:51.0000000+00:00'
+- author: MallowSune
+  changes:
+    - type: Add
+      message: Interdyne Jet Injector
+  id: 291
+  time: '2026-04-16T20:38:21.0000000+00:00'
+- author: Illumos
+  changes:
+    - type: Add
+      message: Twenty more funky RCD plating shapes. Go nuts.
+    - type: Add
+      message: Normal shuttle windows to the RCD
+  id: 292
+  time: '2026-04-16T20:46:03.0000000+00:00'
+- author: R3v3l4t1on
+  changes:
+    - type: Fix
+      message: Removes a test fail from the PILE
+    - type: Fix
+      message: MapChecker works again after someone broke it.
+  id: 293
+  time: '2026-04-16T20:46:41.0000000+00:00'
+- author: R3v3l4t1on
+  changes:
+    - type: Fix
+      message: >-
+        Fixed all xenoborgs cosplaying as engineers. Now you can actually tell
+        if you're fighting an engi or a fridge.
+  id: 294
+  time: '2026-04-16T20:47:04.0000000+00:00'
+- author: Khaomi
+  changes:
+    - type: Fix
+      message: icon and localization for Nanochat
+  id: 295
+  time: '2026-04-16T21:05:29.0000000+00:00'
